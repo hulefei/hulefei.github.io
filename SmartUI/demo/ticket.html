@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>SmartUI Demo</title>
+        <link rel="stylesheet" href="../css/smart.css">
+        <script type="text/javascript" src="../vendor/zepto.js"></script>
+        <script type="text/javascript" src="../js/smart.js"></script>
+    </head>
+    <body >
+        <header class="smart-header">
+            <span>票据服务组件</span>
+        </header>
+        <!-- Button trigger modal -->
+        <div class="smart-form-button-item">
+            <button type="button" class="smart-button" id="btn1">
+                通过票据服务发送请求
+            </button>
+        </div>
+        <!-- Loading -->
+
+        <script type="text/javascript">
+            (function() {
+                $("#btn1").click(function() {
+                    $.ticketAjax({
+                        api_key: "aaabbbccc",
+                        type: "get",
+                        url: "../data/getUserAuth.json",
+                        success: function(data){
+                            alert(data.message)
+                        }
+                    });
+                })
+
+            })();
+        </script>
+    </body>
+</html>

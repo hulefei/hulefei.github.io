@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>SmartUI Demo</title>
+        <link rel="stylesheet" href="../css/smart.css">
+        <script type="text/javascript" src="../vendor/zepto.js"></script>
+        <script type="text/javascript" src="../js/smart.js"></script>
+        <style>
+            .smart-form-button-item {
+                margin-top :100px;
+            }
+        </style>
+    </head>
+    <body >
+        <header class="smart-header">
+            <span>提示组件</span>
+        </header>
+        <!-- Button trigger tips -->
+        <div class="smart-form-button-item">
+            <button type="button" class="smart-button" id="btn1">
+              用JS代码创建
+            </button>
+        </div>
+
+        <script type="text/javascript">
+            (function() {
+                $("#btn1").click(function() {
+                    var tips = $.tips({
+                        content: '欢迎使用SmartUI',
+                        type: 'warning',
+                        stayTime: 1000,
+                        top: 45
+                    });
+                    tips.on("tips:show", function(e) {
+                    });
+                    tips.on("tips:hide", function(e) {
+                    });
+                })
+            })();
+        </script>
+    </body>
+</html>

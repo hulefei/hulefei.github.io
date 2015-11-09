@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>SmartUI Demo</title>
+<link rel="stylesheet" href="../css/smart.css">
+<style>
+#my-countdown {
+  margin: auto;
+  margin-top: 50px;
+  width: 220px;
+  height: 70px;
+  line-height: 70px;
+  text-align: center;
+  border: 3px solid #04be02;
+  border-radius: 2px;
+  color: #04be02;
+}
+#my-countdown span {
+  font-size: 20px;
+}
+</style>
+<script src="../vendor/zepto.js"></script>
+<script src="../js/smart.js"></script>
+<script>
+$(function() {
+    // 参数一为倒计时结束时间，格式为"2015-12-01 17:07:07"
+    // 参数二为浏览器时间与服务器时间的时间差（需要自己计算出传入参数，单位为毫秒），不考虑时间差可以填0
+    // 参数三为回调函数
+    $("#my-countdown").countdown("2015-12-01 17:07:07", 0, function() {
+        alert("Time's up!");
+    });
+});
+</script>
+</head>
+<body>
+  <header class="smart-header">
+    <span>倒计时</span>
+  </header>
+  <div id="my-countdown">
+    <span class="smart-countdown-day"></span>天
+    <span class="smart-countdown-hour"></span>时
+    <span class="smart-countdown-minute"></span>分
+    <span class="smart-countdown-second"></span>秒
+  </div>
+</body>
+</html>

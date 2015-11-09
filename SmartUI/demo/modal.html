@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>SmartUI Demo</title>
+        <link rel="stylesheet" href="../css/smart.css">
+        <script type="text/javascript" src="../vendor/zepto.js"></script>
+        <script type="text/javascript" src="../js/smart.js"></script>
+    </head>
+    <body >
+        <header class="smart-header">
+            <span>弹窗组件</span>
+        </header>
+        <!-- Button trigger modal -->
+        <div class="smart-form-button-item">
+            <button type="button" class="smart-button" id="btn1">
+              用JS代码创建
+            </button>
+            <button type="button" class="smart-button" id="btn2">
+              用DOM元素创建
+            </button>
+        </div>
+        <!-- Modal -->
+        <div class="smart-modal-overlay" id="myModal">
+            <div class="smart-modal">
+              <div class="smart-modal-body center">
+                <div>退出此次编辑？</div>
+              </div>
+              <div class="smart-modal-foot">
+                <button type="button" data-type="cancel">取消</button>
+                <button type="button" data-type="success">退出</button>
+              </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            (function() {
+                $("#btn1").click(function() {
+                    var modal = $.modal({
+                        title: '消息提示',
+                        content: '温馨提示内容'
+                    });
+                    modal.on("modal:success", function(e) {
+                        alert("执行回调");
+                    });
+                });
+                $("#btn2").click(function() {
+                    $("#myModal").modal("show");
+                });
+            })();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>SmartUI Demo</title>
+        <link rel="stylesheet" href="../css/smart.css">
+        <script type="text/javascript" src="../vendor/zepto.js"></script>
+        <script type="text/javascript" src="../js/smart.js"></script>
+    </head>
+    <body >
+        <header class="smart-header">
+            <span>loading组件</span>
+        </header>
+        <!-- Button trigger modal -->
+        <div class="smart-form-button-item">
+            <button type="button" class="smart-button" id="btn1">
+              用JS代码创建
+            </button>
+            <button type="button" class="smart-button" id="btn2">
+              用DOM元素创建
+            </button>
+        </div>
+        <!-- Loading -->
+        <div class="smart-loading-overlay" id="myLoading">
+            <div class="smart-loading">
+              <div class="smart-loading-icon">
+                <i class="icon smart-icon">&#xe64f;</i>
+                <div>正在加载...</div>
+              </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            (function() {
+                $("#btn1").click(function() {
+                    var loading = $.loading({
+                        content: '请稍后..',
+                        time: 3000
+                    });
+                })
+                $("#btn2").click(function() {
+                    $("#myLoading").loading("show");
+                    /*setTimeout(function(){
+                        $("#myLoading").loading("hide");
+                    }, 3000)*/
+                })
+            })();
+        </script>
+    </body>
+</html>

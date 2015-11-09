@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>SmartUI Demo</title>
+<link rel="stylesheet" href="../css/smart.css">
+</head>
+<body>
+  <div class="smart-inform">
+    <div class="logo">
+      <svg version="1.1" id="svg-warning" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        width="150px" height="150px" viewBox="0 0 566.93 566.93" enable-background="new 0 0 566.93 566.93" xml:space="preserve">
+        <g>
+          <ellipse transform="matrix(1 -0.0015 0.0015 1 -0.4187 0.4197)" fill="none" stroke="#ed6205" stroke-width="16" stroke-miterlimit="10" cx="282.466" cy="282.187" rx="257.632" ry="258.101"/>
+          <line fill="none" stroke="#ed6205" stroke-width="16" stroke-miterlimit="10" x1="282.213" y1="111.999" x2="282.592" y2="366.999"/>
+          <path stroke="#ed6205" stroke-width="12" stroke-miterlimit="10" d="M283.653,408.161c-6.449,0.01-6.434,10.01,0.014,10
+            C290.115,418.152,290.101,408.152,283.653,408.161z"/>
+        </g>
+      </svg>
+    </div>
+    <span class="text">警告/操作有误提示</span>
+  </div>
+  <script>
+    document.getElementsByTagName("body")[0].addEventListener("click", function() {
+        window.history.back(-1);
+    }, false);
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>SmartUI Demo</title>
+        <link rel="stylesheet" href="../css/smart.css">
+        <script type="text/javascript" src="../vendor/zepto.js"></script>
+        <script type="text/javascript" src="../js/smart.js"></script>
+        <style>
+        .demo {
+            padding: 20px 0 0 10px; 
+        }
+        </style>
+    </head>
+    <body >
+        <header class="smart-header">
+            <span>日期选择组件</span>
+        </header>
+        <!-- Swipe -->
+        <div class="demo">
+          <span>选择日期： </span><input type="text" placeholder="日期" id="i_mui_calendar" class="form-text" readonly="readonly">
+        </div>
+        <script type="text/javascript">
+            var Datepicker = $("#i_mui_calendar").datepicker({
+                initData: '2012-12-23',
+                min: '2012-6-6',
+                max: '2017-8-8',
+                type: 'date',
+                onChange: function (date) {
+                    console.log('the date is change', date)
+                }
+            })
+        </script>
+    </body>
+</html>

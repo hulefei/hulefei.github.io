@@ -1,0 +1,27 @@
+<!--跳转腾讯地图手机Web版-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>SmartUI Demo</title>
+    <link rel="stylesheet" href="../css/smart.css">
+    <script type="text/javascript" src="../vendor/zepto.js"></script>
+    <script type="text/javascript" src="../js/smart.js"></script>
+    <script>
+    document.domain = "qq.com";
+    var init = function() {
+        var src = "http://apis.map.qq.com/uri/v1/search?keyword=酒店&region=北京&referer=tengxun";
+
+        var iframe = document.getElementById("iframe");
+        iframe.src = src;
+    }
+    </script>
+</head>
+<body onload="init()">
+    <iframe id="iframe" scrolling="yes" frameBorder="no" style="position: absolute; left: 0px; top: 0px; width: 320px; height: 480px;"></iframe>
+
+    <input type="button" name="Submit" onclick="javascript:history.back(-1);" value="返回" style="position: fixed; left: 0px; top: 0px; z-index: 999; background-color: #02bb00; outline:0;" />
+</body>
+</html>

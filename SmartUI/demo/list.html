@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>SmartUI Demo</title>
+<link rel="stylesheet" href="../css/smart.css">
+<style>
+.sample {
+  background-color: #efeff4;
+}
+.sample-item {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #dedede;
+}
+.sample-title {
+  padding: 15px;
+  font-size: 16px;
+  border-bottom: 1px solid #efeff4;
+}
+.sample-content {
+  background: #fff;
+  padding-bottom: 15px;
+}
+</style>
+<script src="../vendor/zepto.js"></script>
+<script src="../js/smart.js"></script>
+<script>
+$(function() {
+    $(".smart-list-flex").list();
+});
+</script>
+</head>
+<body>
+  <header class="smart-header">
+      <span>内容列表</span>
+  </header>
+  <div class="sample">
+    <div class="sample-item">
+      <div class="sample-title">01 - 默认左对齐</div>
+      <div class="sample-content">
+        <ul class="smart-list-default smart-list-default-left">
+          <li class="smart-list-default-item">
+            <div class="smart-list-default-title">标题标题</div>
+            <div class="smart-list-default-content">内容内容内容内容内容内容内容内容内容内容内容内容内容</div>
+          </li>
+          <li class="smart-list-default-item">
+            <div class="smart-list-default-title">标题</div>
+            <div class="smart-list-default-content">内容内容内容内容内容</div>
+          </li>
+          <li class="smart-list-default-item">
+            <div class="smart-list-default-title">标题</div>
+            <div class="smart-list-default-content">内容内容内容内容内容</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="sample-item">
+      <div class="sample-title">02 - 默认右对齐</div>
+      <div class="sample-content">
+        <ul class="smart-list-default smart-list-default-right">
+          <li class="smart-list-default-item">
+            <div class="smart-list-default-title">姓名</div>
+            <div class="smart-list-default-content">王小明</div>
+          </li>
+          <li class="smart-list-default-item">
+            <div class="smart-list-default-title">性别</div>
+            <div class="smart-list-default-content">男</div>
+          </li>
+          <li class="smart-list-default-item">
+            <div class="smart-list-default-title">生日</div>
+            <div class="smart-list-default-content">1998年8月8日</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="sample-item">
+      <div class="sample-title">03 - 链接</div>
+      <div class="sample-content">
+        <ul class="smart-list-link">
+          <li class="smart-list-link-item">
+            <a href="#"><span>每个人都有一个死角，自己走不出来，别人也闯不进去。<i class="smart-icon">&#xe6a3;</i></span></a>
+          </li>
+          <li class="smart-list-link-item">
+            <a href="#"><span>我把最深沉的秘密放在那里。<i class="smart-icon">&#xe6a3;</i></span></a>
+          </li>
+          <li class="smart-list-link-item">
+            <a href="#"><span>你不懂我，我不怪你。<i class="smart-icon">&#xe6a3;</i></span></a>
+          </li>
+          <li class="smart-list-link-item">
+            <a href="#"><span>每个人都有一道伤口，或深或浅，盖上布，以为不存在。<i class="smart-icon">&#xe6a3;</i></span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="sample-item">
+      <div class="sample-title">04 - 小图片</div>
+      <div class="sample-content">
+        <ul class="smart-list-image smart-list-image-small">
+          <div class="smart-list-image-item-outer">
+            <li class="smart-list-image-item">
+              <div class="smart-list-image-left">
+                <img src="http://temp.im/100x100" alt="" />
+              </div>
+              <div class="smart-list-image-right">
+                <div class="smart-list-image-title">标题标题标题标题标题标题标题标题标题标题标题标题标题</div>
+                <div class="smart-list-image-note">
+                  <div class="smart-list-image-note-left">注解文字</div>
+                  <div class="smart-list-image-note-right">注解文字</div>
+                </div>
+              </div>
+            </li>
+          </div>
+          <div class="smart-list-image-item-outer">
+            <li class="smart-list-image-item">
+              <div class="smart-list-image-left">
+                <img src="http://temp.im/100x100" alt="" />
+              </div>
+              <div class="smart-list-image-right">
+                <div class="smart-list-image-title">标题标题标题标题标题</div>
+                <div class="smart-list-image-note">
+                  <div class="smart-list-image-note-left">注解文字</div>
+                  <div class="smart-list-image-note-right">注解文字</div>
+                </div>
+              </div>
+            </li>
+          </div>
+          <div class="smart-list-image-item-outer">
+            <li class="smart-list-image-item">
+              <div class="smart-list-image-left">
+                <img src="http://temp.im/100x100" alt="" />
+              </div>
+              <div class="smart-list-image-right">
+                <div class="smart-list-image-title">标题标题标题标题标题</div>
+                <div class="smart-list-image-note">
+                  <div class="smart-list-image-note-left">注解文字</div>
+                  <div class="smart-list-image-note-right">注解文字</div>
+                </div>
+              </div>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
+    <div class="sample-item">
+      <div class="sample-title">05 - 大图片</div>
+      <div class="sample-content">
+        <ul class="smart-list-image smart-list-image-big">
+          <div class="smart-list-image-item-outer">
+            <li class="smart-list-image-item">
+              <div class="smart-list-image-left">
+                <img src="http://temp.im/190x124" alt="" />
+              </div>
+              <div class="smart-list-image-right">
+                <div class="smart-list-image-title">标题标题标题标题标题标题标题标题标题标题标题标题标题</div>
+                <div class="smart-list-image-subtitle">次级标题</div>
+                <div class="smart-list-image-note">
+                  <div class="smart-list-image-note-left">注解文字</div>
+                  <div class="smart-list-image-note-right">注解文字</div>
+                </div>
+              </div>
+            </li>
+          </div>
+          <div class="smart-list-image-item-outer">
+            <li class="smart-list-image-item">
+              <div class="smart-list-image-left">
+                <img src="http://temp.im/190x124" alt="" />
+              </div>
+              <div class="smart-list-image-right">
+                <div class="smart-list-image-title">标题</div>
+                <div class="smart-list-image-subtitle">次级标题次级标题次级标题次级标题次级标题次级标题</div>
+                <div class="smart-list-image-note">
+                  <div class="smart-list-image-note-left">注解文字</div>
+                  <div class="smart-list-image-note-right">注解文字</div>
+                </div>
+              </div>
+            </li>
+          </div>
+          <div class="smart-list-image-item-outer">
+            <li class="smart-list-image-item">
+              <div class="smart-list-image-left">
+                <img src="http://temp.im/190x124" alt="" />
+              </div>
+              <div class="smart-list-image-right">
+                <div class="smart-list-image-title">标题</div>
+                <div class="smart-list-image-subtitle">次级标题</div>
+                <div class="smart-list-image-note">
+                  <div class="smart-list-image-note-left">注解文字</div>
+                  <div class="smart-list-image-note-right">注解文字</div>
+                </div>
+              </div>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
+    <div class="sample-item">
+      <div class="sample-title">06 - 可伸缩</div>
+      <div class="sample-content">
+        <ul class="smart-list-flex">
+          <li class="smart-list-flex-item"><span>家用电器<i class="smart-icon">&#xe6a3;</i></span></li>
+          <div>
+            <li class="smart-list-flex-subitem"><span>大家电</span></li>
+            <li class="smart-list-flex-subitem"><span>生活电器</span></li>
+            <li class="smart-list-flex-subitem"><span>厨房电器</span></li>
+          </div>
+          <li class="smart-list-flex-item"><span>个护化妆<i class="smart-icon">&#xe6a3;</i></span></li>
+          <div>
+            <li class="smart-list-flex-subitem"><span>面部护肤</span></li>
+            <li class="smart-list-flex-subitem"><span>洗发护发</span></li>
+            <li class="smart-list-flex-subitem"><span>口腔护理</span></li>
+          </div>
+          <li class="smart-list-flex-item"><span>运动户外<i class="smart-icon">&#xe6a3;</i></span></li>
+          <div>
+            <li class="smart-list-flex-subitem"><span>运动鞋包</span></li>
+            <li class="smart-list-flex-subitem"><span>运动服饰</span></li>
+            <li class="smart-list-flex-subitem"><span>垂钓用品</span></li>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

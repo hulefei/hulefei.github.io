@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>SmartUI Demo</title>
+<link rel="stylesheet" href="../css/smart.css">
+<script src="../vendor/zepto.js"></script>
+<script src="../js/smart.js"></script>
+<script>
+$(function() {
+    var k = 0;
+    var asynclist = $(".smart-list-imagesmall").asynclist(function() {
+        k++;
+        setTimeout(function() {
+            if (k < 6) { // 模拟5次拉完所有数据
+                for (var i=0; i<5; i++) {
+                    $(".smart-list-imagesmall").append('' +
+                      '<li class="item">' +
+                        '<div class="left">' +
+                          '<img src="http://temp.im/100x100" alt="" />' +
+                        '</div>' +
+                        '<div class="right">' +
+                          '<div class="title">标题标题标题标题标题</div>' +
+                        '</div>' +
+                      '</li>'
+                    );
+                };          
+                asynclist.success(); // 如果数据加载成功ajax回调的最后加上这个方法
+            } else {
+                asynclist.finish(); // 如果没有数据ajax回调的最后加上这个方法
+            };           
+        }, 1000);
+    });
+});
+</script>
+</head>
+<body>
+  <header class="smart-header">
+    <span>异步加载列表</span>
+  </header>
+  <ul class="smart-list-imagesmall">
+    <li class="item">
+      <div class="left">
+        <img src="http://temp.im/100x100" alt="" />
+      </div>
+      <div class="right">
+        <div class="title">标题标题标题标题标题</div>
+      </div>
+    </li>
+    <li class="item">
+      <div class="left">
+        <img src="http://temp.im/100x100" alt="" />
+      </div>
+      <div class="right">
+        <div class="title">标题标题标题标题标题</div>
+      </div>
+    </li>
+    <li class="item">
+      <div class="left">
+        <img src="http://temp.im/100x100" alt="" />
+      </div>
+      <div class="right">
+        <div class="title">标题标题标题标题标题</div>
+      </div>
+    </li>
+    <li class="item">
+      <div class="left">
+        <img src="http://temp.im/100x100" alt="" />
+      </div>
+      <div class="right">
+        <div class="title">标题标题标题标题标题</div>
+      </div>
+    </li>
+    <li class="item">
+      <div class="left">
+        <img src="http://temp.im/100x100" alt="" />
+      </div>
+      <div class="right">
+        <div class="title">标题标题标题标题标题</div>
+      </div>
+    </li>
+    <li class="item">
+      <div class="left">
+        <img src="http://temp.im/100x100" alt="" />
+      </div>
+      <div class="right">
+        <div class="title">标题标题标题标题标题</div>
+      </div>
+    </li>
+    <li class="item">
+      <div class="left">
+        <img src="http://temp.im/100x100" alt="" />
+      </div>
+      <div class="right">
+        <div class="title">标题标题标题标题标题</div>
+      </div>
+    </li>
+    <li class="item">
+      <div class="left">
+        <img src="http://temp.im/100x100" alt="" />
+      </div>
+      <div class="right">
+        <div class="title">标题标题标题标题标题</div>
+      </div>
+    </li>
+    <li class="item">
+      <div class="left">
+        <img src="http://temp.im/100x100" alt="" />
+      </div>
+      <div class="right">
+        <div class="title">标题标题标题标题标题</div>
+      </div>
+    </li>
+    <li class="item">
+      <div class="left">
+        <img src="http://temp.im/100x100" alt="" />
+      </div>
+      <div class="right">
+        <div class="title">标题标题标题标题标题</div>
+      </div>
+    </li>
+  </ul>
+</body>
+</html>

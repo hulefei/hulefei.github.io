@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>SmartUI Demo</title>
+    <link rel="stylesheet" href="../css/smart.css">
+    <script type="text/javascript" src="../vendor/zepto.js"></script>
+    <script type="text/javascript" src="../js/smart.js"></script>
+    <style>
+        ul, ol { list-style: none; }
+        .icon_lists {
+            padding: 0;
+        }
+        .icon_lists li {
+            float:left;
+            width: 90px;
+            height:180px;
+            text-align: center;
+        }
+        .icon_lists .icon {
+            font-size: 42px;
+            line-height: 100px;
+            margin: 5px 0;
+            color:#333;
+            -webkit-transition: font-size 0.25s ease-out 0s;
+            -moz-transition: font-size 0.25s ease-out 0s;
+            transition: font-size 0.25s ease-out 0s;
+        }
+        .icon_lists .icon:hover{
+            font-size: 100px;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="smart-header">
+        <span>图标</span>
+    </header>
+    <div class="smart-form-text-item">
+        <label>第一种图标使用方法</label>
+        <label><div class="smart-icon-check" style="color:green; font-size:50px;"></div></label>
+        <div>&lt;div class=&quot;smart-icon-check&quot; style=&quot;color:green; font-size:50px;&quot;&gt;&lt;/div&gt;</div>
+    </div>
+    <div class="smart-form-text-item">
+        <label>第二种图标使用方法</label>
+        <label><div class="smart-icon" style="color:blue; font-size:50px;">&#xe60b;</div></label>
+        <div>&lt;div class=&quot;smart-icon&quot; style=&quot;color:blue; font-size:50px;&quot;&gt;&amp;#xe60b;&lt;/div&gt;</div>
+    </div>
+    <div class="smart-form-item">
+        全部图标如下：
+    </div>
+    <div class="main">
+        <ul class="icon_lists">
+            <li>
+            <i class="icon smart-icon">&#xe60b;</i>
+                <div class="name">check</div>
+                <div class="code">&amp;#xe60b;</div>
+                <div class="fontclass">.check</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe644;</i>
+                <div class="name">appreciate</div>
+                <div class="code">&amp;#xe644;</div>
+                <div class="fontclass">.appreciate</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe645;</i>
+                <div class="name">check</div>
+                <div class="code">&amp;#xe645;</div>
+                <div class="fontclass">.check1</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe646;</i>
+                <div class="name">close</div>
+                <div class="code">&amp;#xe646;</div>
+                <div class="fontclass">.close</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe649;</i>
+                <div class="name">edit</div>
+                <div class="code">&amp;#xe649;</div>
+                <div class="fontclass">.edit</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe64a;</i>
+                <div class="name">emoji</div>
+                <div class="code">&amp;#xe64a;</div>
+                <div class="fontclass">.emoji</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe64b;</i>
+                <div class="name">favor_fill</div>
+                <div class="code">&amp;#xe64b;</div>
+                <div class="fontclass">.favorfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe64c;</i>
+                <div class="name">favor</div>
+                <div class="code">&amp;#xe64c;</div>
+                <div class="fontclass">.favor</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe64f;</i>
+                <div class="name">loading</div>
+                <div class="code">&amp;#xe64f;</div>
+                <div class="fontclass">.loading</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe650;</i>
+                <div class="name">location_fill</div>
+                <div class="code">&amp;#xe650;</div>
+                <div class="fontclass">.locationfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe651;</i>
+                <div class="name">location</div>
+                <div class="code">&amp;#xe651;</div>
+                <div class="fontclass">.location</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe652;</i>
+                <div class="name">phone</div>
+                <div class="code">&amp;#xe652;</div>
+                <div class="fontclass">.phone</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe656;</i>
+                <div class="name">round_check_fill</div>
+                <div class="code">&amp;#xe656;</div>
+                <div class="fontclass">.roundcheckfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe657;</i>
+                <div class="name">round_check</div>
+                <div class="code">&amp;#xe657;</div>
+                <div class="fontclass">.roundcheck</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe658;</i>
+                <div class="name">round_close_fill</div>
+                <div class="code">&amp;#xe658;</div>
+                <div class="fontclass">.roundclosefill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe659;</i>
+                <div class="name">round_close</div>
+                <div class="code">&amp;#xe659;</div>
+                <div class="fontclass">.roundclose</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe65a;</i>
+                <div class="name">round_right_fill</div>
+                <div class="code">&amp;#xe65a;</div>
+                <div class="fontclass">.roundrightfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe65b;</i>
+                <div class="name">round_right</div>
+                <div class="code">&amp;#xe65b;</div>
+                <div class="fontclass">.roundright</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe65c;</i>
+                <div class="name">search</div>
+                <div class="code">&amp;#xe65c;</div>
+                <div class="fontclass">.search</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe666;</i>
+                <div class="name">comment_fill</div>
+                <div class="code">&amp;#xe666;</div>
+                <div class="fontclass">.commentfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe665;</i>
+                <div class="name">camera</div>
+                <div class="code">&amp;#xe665;</div>
+                <div class="fontclass">.camera</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe664;</i>
+                <div class="name">camera_fill</div>
+                <div class="code">&amp;#xe664;</div>
+                <div class="fontclass">.camerafill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe663;</i>
+                <div class="name">warn</div>
+                <div class="code">&amp;#xe663;</div>
+                <div class="fontclass">.warn</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe662;</i>
+                <div class="name">warn_fill</div>
+                <div class="code">&amp;#xe662;</div>
+                <div class="fontclass">.warnfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe661;</i>
+                <div class="name">unfold</div>
+                <div class="code">&amp;#xe661;</div>
+                <div class="fontclass">.unfold</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe65f;</i>
+                <div class="name">time</div>
+                <div class="code">&amp;#xe65f;</div>
+                <div class="fontclass">.time</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe65e;</i>
+                <div class="name">time_fill</div>
+                <div class="code">&amp;#xe65e;</div>
+                <div class="fontclass">.timefill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe65d;</i>
+                <div class="name">taxi</div>
+                <div class="code">&amp;#xe65d;</div>
+                <div class="fontclass">.taxi</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe667;</i>
+                <div class="name">comment</div>
+                <div class="code">&amp;#xe667;</div>
+                <div class="fontclass">.comment</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe668;</i>
+                <div class="name">like_fill</div>
+                <div class="code">&amp;#xe668;</div>
+                <div class="fontclass">.likefill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe669;</i>
+                <div class="name">like</div>
+                <div class="code">&amp;#xe669;</div>
+                <div class="fontclass">.like</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe66a;</i>
+                <div class="name">notification_fill</div>
+                <div class="code">&amp;#xe66a;</div>
+                <div class="fontclass">.notificationfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe66b;</i>
+                <div class="name">notification</div>
+                <div class="code">&amp;#xe66b;</div>
+                <div class="fontclass">.notification</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe66c;</i>
+                <div class="name">order</div>
+                <div class="code">&amp;#xe66c;</div>
+                <div class="fontclass">.order</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe66d;</i>
+                <div class="name">same_fill</div>
+                <div class="code">&amp;#xe66d;</div>
+                <div class="fontclass">.samefill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe66e;</i>
+                <div class="name">same</div>
+                <div class="code">&amp;#xe66e;</div>
+                <div class="fontclass">.same</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe671;</i>
+                <div class="name">deliver</div>
+                <div class="code">&amp;#xe671;</div>
+                <div class="fontclass">.deliver</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe67e;</i>
+                <div class="name">discover</div>
+                <div class="code">&amp;#xe67e;</div>
+                <div class="fontclass">.discover</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe67c;</i>
+                <div class="name">cascades</div>
+                <div class="code">&amp;#xe67c;</div>
+                <div class="fontclass">.cascades</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe679;</i>
+                <div class="name">back</div>
+                <div class="code">&amp;#xe679;</div>
+                <div class="fontclass">.back</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe678;</i>
+                <div class="name">wang</div>
+                <div class="code">&amp;#xe678;</div>
+                <div class="fontclass">.wang</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe677;</i>
+                <div class="name">ticket</div>
+                <div class="code">&amp;#xe677;</div>
+                <div class="fontclass">.ticket</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe676;</i>
+                <div class="name">shop</div>
+                <div class="code">&amp;#xe676;</div>
+                <div class="fontclass">.shop</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe675;</i>
+                <div class="name">send</div>
+                <div class="code">&amp;#xe675;</div>
+                <div class="fontclass">.send</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe673;</i>
+                <div class="name">pay</div>
+                <div class="code">&amp;#xe673;</div>
+                <div class="fontclass">.pay</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe672;</i>
+                <div class="name">evaluate</div>
+                <div class="code">&amp;#xe672;</div>
+                <div class="fontclass">.evaluate</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe682;</i>
+                <div class="name">list</div>
+                <div class="code">&amp;#xe682;</div>
+                <div class="fontclass">.list</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe684;</i>
+                <div class="name">more</div>
+                <div class="code">&amp;#xe684;</div>
+                <div class="fontclass">.more</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe685;</i>
+                <div class="name">my_fill</div>
+                <div class="code">&amp;#xe685;</div>
+                <div class="fontclass">.myfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe686;</i>
+                <div class="name">my</div>
+                <div class="code">&amp;#xe686;</div>
+                <div class="fontclass">.my</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe689;</i>
+                <div class="name">scan</div>
+                <div class="code">&amp;#xe689;</div>
+                <div class="fontclass">.scan</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe68a;</i>
+                <div class="name">settings</div>
+                <div class="code">&amp;#xe68a;</div>
+                <div class="fontclass">.settings</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe690;</i>
+                <div class="name">question_fill</div>
+                <div class="code">&amp;#xe690;</div>
+                <div class="fontclass">.questionfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe691;</i>
+                <div class="name">question</div>
+                <div class="code">&amp;#xe691;</div>
+                <div class="fontclass">.question</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe697;</i>
+                <div class="name">shop_fill</div>
+                <div class="code">&amp;#xe697;</div>
+                <div class="fontclass">.shopfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe6a3;</i>
+                <div class="name">right</div>
+                <div class="code">&amp;#xe6a3;</div>
+                <div class="fontclass">.right</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe6a0;</i>
+                <div class="name">pull_up</div>
+                <div class="code">&amp;#xe6a0;</div>
+                <div class="fontclass">.pullup</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe69f;</i>
+                <div class="name">pull_down</div>
+                <div class="code">&amp;#xe69f;</div>
+                <div class="fontclass">.pulldown</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe69e;</i>
+                <div class="name">top</div>
+                <div class="code">&amp;#xe69e;</div>
+                <div class="fontclass">.top</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe69d;</i>
+                <div class="name">footprint</div>
+                <div class="code">&amp;#xe69d;</div>
+                <div class="fontclass">.footprint</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe69c;</i>
+                <div class="name">filter</div>
+                <div class="code">&amp;#xe69c;</div>
+                <div class="fontclass">.filter</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe69b;</i>
+                <div class="name">pic</div>
+                <div class="code">&amp;#xe69b;</div>
+                <div class="fontclass">.pic</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe69a;</i>
+                <div class="name">wang_fill</div>
+                <div class="code">&amp;#xe69a;</div>
+                <div class="fontclass">.wangfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe6f6;</i>
+                <div class="name">light_auto</div>
+                <div class="code">&amp;#xe6f6;</div>
+                <div class="fontclass">.lightauto</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe6ff;</i>
+                <div class="name">service</div>
+                <div class="code">&amp;#xe6ff;</div>
+                <div class="fontclass">.service</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe6fe;</i>
+                <div class="name">search_list</div>
+                <div class="code">&amp;#xe6fe;</div>
+                <div class="fontclass">.searchlist</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe6fd;</i>
+                <div class="name">flashlight_open</div>
+                <div class="code">&amp;#xe6fd;</div>
+                <div class="fontclass">.flashlightopen</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe6fc;</i>
+                <div class="name">flashlight_close</div>
+                <div class="code">&amp;#xe6fc;</div>
+                <div class="fontclass">.flashlightclose</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe6fb;</i>
+                <div class="name">bar_code</div>
+                <div class="code">&amp;#xe6fb;</div>
+                <div class="fontclass">.barcode</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe6fa;</i>
+                <div class="name">light</div>
+                <div class="code">&amp;#xe6fa;</div>
+                <div class="fontclass">.light</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe6f9;</i>
+                <div class="name">camera_rotate</div>
+                <div class="code">&amp;#xe6f9;</div>
+                <div class="fontclass">.camerarotate</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe6f8;</i>
+                <div class="name">light_fill</div>
+                <div class="code">&amp;#xe6f8;</div>
+                <div class="fontclass">.lightfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe6f7;</i>
+                <div class="name">light_forbid</div>
+                <div class="code">&amp;#xe6f7;</div>
+                <div class="fontclass">.lightforbid</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe700;</i>
+                <div class="name">sort</div>
+                <div class="code">&amp;#xe700;</div>
+                <div class="fontclass">.sort</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe702;</i>
+                <div class="name">1212</div>
+                <div class="code">&amp;#xe702;</div>
+                <div class="fontclass">.1212</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe703;</i>
+                <div class="name">down</div>
+                <div class="code">&amp;#xe703;</div>
+                <div class="fontclass">.down</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe704;</i>
+                <div class="name">mobile</div>
+                <div class="code">&amp;#xe704;</div>
+                <div class="fontclass">.mobile</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe705;</i>
+                <div class="name">mobile_fill</div>
+                <div class="code">&amp;#xe705;</div>
+                <div class="fontclass">.mobilefill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe706;</i>
+                <div class="name">copy</div>
+                <div class="code">&amp;#xe706;</div>
+                <div class="fontclass">.copy</div>
+            </li>
+        
+            <!--li>
+            <i class="icon smart-icon">&#xe746;</i>
+                <div class="name">mao</div>
+                <div class="code">&amp;#xe746;</div>
+                <div class="fontclass">.mao</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe745;</i>
+                <div class="name">ju</div>
+                <div class="code">&amp;#xe745;</div>
+                <div class="fontclass">.ju</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe744;</i>
+                <div class="name">hua</div>
+                <div class="code">&amp;#xe744;</div>
+                <div class="fontclass">.hua</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe743;</i>
+                <div class="name">suan</div>
+                <div class="code">&amp;#xe743;</div>
+                <div class="fontclass">.suan</div>
+            </li-->
+        
+            <li>
+            <i class="icon smart-icon">&#xe742;</i>
+                <div class="name">read</div>
+                <div class="code">&amp;#xe742;</div>
+                <div class="fontclass">.read</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe74b;</i>
+                <div class="name">cut</div>
+                <div class="code">&amp;#xe74b;</div>
+                <div class="fontclass">.cut</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe74c;</i>
+                <div class="name">magic</div>
+                <div class="code">&amp;#xe74c;</div>
+                <div class="fontclass">.magic</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe74d;</i>
+                <div class="name">backward_fill</div>
+                <div class="code">&amp;#xe74d;</div>
+                <div class="fontclass">.backwardfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe74e;</i>
+                <div class="name">forward_fill</div>
+                <div class="code">&amp;#xe74e;</div>
+                <div class="fontclass">.forwardfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe74f;</i>
+                <div class="name">play_fill</div>
+                <div class="code">&amp;#xe74f;</div>
+                <div class="fontclass">.playfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe750;</i>
+                <div class="name">stop</div>
+                <div class="code">&amp;#xe750;</div>
+                <div class="fontclass">.stop</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe751;</i>
+                <div class="name">tag_fill</div>
+                <div class="code">&amp;#xe751;</div>
+                <div class="fontclass">.tagfill</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe752;</i>
+                <div class="name">tag</div>
+                <div class="code">&amp;#xe752;</div>
+                <div class="fontclass">.tag</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe753;</i>
+                <div class="name">group</div>
+                <div class="code">&amp;#xe753;</div>
+                <div class="fontclass">.group</div>
+            </li>
+        
+            <li>
+            <i class="icon smart-icon">&#xe754;</i>
+                <div class="name">move</div>
+                <div class="code">&amp;#xe754;</div>
+                <div class="fontclass">.move</div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

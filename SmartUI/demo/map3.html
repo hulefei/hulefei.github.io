@@ -1,0 +1,29 @@
+<!--显示静态地图图片-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>SmartUI Demo</title>
+    <link rel="stylesheet" href="../css/smart.css">
+    <script type="text/javascript" src="../vendor/zepto.js"></script>
+    <script type="text/javascript" src="../js/smart.js"></script>
+    <script>
+    var init = function() {
+        var src = "http://apis.map.qq.com/ws/staticmap/v2/?center=39.8802147,116.415794&zoom=10&size=300*300&maptype=roadmap&markers=size:large|color:0xFFCCFF|label:k|39.8802147,116.415794&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77";
+
+        document.getElementById('image').src = src;
+    }
+    </script>
+</head>
+<body onload="init()">
+    <img style="width: 100%;" id="image"></img>
+
+    <div class="smart-form-item" id="location">
+        更多需求请参阅<a href="http://lbs.qq.com/static_v2/index.html" target="_blank">腾讯静态图API</a>
+    </div>
+
+    <input type="button" name="Submit" onclick="javascript:history.back(-1);" value="返回" style="position: fixed; left: 0px; top: 0px; z-index: 999; background-color: #02bb00; outline:0;" />
+</body>
+</html>

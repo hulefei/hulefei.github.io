@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>SmartUI Demo</title>
+<link rel="stylesheet" href="../css/smart.css">
+<style>
+body {
+  text-align: center;
+}
+#test {
+  margin-top: 50px;
+  display: inline-block;
+}
+</style>
+<script src="../vendor/zepto.js"></script>
+<script src="../js/smart.js"></script>
+<script>
+$(function() {
+    $("#test").on("click", function() {
+        $.share("请点击右上角按钮分享到朋友圈");
+    });
+});
+</script>
+</head>
+<body>
+  <header class="smart-header">
+    <span>分享朋友圈</span>
+  </header>
+  <button class="smart-button" id="test">分享朋友圈</button> 
+</body>
+</html>

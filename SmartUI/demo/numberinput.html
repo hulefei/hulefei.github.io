@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>SmartUI Demo</title>
+<link rel="stylesheet" href="../css/smart.css">
+<style>
+.outer {
+  width: 100%;
+  height: 70px;
+  padding: 20px;
+}
+.outer.first {
+  margin-top: 30px;
+}
+.outer span {
+  font-size: 18px;
+}
+.numberinput {
+  float: right;
+  margin-right: 20px;
+}
+.outer.last .total {
+  font-size: 22px;
+}
+</style>
+<script src="../vendor/zepto.js"></script>
+<script src="../js/smart.js"></script>
+<script>
+$(function() {
+    $(".numberinput").numberinput().build({
+        min: 0,
+        max: 10,
+        span: 1
+    });
+    $(".numberinput").on("numberinput:change", function(e, val) {
+        var num01 = $("#numberinput01").numberinput().val();
+        var num02 = $("#numberinput02").numberinput().val();
+        var num03 = $("#numberinput03").numberinput().val();
+        var total = 4*num01 + 3.5*num02 + 3*num03;
+        $(".outer.last .total").text(total);
+    });
+})
+</script>
+</head>
+<body>
+  <header class="smart-header">
+    <span>数字选择器</span>
+  </header>
+  <div class="outer first">
+    <span>牛奶（单价：4元）</span>
+    <div class="numberinput" id="numberinput01"></div>
+  </div>
+  <div class="outer">
+    <span>面包（单价：3.5元）</span>
+    <div class="numberinput" id="numberinput02"></div>
+  </div>
+  <div class="outer">
+    <span>香肠（单价：3元）</span>
+    <div class="numberinput" id="numberinput03"></div>
+  </div>
+  <div class="outer last">
+    <span>总价：<span class="total">0</span>元</span>
+  </div>
+</body>
+</html>
