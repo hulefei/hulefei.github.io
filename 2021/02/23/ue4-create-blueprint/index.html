@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+<meta  lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#fff" id="theme-color">
+  <link rel="icon" href="/img/icon.jpg">
+  <title>小冰狼</title>
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+    var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+      }
+    };
+    setDarkmode();
+  </script>
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  </script>
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  <link rel="preload" href="//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js" as="script">
+  
+  
+  <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  <link rel="prefetch" href="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js" as="script">
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+
+  
+  
+  
+  
+  
+  <link href="/js/lib/prism/prism-tomorrow.min.css" rel="stylesheet" data-prism="prism-tomorrow">
+  
+  
+  
+<link rel="stylesheet" href="/js/lib/prism/prism-line-numbers.min.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <div class="wrapper">
+    
+    <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+      <img class="navbar-logo-img" src="/img/icon.jpg">
+      
+      <span class="navbar-logo-dsc">小冰狼</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+    <a href="/" class="navbar-menu-item">Home </a>
+    
+    <a href="/archives" class="navbar-menu-item">Archive </a>
+    
+    <a href="/tags" class="navbar-menu-item">Tags </a>
+    
+    <a href="/categories" class="navbar-menu-item">Categories </a>
+    
+    <a href="/about" class="navbar-menu-item">About </a>
+    
+    <a href="/links" class="navbar-menu-item">Friends </a>
+    
+    <a class="navbar-menu-item darknavbar" id="dark"><i class="iconfont icon-weather"></i></a>
+  </div>
+</nav>
+    
+    <div class="section-wrap">
+      <div class="container">
+        <div class="columns">
+          <main class="main-column">
+<div class="image-wrapper">
+  <img src="/img/posts/ue4.jpg" data-src="/img/posts/ue4.jpg"
+    srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
+    class="image lozad">
+</div>
+
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      代码创建Blueprint流程
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-02-22T16:00:00.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-02-23</span>
+    </time>
+    
+    <span class="dot"></span>
+    
+    <a href="/categories/笔记/" class="post-meta-link">笔记</a>
+    
+    
+    
+    <span class="dot"></span>
+    <span>1.2k words</span>
+    
+  </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/UE4/" class="post-meta-link">UE4</a>
+      
+    </div>
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <h2 id="创建Blueprint"><a href="#创建Blueprint" class="headerlink" title="创建Blueprint"></a>创建Blueprint</h2><h3 id="核心方法"><a href="#核心方法" class="headerlink" title="核心方法"></a>核心方法</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://docs.unrealengine.com/en-US/API/Editor/UnrealEd/Kismet2/FKismetEditorUtilities/index.html">FKismetEditorUtilities::CreateBlueprint</a></p>
+<p>  创建蓝图并初始化</p>
+</li>
+</ul>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">/** Create a new Blueprint and initialize it to a valid state. */</span>
+UBlueprint<span class="token operator">*</span> <span class="token class-name">FKismetEditorUtilities</span><span class="token operator">::</span><span class="token function">CreateBlueprint</span><span class="token punctuation">(</span>UClass<span class="token operator">*</span> ParentClass<span class="token punctuation">,</span> UObject<span class="token operator">*</span> Outer<span class="token punctuation">,</span> <span class="token keyword">const</span> FName NewBPName<span class="token punctuation">,</span> EBlueprintType BlueprintType<span class="token punctuation">,</span> TSubclassOf<span class="token operator">&lt;</span>UBlueprint<span class="token operator">></span> BlueprintClassType<span class="token punctuation">,</span> TSubclassOf<span class="token operator">&lt;</span>UBlueprintGeneratedClass<span class="token operator">></span> BlueprintGeneratedClassType<span class="token punctuation">,</span> FName CallingContext<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+	FSecondsCounterScope <span class="token function">Timer</span><span class="token punctuation">(</span>BlueprintCompileAndLoadTimerData<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">check</span><span class="token punctuation">(</span>FindObject<span class="token operator">&lt;</span>UBlueprint<span class="token operator">></span><span class="token punctuation">(</span>Outer<span class="token punctuation">,</span> <span class="token operator">*</span>NewBPName<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+
+	<span class="token comment">// Not all types are legal for all parent classes, if the parent class is const then the blueprint cannot be an ubergraph-bearing one</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>BlueprintType <span class="token operator">==</span> BPTYPE_Normal<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>ParentClass<span class="token operator">-></span><span class="token function">HasAnyClassFlags</span><span class="token punctuation">(</span>CLASS_Const<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		BlueprintType <span class="token operator">=</span> BPTYPE_Const<span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	
+	<span class="token comment">// Create new UBlueprint object</span>
+	UBlueprint<span class="token operator">*</span> NewBP <span class="token operator">=</span> NewObject<span class="token operator">&lt;</span>UBlueprint<span class="token operator">></span><span class="token punctuation">(</span>Outer<span class="token punctuation">,</span> <span class="token operator">*</span>BlueprintClassType<span class="token punctuation">,</span> NewBPName<span class="token punctuation">,</span> RF_Public <span class="token operator">|</span> RF_Standalone <span class="token operator">|</span> RF_Transactional <span class="token operator">|</span> RF_LoadCompleted<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	NewBP<span class="token operator">-></span>Status <span class="token operator">=</span> BS_BeingCreated<span class="token punctuation">;</span>
+	NewBP<span class="token operator">-></span>BlueprintType <span class="token operator">=</span> BlueprintType<span class="token punctuation">;</span>
+	NewBP<span class="token operator">-></span>ParentClass <span class="token operator">=</span> ParentClass<span class="token punctuation">;</span>
+	NewBP<span class="token operator">-></span>BlueprintSystemVersion <span class="token operator">=</span> <span class="token class-name">UBlueprint</span><span class="token operator">::</span><span class="token function">GetCurrentBlueprintSystemVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	NewBP<span class="token operator">-></span>bIsNewlyCreated <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+	NewBP<span class="token operator">-></span>bLegacyNeedToPurgeSkelRefs <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+	NewBP<span class="token operator">-></span><span class="token function">GenerateNewGuid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token comment">// Create SimpleConstructionScript and UserConstructionScript</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">FBlueprintEditorUtils</span><span class="token operator">::</span><span class="token function">SupportsConstructionScript</span><span class="token punctuation">(</span>NewBP<span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span> 
+		<span class="token comment">// >>> Temporary workaround, before a BlueprintGeneratedClass is the main asset.</span>
+		FName NewSkelClassName<span class="token punctuation">,</span> NewGenClassName<span class="token punctuation">;</span>
+		NewBP<span class="token operator">-></span><span class="token function">GetBlueprintClassNames</span><span class="token punctuation">(</span>NewGenClassName<span class="token punctuation">,</span> NewSkelClassName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		UBlueprintGeneratedClass<span class="token operator">*</span> NewClass <span class="token operator">=</span> NewObject<span class="token operator">&lt;</span>UBlueprintGeneratedClass<span class="token operator">></span><span class="token punctuation">(</span>
+			NewBP<span class="token operator">-></span><span class="token function">GetOutermost</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">*</span>BlueprintGeneratedClassType<span class="token punctuation">,</span> NewGenClassName<span class="token punctuation">,</span> RF_Public <span class="token operator">|</span> RF_Transactional<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		NewBP<span class="token operator">-></span>GeneratedClass <span class="token operator">=</span> NewClass<span class="token punctuation">;</span>
+		NewClass<span class="token operator">-></span>ClassGeneratedBy <span class="token operator">=</span> NewBP<span class="token punctuation">;</span>
+		NewClass<span class="token operator">-></span><span class="token function">SetSuperStruct</span><span class="token punctuation">(</span>ParentClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">// &lt;&lt;&lt; Temporary workaround</span>
+
+		NewBP<span class="token operator">-></span>SimpleConstructionScript <span class="token operator">=</span> NewObject<span class="token operator">&lt;</span>USimpleConstructionScript<span class="token operator">></span><span class="token punctuation">(</span>NewClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		NewBP<span class="token operator">-></span>SimpleConstructionScript<span class="token operator">-></span><span class="token function">SetFlags</span><span class="token punctuation">(</span>RF_Transactional<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		NewBP<span class="token operator">-></span>LastEditedDocuments<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>NewBP<span class="token operator">-></span>SimpleConstructionScript<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		UEdGraph<span class="token operator">*</span> UCSGraph <span class="token operator">=</span> <span class="token class-name">FBlueprintEditorUtils</span><span class="token operator">::</span><span class="token function">CreateNewGraph</span><span class="token punctuation">(</span>NewBP<span class="token punctuation">,</span> UEdGraphSchema_K2<span class="token operator">::</span>FN_UserConstructionScript<span class="token punctuation">,</span> <span class="token class-name">UEdGraph</span><span class="token operator">::</span><span class="token function">StaticClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">UEdGraphSchema_K2</span><span class="token operator">::</span><span class="token function">StaticClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token class-name">FBlueprintEditorUtils</span><span class="token operator">::</span><span class="token function">AddFunctionGraph</span><span class="token punctuation">(</span>NewBP<span class="token punctuation">,</span> UCSGraph<span class="token punctuation">,</span> <span class="token comment">/*bIsUserCreated=*/</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token class-name">AActor</span><span class="token operator">::</span><span class="token function">StaticClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token comment">// If the blueprint is derived from another blueprint, add in a super-call automatically</span>
+		<span class="token keyword">if</span><span class="token punctuation">(</span> NewBP<span class="token operator">-></span>ParentClass <span class="token operator">&amp;&amp;</span> NewBP<span class="token operator">-></span>ParentClass<span class="token operator">-></span>ClassGeneratedBy <span class="token punctuation">)</span>
+		<span class="token punctuation">&#123;</span>
+			<span class="token function">check</span><span class="token punctuation">(</span> UCSGraph<span class="token operator">-></span>Nodes<span class="token punctuation">.</span><span class="token function">Num</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+			UK2Node_FunctionEntry<span class="token operator">*</span> UCSEntry <span class="token operator">=</span> CastChecked<span class="token operator">&lt;</span>UK2Node_FunctionEntry<span class="token operator">></span><span class="token punctuation">(</span>UCSGraph<span class="token operator">-></span>Nodes<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			FGraphNodeCreator<span class="token operator">&lt;</span>UK2Node_CallParentFunction<span class="token operator">></span> <span class="token function">FunctionNodeCreator</span><span class="token punctuation">(</span><span class="token operator">*</span>UCSGraph<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			UK2Node_CallParentFunction<span class="token operator">*</span> ParentFunctionNode <span class="token operator">=</span> FunctionNodeCreator<span class="token punctuation">.</span><span class="token function">CreateNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			ParentFunctionNode<span class="token operator">-></span>FunctionReference<span class="token punctuation">.</span><span class="token function">SetExternalMember</span><span class="token punctuation">(</span>UEdGraphSchema_K2<span class="token operator">::</span>FN_UserConstructionScript<span class="token punctuation">,</span> NewBP<span class="token operator">-></span>ParentClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			ParentFunctionNode<span class="token operator">-></span>NodePosX <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">;</span>
+			ParentFunctionNode<span class="token operator">-></span>NodePosY <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+			ParentFunctionNode<span class="token operator">-></span><span class="token function">AllocateDefaultPins</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			FunctionNodeCreator<span class="token punctuation">.</span><span class="token function">Finalize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token comment">// Wire up the new node</span>
+			UEdGraphPin<span class="token operator">*</span> ExecPin <span class="token operator">=</span> UCSEntry<span class="token operator">-></span><span class="token function">FindPin</span><span class="token punctuation">(</span>UEdGraphSchema_K2<span class="token operator">::</span>PN_Then<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			UEdGraphPin<span class="token operator">*</span> SuperPin <span class="token operator">=</span> ParentFunctionNode<span class="token operator">-></span><span class="token function">FindPin</span><span class="token punctuation">(</span>UEdGraphSchema_K2<span class="token operator">::</span>PN_Execute<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			ExecPin<span class="token operator">-></span><span class="token function">MakeLinkTo</span><span class="token punctuation">(</span>SuperPin<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+
+		NewBP<span class="token operator">-></span>LastEditedDocuments<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>UCSGraph<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		UCSGraph<span class="token operator">-></span>bAllowDeletion <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token comment">// Create default event graph(s)</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">FBlueprintEditorUtils</span><span class="token operator">::</span><span class="token function">DoesSupportEventGraphs</span><span class="token punctuation">(</span>NewBP<span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		<span class="token function">check</span><span class="token punctuation">(</span>NewBP<span class="token operator">-></span>UbergraphPages<span class="token punctuation">.</span><span class="token function">Num</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">CreateDefaultEventGraphs</span><span class="token punctuation">(</span>NewBP<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token comment">//@TODO: ANIMREFACTOR 1: This kind of code should be on a per-blueprint basis; not centralized here</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>UAnimBlueprint<span class="token operator">*</span> AnimBP <span class="token operator">=</span> Cast<span class="token operator">&lt;</span>UAnimBlueprint<span class="token operator">></span><span class="token punctuation">(</span>NewBP<span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		UAnimBlueprint<span class="token operator">*</span> RootAnimBP <span class="token operator">=</span> <span class="token class-name">UAnimBlueprint</span><span class="token operator">::</span><span class="token function">FindRootAnimBlueprint</span><span class="token punctuation">(</span>AnimBP<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>RootAnimBP <span class="token operator">==</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#123;</span>
+			<span class="token comment">// Interfaces dont have default graphs, only 'function' anim graphs</span>
+			<span class="token keyword">if</span><span class="token punctuation">(</span>AnimBP<span class="token operator">-></span>BlueprintType <span class="token operator">!=</span> BPTYPE_Interface<span class="token punctuation">)</span>
+			<span class="token punctuation">&#123;</span>
+				<span class="token comment">// Only allow an anim graph if there isn't one in a parent blueprint</span>
+				UEdGraph<span class="token operator">*</span> NewGraph <span class="token operator">=</span> <span class="token class-name">FBlueprintEditorUtils</span><span class="token operator">::</span><span class="token function">CreateNewGraph</span><span class="token punctuation">(</span>AnimBP<span class="token punctuation">,</span> UEdGraphSchema_K2<span class="token operator">::</span>GN_AnimGraph<span class="token punctuation">,</span> <span class="token class-name">UAnimationGraph</span><span class="token operator">::</span><span class="token function">StaticClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">UAnimationGraphSchema</span><span class="token operator">::</span><span class="token function">StaticClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token class-name">FBlueprintEditorUtils</span><span class="token operator">::</span><span class="token function">AddDomainSpecificGraph</span><span class="token punctuation">(</span>NewBP<span class="token punctuation">,</span> NewGraph<span class="token punctuation">)</span><span class="token punctuation">;</span>
+				NewBP<span class="token operator">-></span>LastEditedDocuments<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>NewGraph<span class="token punctuation">)</span><span class="token punctuation">;</span>
+				NewGraph<span class="token operator">-></span>bAllowDeletion <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token keyword">else</span>
+		<span class="token punctuation">&#123;</span>
+			<span class="token comment">// Make sure the anim blueprint targets the same skeleton as the parent</span>
+			AnimBP<span class="token operator">-></span>TargetSkeleton <span class="token operator">=</span> RootAnimBP<span class="token operator">-></span>TargetSkeleton<span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token comment">// Create initial UClass</span>
+	IKismetCompilerInterface<span class="token operator">&amp;</span> Compiler <span class="token operator">=</span> FModuleManager<span class="token operator">::</span>LoadModuleChecked<span class="token operator">&lt;</span>IKismetCompilerInterface<span class="token operator">></span><span class="token punctuation">(</span>KISMET_COMPILER_MODULENAME<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token comment">// Skip validation of the class default object here, because (a) the new CDO may fail validation since this</span>
+	<span class="token comment">// is a new Blueprint that the user has not had a chance to modify any defaults for yet, and (b) in some cases,</span>
+	<span class="token comment">// default value propagation to the new Blueprint's CDO may be deferred until after compilation (e.g. reparenting).</span>
+	<span class="token comment">// Also skip the Blueprint search data update, as that will be handled by an OnAssetAdded() delegate in the FiB manager.</span>
+	<span class="token keyword">const</span> EBlueprintCompileOptions CompileOptions <span class="token operator">=</span>
+		EBlueprintCompileOptions<span class="token operator">::</span>SkipGarbageCollection <span class="token operator">|</span>
+		EBlueprintCompileOptions<span class="token operator">::</span>SkipDefaultObjectValidation <span class="token operator">|</span>
+		EBlueprintCompileOptions<span class="token operator">::</span>SkipFiBSearchMetaUpdate<span class="token punctuation">;</span>
+
+	<span class="token class-name">FBlueprintCompilationManager</span><span class="token operator">::</span><span class="token function">CompileSynchronously</span><span class="token punctuation">(</span>
+		<span class="token function">FBPCompileRequest</span><span class="token punctuation">(</span>NewBP<span class="token punctuation">,</span> CompileOptions<span class="token punctuation">,</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span>
+	<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token comment">// Mark the BP as being regenerated, so it will not be confused as needing to be loaded and regenerated when a referenced BP loads.</span>
+	NewBP<span class="token operator">-></span>bHasBeenRegenerated <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+
+	UBlueprintEditorSettings<span class="token operator">*</span> Settings <span class="token operator">=</span> GetMutableDefault<span class="token operator">&lt;</span>UBlueprintEditorSettings<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span>Settings <span class="token operator">&amp;&amp;</span> Settings<span class="token operator">-></span>bSpawnDefaultBlueprintNodes<span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		<span class="token comment">// Only add default events if there is an ubergraph and they are supported</span>
+		<span class="token keyword">if</span><span class="token punctuation">(</span>NewBP<span class="token operator">-></span>UbergraphPages<span class="token punctuation">.</span><span class="token function">Num</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token class-name">FBlueprintEditorUtils</span><span class="token operator">::</span><span class="token function">DoesSupportEventGraphs</span><span class="token punctuation">(</span>NewBP<span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#123;</span>
+			<span class="token comment">// Based on the Blueprint type we are constructing, place some starting events.</span>
+			<span class="token comment">// Note, this cannot happen in the Factories for constructing these Blueprint types due to the fact that creating child BPs circumvent the factories</span>
+			UClass<span class="token operator">*</span> WidgetClass <span class="token operator">=</span> FindObject<span class="token operator">&lt;</span>UClass<span class="token operator">></span><span class="token punctuation">(</span>ANY_PACKAGE<span class="token punctuation">,</span> <span class="token function">TEXT</span><span class="token punctuation">(</span><span class="token string">"UserWidget"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			UClass<span class="token operator">*</span> GameplayAbilityClass <span class="token operator">=</span> FindObject<span class="token operator">&lt;</span>UClass<span class="token operator">></span><span class="token punctuation">(</span>ANY_PACKAGE<span class="token punctuation">,</span> <span class="token function">TEXT</span><span class="token punctuation">(</span><span class="token string">"GameplayAbility"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			TArray<span class="token operator">&lt;</span>FName<span class="token operator">></span> AutoSpawnedEventNames<span class="token punctuation">;</span>
+			int32 NodePositionY <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+			<span class="token comment">// Spawn any defined auto generated default events for the class.  Only do this for the most senior class specified, so</span>
+			<span class="token comment">// that subclasses may have an entirely different set of default nodes if they wish.</span>
+			UClass<span class="token operator">*</span> DefaultNodesClass <span class="token operator">=</span> NewBP<span class="token operator">-></span>GeneratedClass<span class="token punctuation">;</span>
+			<span class="token keyword">while</span> <span class="token punctuation">(</span> DefaultNodesClass <span class="token punctuation">)</span>
+			<span class="token punctuation">&#123;</span>
+				<span class="token keyword">bool</span> bFoundDefaultNodes <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+				<span class="token keyword">for</span> <span class="token punctuation">(</span> TMultiMap<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">,</span> FDefaultEventNodeData<span class="token operator">></span><span class="token operator">::</span>TIterator <span class="token function">DataIt</span><span class="token punctuation">(</span>AutoGeneratedDefaultEventsMap<span class="token punctuation">)</span><span class="token punctuation">;</span> DataIt<span class="token punctuation">;</span> <span class="token operator">++</span>DataIt <span class="token punctuation">)</span>
+				<span class="token punctuation">&#123;</span>
+					FDefaultEventNodeData Data <span class="token operator">=</span> DataIt<span class="token punctuation">.</span><span class="token function">Value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+					<span class="token keyword">if</span> <span class="token punctuation">(</span> DefaultNodesClass <span class="token operator">==</span> Data<span class="token punctuation">.</span>TargetClass <span class="token punctuation">)</span>
+					<span class="token punctuation">&#123;</span>
+						bFoundDefaultNodes <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+						<span class="token class-name">FKismetEditorUtilities</span><span class="token operator">::</span><span class="token function">AddDefaultEventNode</span><span class="token punctuation">(</span>NewBP<span class="token punctuation">,</span> NewBP<span class="token operator">-></span>UbergraphPages<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> Data<span class="token punctuation">.</span>EventName<span class="token punctuation">,</span> Data<span class="token punctuation">.</span>TargetClass<span class="token punctuation">,</span> NodePositionY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+					<span class="token punctuation">&#125;</span>
+				<span class="token punctuation">&#125;</span>
+
+				<span class="token keyword">if</span> <span class="token punctuation">(</span> bFoundDefaultNodes <span class="token punctuation">)</span>
+				<span class="token punctuation">&#123;</span>
+					<span class="token keyword">break</span><span class="token punctuation">;</span>
+				<span class="token punctuation">&#125;</span>
+
+				DefaultNodesClass <span class="token operator">=</span> DefaultNodesClass<span class="token operator">-></span><span class="token function">GetSuperClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+
+		<span class="token comment">// Give anyone who wants to do more advanced BP modification post-creation a chance to do so.</span>
+		<span class="token comment">// Anim Blueprints, for example, adds a non-event node to the main ubergraph.</span>
+		<span class="token keyword">for</span> <span class="token punctuation">(</span>TMultiMap<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">,</span> FKismetEditorUtilities<span class="token operator">::</span>FOnBlueprintCreatedData<span class="token operator">></span><span class="token operator">::</span>TIterator <span class="token function">DataIt</span><span class="token punctuation">(</span>OnBlueprintCreatedCallbacks<span class="token punctuation">)</span><span class="token punctuation">;</span> DataIt<span class="token punctuation">;</span> <span class="token operator">++</span>DataIt<span class="token punctuation">)</span>
+		<span class="token punctuation">&#123;</span>
+			FOnBlueprintCreatedData Data <span class="token operator">=</span> DataIt<span class="token punctuation">.</span><span class="token function">Value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>NewBP<span class="token operator">-></span>GeneratedClass<span class="token operator">-></span><span class="token function">IsChildOf</span><span class="token punctuation">(</span>Data<span class="token punctuation">.</span>TargetClass<span class="token punctuation">)</span><span class="token punctuation">)</span>
+			<span class="token punctuation">&#123;</span>
+				FKismetEditorUtilities<span class="token operator">::</span>FOnBlueprintCreated BlueprintCreatedDelegate <span class="token operator">=</span> Data<span class="token punctuation">.</span>OnBlueprintCreated<span class="token punctuation">;</span>
+				BlueprintCreatedDelegate<span class="token punctuation">.</span><span class="token function">Execute</span><span class="token punctuation">(</span>NewBP<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span>
+	
+	<span class="token comment">// Create the sparse class data and set the flag saying it is safe to serialize it</span>
+	UBlueprintGeneratedClass<span class="token operator">*</span> BlueprintGeneratedClass <span class="token operator">=</span> CastChecked<span class="token operator">&lt;</span>UBlueprintGeneratedClass<span class="token operator">></span><span class="token punctuation">(</span>NewBP<span class="token operator">-></span>GeneratedClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">void</span><span class="token operator">*</span> SparseDataPtr <span class="token operator">=</span> BlueprintGeneratedClass<span class="token operator">-></span><span class="token function">GetOrCreateSparseClassData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	BlueprintGeneratedClass<span class="token operator">-></span>bIsSparseClassDataSerializable <span class="token operator">=</span> SparseDataPtr <span class="token operator">!=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+
+	<span class="token comment">// Report blueprint creation to analytics</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">FEngineAnalytics</span><span class="token operator">::</span><span class="token function">IsAvailable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		TArray<span class="token operator">&lt;</span>FAnalyticsEventAttribute<span class="token operator">></span> Attribs<span class="token punctuation">;</span>
+
+		<span class="token comment">// translate the CallingContext into a string for analytics</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>CallingContext <span class="token operator">!=</span> NAME_None<span class="token punctuation">)</span>
+		<span class="token punctuation">&#123;</span>
+			Attribs<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token function">FAnalyticsEventAttribute</span><span class="token punctuation">(</span><span class="token function">FString</span><span class="token punctuation">(</span><span class="token string">"Context"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> CallingContext<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		
+		Attribs<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token function">FAnalyticsEventAttribute</span><span class="token punctuation">(</span><span class="token function">FString</span><span class="token punctuation">(</span><span class="token string">"ParentType"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> ParentClass<span class="token operator">-></span>ClassGeneratedBy <span class="token operator">==</span> <span class="token constant">NULL</span> <span class="token operator">?</span> <span class="token function">FString</span><span class="token punctuation">(</span><span class="token string">"Native"</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">FString</span><span class="token punctuation">(</span><span class="token string">"Blueprint"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">IsTrackedBlueprintParent</span><span class="token punctuation">(</span>ParentClass<span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#123;</span>
+			Attribs<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token function">FAnalyticsEventAttribute</span><span class="token punctuation">(</span><span class="token function">FString</span><span class="token punctuation">(</span><span class="token string">"ParentClass"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> ParentClass<span class="token operator">-></span><span class="token function">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+
+		<span class="token keyword">const</span> UGeneralProjectSettings<span class="token operator">&amp;</span> ProjectSettings <span class="token operator">=</span> <span class="token operator">*</span>GetDefault<span class="token operator">&lt;</span>UGeneralProjectSettings<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		Attribs<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token function">FAnalyticsEventAttribute</span><span class="token punctuation">(</span><span class="token function">FString</span><span class="token punctuation">(</span><span class="token string">"ProjectId"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> ProjectSettings<span class="token punctuation">.</span>ProjectID<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		Attribs<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token function">FAnalyticsEventAttribute</span><span class="token punctuation">(</span><span class="token function">FString</span><span class="token punctuation">(</span><span class="token string">"BlueprintId"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> NewBP<span class="token operator">-></span><span class="token function">GetBlueprintGuid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token class-name">FEngineAnalytics</span><span class="token operator">::</span><span class="token function">GetProvider</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">RecordEvent</span><span class="token punctuation">(</span><span class="token function">FString</span><span class="token punctuation">(</span><span class="token string">"Editor.Usage.BlueprintCreated"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Attribs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token keyword">return</span> NewBP<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="创建Blueprint-1"><a href="#创建Blueprint-1" class="headerlink" title="创建Blueprint"></a>创建Blueprint</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">UBlueprint<span class="token operator">*</span> <span class="token class-name">UAnimStrategy</span><span class="token operator">::</span><span class="token function">CreateAnimBlueprint</span><span class="token punctuation">(</span>UClass<span class="token operator">*</span> ParentClass<span class="token punctuation">,</span> <span class="token keyword">const</span> FString PackagePath<span class="token punctuation">,</span>
+                                                       <span class="token keyword">const</span> FName FileName<span class="token punctuation">,</span> <span class="token keyword">const</span> FString SkeletonPath<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">const</span> FString InnerPackagePath <span class="token operator">=</span> PackagePath <span class="token operator">+</span> FileName<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	UPackage<span class="token operator">*</span> OuterForAsset <span class="token operator">=</span> <span class="token function">CreatePackage</span><span class="token punctuation">(</span><span class="token keyword">nullptr</span><span class="token punctuation">,</span> <span class="token operator">*</span>InnerPackagePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	UClass<span class="token operator">*</span> BlueprintClass <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+	UClass<span class="token operator">*</span> BlueprintGeneratedClass <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+
+	<span class="token comment">//Get the blueprint class and generated blueprint class for a particular class type.</span>
+	KismetCompilerModule<span class="token punctuation">.</span><span class="token function">GetBlueprintTypesForClass</span><span class="token punctuation">(</span><span class="token class-name">AActor</span><span class="token operator">::</span><span class="token function">StaticClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> BlueprintClass<span class="token punctuation">,</span>
+	                                               BlueprintGeneratedClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	UAnimBlueprint<span class="token operator">*</span> NewBlueprint <span class="token operator">=</span> CastChecked<span class="token operator">&lt;</span>UAnimBlueprint<span class="token operator">></span><span class="token punctuation">(</span><span class="token class-name">FKismetEditorUtilities</span><span class="token operator">::</span><span class="token function">CreateBlueprint</span><span class="token punctuation">(</span>
+		ParentClass<span class="token punctuation">,</span> OuterForAsset<span class="token punctuation">,</span> FileName<span class="token punctuation">,</span> BPTYPE_Normal<span class="token punctuation">,</span> <span class="token class-name">UAnimBlueprint</span><span class="token operator">::</span><span class="token function">StaticClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		<span class="token class-name">UBlueprintGeneratedClass</span><span class="token operator">::</span><span class="token function">StaticClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">FName</span><span class="token punctuation">(</span><span class="token string">"GeneratingAnimBlueprintTest"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">return</span> NewBlueprint<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="创建AnimBlueprint"><a href="#创建AnimBlueprint" class="headerlink" title="创建AnimBlueprint"></a>创建AnimBlueprint</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">UAnimBlueprint<span class="token operator">*</span> <span class="token class-name">UAnimStrategy</span><span class="token operator">::</span><span class="token function">CreateAnimBlueprint</span><span class="token punctuation">(</span>UClass<span class="token operator">*</span> ParentClass<span class="token punctuation">,</span> <span class="token keyword">const</span> FString PackagePath<span class="token punctuation">,</span>
+                                                       <span class="token keyword">const</span> FName FileName<span class="token punctuation">,</span> <span class="token keyword">const</span> FString SkeletonPath<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">const</span> FString InnerPackagePath <span class="token operator">=</span> PackagePath <span class="token operator">+</span> FileName<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	UPackage<span class="token operator">*</span> OuterForAsset <span class="token operator">=</span> <span class="token function">CreatePackage</span><span class="token punctuation">(</span><span class="token keyword">nullptr</span><span class="token punctuation">,</span> <span class="token operator">*</span>InnerPackagePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	UObject<span class="token operator">*</span> SkeletonObject <span class="token operator">=</span> LoadObject<span class="token operator">&lt;</span>UObject<span class="token operator">></span><span class="token punctuation">(</span><span class="token keyword">nullptr</span><span class="token punctuation">,</span> <span class="token operator">*</span>SkeletonPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token comment">//代码直接指定 UAnimBlueprint 和 UAnimBlueprintGeneratedClass</span>
+	UAnimBlueprint<span class="token operator">*</span> NewBlueprint <span class="token operator">=</span> CastChecked<span class="token operator">&lt;</span>UAnimBlueprint<span class="token operator">></span><span class="token punctuation">(</span><span class="token class-name">FKismetEditorUtilities</span><span class="token operator">::</span><span class="token function">CreateBlueprint</span><span class="token punctuation">(</span>
+        ParentClass<span class="token punctuation">,</span> OuterForAsset<span class="token punctuation">,</span> FileName<span class="token punctuation">,</span> BPTYPE_Normal<span class="token punctuation">,</span> <span class="token class-name">UAnimBlueprint</span><span class="token operator">::</span><span class="token function">StaticClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token class-name">UAnimBlueprintGeneratedClass</span><span class="token operator">::</span><span class="token function">StaticClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">FName</span><span class="token punctuation">(</span><span class="token string">"GeneratingAnimBlueprintTest"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	NewBlueprint<span class="token operator">-></span>TargetSkeleton <span class="token operator">=</span> Cast<span class="token operator">&lt;</span>USkeleton<span class="token operator">></span><span class="token punctuation">(</span>SkeletonObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">return</span> NewBlueprint<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="将Blueprint保存到Content中"><a href="#将Blueprint保存到Content中" class="headerlink" title="将Blueprint保存到Content中"></a>将Blueprint保存到Content中</h2><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token class-name">UAnimStrategy</span><span class="token operator">::</span><span class="token function">SaveAnimBlueprint</span><span class="token punctuation">(</span>UAnimBlueprint<span class="token operator">*</span> AnimBlueprint<span class="token punctuation">,</span> UPackage<span class="token operator">*</span> OuterForAsset<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token class-name">FAssetRegistryModule</span><span class="token operator">::</span><span class="token function">AssetCreated</span><span class="token punctuation">(</span>AnimBlueprint<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">// FAssetEditorManager::Get().OpenEditorForAsset(newBlueprint);</span>
+	OuterForAsset<span class="token operator">-></span><span class="token function">SetDirtyFlag</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	TArray<span class="token operator">&lt;</span>UPackage<span class="token operator">*</span><span class="token operator">></span> PackagesToSave<span class="token punctuation">;</span>
+	PackagesToSave<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>OuterForAsset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token class-name">FEditorFileUtils</span><span class="token operator">::</span><span class="token function">PromptForCheckoutAndSave</span><span class="token punctuation">(</span>PackagesToSave<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="编译Blueprint"><a href="#编译Blueprint" class="headerlink" title="编译Blueprint"></a>编译Blueprint</h2><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token class-name">UAnimStrategy</span><span class="token operator">::</span><span class="token function">CompileBlueprint</span><span class="token punctuation">(</span>UBlueprint<span class="token operator">*</span> Blueprint<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+	FCompilerResultsLog LogResults<span class="token punctuation">;</span>
+	LogResults<span class="token punctuation">.</span><span class="token function">SetSourcePath</span><span class="token punctuation">(</span>Blueprint<span class="token operator">-></span><span class="token function">GetPathName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	LogResults<span class="token punctuation">.</span><span class="token function">BeginEvent</span><span class="token punctuation">(</span><span class="token function">TEXT</span><span class="token punctuation">(</span><span class="token string">"Compile"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">//指定编译选项</span>
+	<span class="token keyword">const</span> EBlueprintCompileOptions CompileOptions <span class="token operator">=</span> EBlueprintCompileOptions<span class="token operator">::</span>None<span class="token punctuation">;</span>
+	<span class="token comment">// if( bSaveIntermediateBuildProducts )</span>
+	<span class="token comment">// &#123;</span>
+	<span class="token comment">// 	CompileOptions |= EBlueprintCompileOptions::SaveIntermediateProducts;</span>
+	<span class="token comment">// &#125;</span>
+	<span class="token class-name">FKismetEditorUtilities</span><span class="token operator">::</span><span class="token function">CompileBlueprint</span><span class="token punctuation">(</span>Blueprint<span class="token punctuation">,</span> CompileOptions<span class="token punctuation">,</span> <span class="token operator">&amp;</span>LogResults<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	LogResults<span class="token punctuation">.</span><span class="token function">EndEvent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  </div>
+  <div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  <div class="nav-item-prev">
+    <a href="/2021/03/02/ue4-animation-pipeline/" class="nav-link">
+      <i class="iconfont icon-left nav-prev-icon"></i>
+      <div>
+        <div class="nav-label">Prev</div>
+        
+        <div class="nav-title">UE4 Animation Pipeline </div>
+        
+      </div>
+    </a>
+  </div>
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/02/23/ue4-create-blueprint-node/" class="nav-link">
+      <div>
+        <div class="nav-label">Next</div>
+        
+        <div class="nav-title">创建Blueprint Node </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BABlueprint"><span class="toc-text">创建Blueprint</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%96%B9%E6%B3%95"><span class="toc-text">核心方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BABlueprint-1"><span class="toc-text">创建Blueprint</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAAnimBlueprint"><span class="toc-text">创建AnimBlueprint</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86Blueprint%E4%BF%9D%E5%AD%98%E5%88%B0Content%E4%B8%AD"><span class="toc-text">将Blueprint保存到Content中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91Blueprint"><span class="toc-text">编译Blueprint</span></a></li></ol>
+</div></main>
+          <aside class="left-column">
+            
+            <div class="card card-author">
+              
+<img src="/img/icon.jpg" class="author-img">
+
+<p class="author-name">小冰狼</p>
+<p class="author-description">A IT Worker</p>
+<div class="author-message">
+  <a class="author-posts-count" href="/archives">
+    <span>7</span>
+    <span>Posts</span>
+  </a>
+  <a class="author-categories-count" href="/categories">
+    <span>2</span>
+    <span>Categories</span>
+  </a>
+  <a class="author-tags-count" href="/tags">
+    <span>3</span>
+    <span>Tags</span>
+  </a>
+</div>
+
+<div class="author-card-society">
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://github.com/hulefei">
+        <i class="iconfont icon-github society-icon"></i>
+      </a>
+    </div>
+  
+    <div class="author-card-society-icon">
+      <a href="mailto:hulefei29@gmail.com.com">
+        <i class="iconfont icon-mail society-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+            </div>
+            
+            <div class="sticky-tablet">
+  
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BABlueprint"><span class="toc-text">创建Blueprint</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%96%B9%E6%B3%95"><span class="toc-text">核心方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BABlueprint-1"><span class="toc-text">创建Blueprint</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAAnimBlueprint"><span class="toc-text">创建AnimBlueprint</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86Blueprint%E4%BF%9D%E5%AD%98%E5%88%B0Content%E4%B8%AD"><span class="toc-text">将Blueprint保存到Content中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91Blueprint"><span class="toc-text">编译Blueprint</span></a></li></ol>
+    </div>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="categories-card">
+  <div class="categories-header"><i class="iconfont icon-fenlei" style="padding-right: 2px;"></i>Categories</div>
+  <div class="categories-list">
+    
+      <a href="/categories/文档">
+        <div class="categories-list-item">
+          文档
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/categories/笔记">
+        <div class="categories-list-item">
+          笔记
+          <span class="categories-list-item-badge">5</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content">
+    <div class="tags-card">
+  <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>hot tags</div>
+  <div class="tags-list">
+    
+    <a href="\tags\UE4" title="UE4"><div class="tags-list-item">UE4</div></a>
+    
+    <a href="\tags\Hexo" title="Hexo"><div class="tags-list-item">Hexo</div></a>
+    
+    <a href="\tags\学习观" title="学习观"><div class="tags-list-item">学习观</div></a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+          <aside class="right-column">
+            <div class="sticky-widescreen">
+  
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BABlueprint"><span class="toc-text">创建Blueprint</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%96%B9%E6%B3%95"><span class="toc-text">核心方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BABlueprint-1"><span class="toc-text">创建Blueprint</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAAnimBlueprint"><span class="toc-text">创建AnimBlueprint</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86Blueprint%E4%BF%9D%E5%AD%98%E5%88%B0Content%E4%B8%AD"><span class="toc-text">将Blueprint保存到Content中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91Blueprint"><span class="toc-text">编译Blueprint</span></a></li></ol>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header"><i class="iconfont icon-wenzhang_huaban" style="padding-right: 2px;"></i>Recent Posts</div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-02</div>
+        <a href="/2021/03/02/ue4-animation-pipeline/"><div class="recent-posts-item-content">UE4 Animation Pipeline</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-02-23</div>
+        <a href="/2021/02/23/ue4-create-blueprint/"><div class="recent-posts-item-content">代码创建Blueprint流程</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-02-23</div>
+        <a href="/2021/02/23/ue4-create-blueprint-node/"><div class="recent-posts-item-content">创建Blueprint Node</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-02-22</div>
+        <a href="/2021/02/22/ue4-blueprint/"><div class="recent-posts-item-content">UE4 Blueprint 架构分析</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>Copyright ©
+          
+          2021 -
+          
+          2021
+        </span>
+        <a href="/" class="footer-link">小冰狼 </a>
+      </div>
+    </div>
+
+    
+    <div class="footer-dsc">
+      
+      
+      Powered by
+      <a href="https://hexo.io/" class="footer-link" target="_blank" rel="nofollow noopener noreferrer">&nbsp;Hexo </a>
+      
+      
+      <span>&nbsp;|&nbsp;</span>
+      
+      
+      
+      Theme -
+      <a href="https://github.com/theme-kaze" class="footer-link" target="_blank"
+        rel="nofollow noopener noreferrer">&nbsp;Kaze</a>
+      
+    </div>
+    
+    
+    
+    
+</footer>
+  <a role="button" id="scrollbutton" class="basebutton" >
+  <i class="iconfont icon-arrowleft button-icon"></i>
+</a>
+<a role="button" id="menubutton" class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a role="button" id="popbutton" class="basebutton">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a role="button" id="darkbutton" class="basebutton darkwidget">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+
+  
+  
+  
+
+  
+  
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+    
+<script src="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js"></script>
+
+  
+
+  
+  
+  <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img');
+    var i;
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a');
+      wrapper.setAttribute('data-fslightbox', 'gallery');
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'));
+      wrapper.setAttribute('style', 'width: 100%; display: flex; justify-content: center;');
+      img[i].parentElement.insertBefore(wrapper, img[i]);
+      wrapper.appendChild(img[i]);
+    }
+    refreshFsLightbox();
+  }
+</script>
+<script>loadScript("//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js", addImgLayout)</script>
+  
+  
+  
+<script src="/js/main.js"></script>
+
+  
+  
+  <script>
+    var addLazyload = function () {
+      var observer = lozad('.lozad', {
+        load: function (el) {
+          el.srcset = el.getAttribute('data-src');
+        },
+        loaded: function (el) {
+          el.classList.add('loaded');
+        }
+      });
+      observer.observe();
+    }
+  </script>
+  <script>loadScript("/js/lib/lozad.min.js", addLazyload)</script>
+  
+  
+</body>
+
+</html>
