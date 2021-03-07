@@ -76,6 +76,9 @@
   
   
   
+  <link rel="prefetch" href="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js" as="script">
+  
+  
   
   
   
@@ -94,7 +97,7 @@
   
   
   
-  <link href="/js/lib/prism/prism.min.css" rel="stylesheet" data-prism="prism">
+  <link href="/js/lib/prism/prism-tomorrow.min.css" rel="stylesheet" data-prism="prism-tomorrow">
   
   
   
@@ -140,35 +143,49 @@
       <div class="container">
         <div class="columns">
           <main class="main-column">
+<div class="image-wrapper">
+  <img src="/img/posts/ue4-animation.jpg" data-src="/img/posts/ue4-animation.jpg"
+    srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
+    class="image lozad">
+</div>
+
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      Hello World
+      UE4 Animation Pipeline
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2021-02-15T07:38:11.361Z" style="display: flex; align-items: center;">
+    <time datetime="2021-03-01T16:00:00.000Z" style="display: flex; align-items: center;">
       <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
-      <span>2021-02-15</span>
+      <span>2021-03-02</span>
     </time>
+    
+    <span class="dot"></span>
+    
+    <a href="/categories/笔记/" class="post-meta-link">笔记</a>
+    
     
     
     <span class="dot"></span>
-    <span>242 words</span>
+    <span>9 words</span>
     
+  </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/UE4/" class="post-meta-link">UE4</a>
+      
+    </div>
   </div>
   
   </header>
   <div id="section" class="post-content">
-    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="highlight"><span class="line"><span class="keyword">const</span> smoothScrollToTop = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> yTopValve = (<span class="built_in">window</span>.pageYOffset || <span class="built_in">document</span>.body.scrollTop || <span class="built_in">document</span>.documentElement.scrollTop);</span><br><span class="line">  <span class="keyword">if</span> (yTopValve &gt; <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="built_in">window</span>.requestAnimationFrame(smoothScrollToTop);</span><br><span class="line">    scrollTo(<span class="number">0</span>, <span class="built_in">Math</span>.floor(yTopValve * <span class="number">0.85</span>));</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    scrollTo(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&#x27;scrollbutton&#x27;</span>).onclick = smoothScrollToTop;</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="highlight"><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">1050</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm=<span class="number">20000010</span>;</span><br><span class="line"><span class="keyword">int</span> h,n,v[maxn],w[maxn],f[maxm],maxx;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;h&gt;&gt;n;</span><br><span class="line">	<span class="built_in">memset</span>(f,<span class="number">0x3f</span>,<span class="keyword">sizeof</span>(f));</span><br><span class="line">	f[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) <span class="built_in">cin</span>&gt;&gt;v[i]&gt;&gt;w[i],maxx=max(v[i],maxx);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=v[i];j&lt;=h+maxx;j++)</span><br><span class="line">			f[j]=min(f[j],f[j-v[i]]+w[i]);	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> ans=inf;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=h;i&lt;=h+maxx;i++) ans=min(ans,f[i]);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="highlight"><span class="line">$ hexo generate</span><br></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="highlight"><span class="line">$ hexo deploy</span><br></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <h2 id="UE4-Animation"><a href="#UE4-Animation" class="headerlink" title="UE4 Animation"></a>UE4 Animation</h2><p><img src="/img/posts/ue4-animation-pipeline-1.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/posts/ue4-animation-pipeline-1.png" class="lozad post-image"><br><img src="/img/posts/ue4-animation-pipeline-2.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/posts/ue4-animation-pipeline-2.png" class="lozad post-image"></p>
+<p><a href="/img/posts/ue4-animation-pipeline.svg">ue4-animation-pipeline-svg</a><br><a href="/img/posts/ue4-animation-pipeline.pdf">ue4-animation-pipeline-pdf</a></p>
 
   </div>
   <div>
@@ -177,12 +194,36 @@
 </article>
 <div class="nav">
   
+  <div class="nav-item-prev">
+    <a href="/2021/03/07/templates-and-generic-programming/" class="nav-link">
+      <i class="iconfont icon-left nav-prev-icon"></i>
+      <div>
+        <div class="nav-label">Prev</div>
+        
+        <div class="nav-title">模板与泛型编程笔记 </div>
+        
+      </div>
+    </a>
+  </div>
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/02/23/ue4-create-blueprint/" class="nav-link">
+      <div>
+        <div class="nav-label">Next</div>
+        
+        <div class="nav-title">代码创建Blueprint流程 </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
   
 </div>
 
 <div class="card card-content toc-card" id="mobiletoc">
   <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#UE4-Animation"><span class="toc-text">UE4 Animation</span></a></li></ol>
 </div></main>
           <aside class="left-column">
             
@@ -194,17 +235,33 @@
 <p class="author-description">A IT Worker</p>
 <div class="author-message">
   <a class="author-posts-count" href="/archives">
-    <span>1</span>
+    <span>8</span>
     <span>Posts</span>
   </a>
   <a class="author-categories-count" href="/categories">
-    <span>0</span>
+    <span>2</span>
     <span>Categories</span>
   </a>
   <a class="author-tags-count" href="/tags">
-    <span>0</span>
+    <span>4</span>
     <span>Tags</span>
   </a>
+</div>
+
+<div class="author-card-society">
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://github.com/hulefei">
+        <i class="iconfont icon-github society-icon"></i>
+      </a>
+    </div>
+  
+    <div class="author-card-society-icon">
+      <a href="mailto:hulefei29@gmail.com.com">
+        <i class="iconfont icon-mail society-icon"></i>
+      </a>
+    </div>
+  
 </div>
 
             </div>
@@ -215,7 +272,7 @@
   <article class="display-when-two-columns spacer">
     <div class="card card-content toc-card">
       <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#UE4-Animation"><span class="toc-text">UE4 Animation</span></a></li></ol>
     </div>
   </article>
   
@@ -225,6 +282,20 @@
   <div class="categories-header"><i class="iconfont icon-fenlei" style="padding-right: 2px;"></i>Categories</div>
   <div class="categories-list">
     
+      <a href="/categories/文档">
+        <div class="categories-list-item">
+          文档
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/categories/笔记">
+        <div class="categories-list-item">
+          笔记
+          <span class="categories-list-item-badge">6</span>
+        </div>
+      </a>
+    
   </div>
 </div>
   </article>
@@ -233,6 +304,14 @@
     <div class="tags-card">
   <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>hot tags</div>
   <div class="tags-list">
+    
+    <a href="\tags\UE4" title="UE4"><div class="tags-list-item">UE4</div></a>
+    
+    <a href="\tags\Hexo" title="Hexo"><div class="tags-list-item">Hexo</div></a>
+    
+    <a href="\tags\CPP" title="CPP"><div class="tags-list-item">CPP</div></a>
+    
+    <a href="\tags\学习观" title="学习观"><div class="tags-list-item">学习观</div></a>
     
   </div>
 </div>
@@ -247,7 +326,7 @@
   
   <article class="card card-content toc-card">
     <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#UE4-Animation"><span class="toc-text">UE4 Animation</span></a></li></ol>
   </article>
   
   
@@ -257,8 +336,23 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-02-15</div>
-        <a href="/2021/02/15/hello-world/"><div class="recent-posts-item-content">Hello World</div></a>
+        <div class="recent-posts-item-title">2021-03-07</div>
+        <a href="/2021/03/07/templates-and-generic-programming/"><div class="recent-posts-item-content">模板与泛型编程笔记</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-02</div>
+        <a href="/2021/03/02/ue4-animation-pipeline/"><div class="recent-posts-item-content">UE4 Animation Pipeline</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-02-23</div>
+        <a href="/2021/02/23/ue4-create-blueprint/"><div class="recent-posts-item-content">代码创建Blueprint流程</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-02-23</div>
+        <a href="/2021/02/23/ue4-create-blueprint-node/"><div class="recent-posts-item-content">创建Blueprint Node</div></a>
       </div>
     
   </div>
@@ -323,6 +417,23 @@
 </a>
 
   
+  
+  
+
+  
+  
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+    
+<script src="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js"></script>
+
+  
+
   
   
   <script>
