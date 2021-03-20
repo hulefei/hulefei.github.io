@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html>
+<meta  lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#fff" id="theme-color">
+  <link rel="icon" href="/img/icon.jpg">
+  <title>小冰狼</title>
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+    var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+      }
+    };
+    setDarkmode();
+  </script>
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  </script>
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  <link rel="preload" href="//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js" as="script">
+  
+  
+  <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  <link rel="prefetch" href="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js" as="script">
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+
+  
+  
+  
+  
+  
+  <link href="/js/lib/prism/prism-tomorrow.min.css" rel="stylesheet" data-prism="prism-tomorrow">
+  
+  
+  
+<link rel="stylesheet" href="/js/lib/prism/prism-line-numbers.min.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <div class="wrapper">
+    
+    <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+      <img class="navbar-logo-img" src="/img/icon.jpg">
+      
+      <span class="navbar-logo-dsc">小冰狼</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+    <a href="/" class="navbar-menu-item">Home </a>
+    
+    <a href="/archives" class="navbar-menu-item">Archive </a>
+    
+    <a href="/tags" class="navbar-menu-item">Tags </a>
+    
+    <a href="/categories" class="navbar-menu-item">Categories </a>
+    
+    <a href="/about" class="navbar-menu-item">About </a>
+    
+    <a href="/links" class="navbar-menu-item">Friends </a>
+    
+    <a class="navbar-menu-item darknavbar" id="dark"><i class="iconfont icon-weather"></i></a>
+  </div>
+</nav>
+    
+    <div class="section-wrap">
+      <div class="container">
+        <div class="columns">
+          <main class="main-column">
+<div class="image-wrapper">
+  <img src="/img/banners/ue4-plugin.jpg" data-src="/img/banners/ue4-plugin.jpg"
+    srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
+    class="image lozad">
+</div>
+
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      UE4 Plugin 添加自定义 Asset
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-03-19T16:00:00.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-03-20</span>
+    </time>
+    
+    <span class="dot"></span>
+    
+    <a href="/categories/笔记/" class="post-meta-link">笔记</a>
+    
+    
+    
+    <span class="dot"></span>
+    <span>850 words</span>
+    
+  </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/UE4/" class="post-meta-link">UE4</a>
+      
+    </div>
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <blockquote>
+<p>UE4 有很多asset资源类型，如果定义自己的asset呢</p>
+</blockquote>
+<h2 id="创建一个空的插件"><a href="#创建一个空的插件" class="headerlink" title="创建一个空的插件"></a>创建一个空的插件</h2><h3 id="1-在UE4引擎中创建一个空的Plugin结构"><a href="#1-在UE4引擎中创建一个空的Plugin结构" class="headerlink" title="1. 在UE4引擎中创建一个空的Plugin结构"></a>1. 在UE4引擎中创建一个空的Plugin结构</h3><p><img src="/img/posts/ue4-plugin-custom-asset-1.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/posts/ue4-plugin-custom-asset-1.png" class="lozad post-image"></p>
+<h3 id="2-定义一个自己类型的结构"><a href="#2-定义一个自己类型的结构" class="headerlink" title="2. 定义一个自己类型的结构"></a>2. 定义一个自己类型的结构</h3><p>在 Public 目录下创建一个自定义类型结构</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">pragma</span> <span class="token expression">once</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"CoreMinimal.h"</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"UObject/Object.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"UltimateSkillAsset.generated.h"</span></span>
+
+<span class="token function">UCLASS</span><span class="token punctuation">(</span>BlueprintType<span class="token punctuation">,</span> Blueprintable<span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">ULTIMATESKILL_API</span> UUltimateSkillAsset <span class="token operator">:</span> <span class="token keyword">public</span> UObject
+<span class="token punctuation">&#123;</span>
+	<span class="token function">GENERATED_BODY</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+	<span class="token function">UPROPERTY</span><span class="token punctuation">(</span>EditAnywhere<span class="token punctuation">,</span> BlueprintReadOnly<span class="token punctuation">,</span> Category<span class="token operator">=</span>NewAsset<span class="token punctuation">)</span>
+	<span class="token keyword">int</span> Value<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="创建一个Editor-Module"><a href="#创建一个Editor-Module" class="headerlink" title="创建一个Editor Module"></a>创建一个Editor Module</h2><h3 id="1-Editor-Module-目录结构"><a href="#1-Editor-Module-目录结构" class="headerlink" title="1. Editor Module 目录结构"></a>1. Editor Module 目录结构</h3><p><img src="/img/posts/ue4-plugin-custom-asset-2.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/posts/ue4-plugin-custom-asset-2.png" class="lozad post-image"></p>
+<h3 id="2-定义一个Module类"><a href="#2-定义一个Module类" class="headerlink" title="2. 定义一个Module类"></a>2. 定义一个Module类</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"AssetToolsModule.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"IAssetTools.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"IAssetTypeActions.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"AssetTools/UltimateSkillAssetActions.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"Modules/ModuleInterface.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"Templates/SharedPointer.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"Modules/ModuleManager.h"</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LOCTEXT_NAMESPACE</span> <span class="token string">"FUltimateSkillEditorModule"</span></span>
+
+<span class="token keyword">class</span> <span class="token class-name">FUltimateSkillEditorModule</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> <span class="token class-name">IModuleInterface</span></span>
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">StartupModule</span><span class="token punctuation">(</span><span class="token punctuation">)</span> override
+	<span class="token punctuation">&#123;</span>
+		<span class="token function">RegisterAssetTools</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">ShutdownModule</span><span class="token punctuation">(</span><span class="token punctuation">)</span> override
+	<span class="token punctuation">&#123;</span>
+		<span class="token function">UnregisterAssetTools</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">virtual</span> <span class="token keyword">bool</span> <span class="token function">SupportsDynamicReloading</span><span class="token punctuation">(</span><span class="token punctuation">)</span> override
+	<span class="token punctuation">&#123;</span>
+		<span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">protected</span><span class="token operator">:</span>
+	<span class="token keyword">void</span> <span class="token function">RegisterAssetTools</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		IAssetTools<span class="token operator">&amp;</span> AssetTools <span class="token operator">=</span> FModuleManager<span class="token operator">::</span>LoadModuleChecked<span class="token operator">&lt;</span>FAssetToolsModule<span class="token operator">></span><span class="token punctuation">(</span><span class="token string">"AssetTools"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">RegisterAssetTypeAction</span><span class="token punctuation">(</span>AssetTools<span class="token punctuation">,</span> <span class="token function">MakeShareable</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token function">FUltimateSkillAssetActions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token keyword">void</span> <span class="token function">RegisterAssetTypeAction</span><span class="token punctuation">(</span>IAssetTools<span class="token operator">&amp;</span> AssetTools<span class="token punctuation">,</span> TSharedRef<span class="token operator">&lt;</span>IAssetTypeActions<span class="token operator">></span> Action<span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		AssetTools<span class="token punctuation">.</span><span class="token function">RegisterAssetTypeActions</span><span class="token punctuation">(</span>Action<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		RegisteredAssetTypeActions<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>Action<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token keyword">void</span> <span class="token function">UnregisterAssetTools</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		FAssetToolsModule<span class="token operator">*</span> AssetToolsModule <span class="token operator">=</span> FModuleManager<span class="token operator">::</span>GetModulePtr<span class="token operator">&lt;</span>FAssetToolsModule<span class="token operator">></span><span class="token punctuation">(</span><span class="token string">"AssetTools"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>AssetToolsModule <span class="token operator">!=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#123;</span>
+			IAssetTools<span class="token operator">&amp;</span> AssetTools <span class="token operator">=</span> AssetToolsModule<span class="token operator">-></span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+			<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">auto</span> Action <span class="token operator">:</span> RegisteredAssetTypeActions<span class="token punctuation">)</span>
+			<span class="token punctuation">&#123;</span>
+				AssetTools<span class="token punctuation">.</span><span class="token function">UnregisterAssetTypeActions</span><span class="token punctuation">(</span>Action<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">private</span><span class="token operator">:</span>
+	<span class="token comment">// /** The collection of registered asset type actions. */</span>
+	TArray<span class="token operator">&lt;</span>TSharedRef<span class="token operator">&lt;</span>IAssetTypeActions<span class="token operator">>></span> RegisteredAssetTypeActions<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">undef</span> <span class="token expression">LOCTEXT_NAMESPACE</span></span>
+
+<span class="token function">IMPLEMENT_MODULE</span><span class="token punctuation">(</span>FUltimateSkillEditorModule<span class="token punctuation">,</span> UltimateSkillEditor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>分析：</p>
+<ol>
+<li>在文件头部需要定义 *#define LOCTEXT_NAMESPACE “FUltimateSkillEditorModule”*，与类名相同</li>
+<li>在文件尾部定义Module名，在uplugin的文件中，需要指明加载该Module <em>IMPLEMENT_MODULE(FUltimateSkillEditorModule, UltimateSkillEditor);</em></li>
+<li>在uplugin加载该module， 改完uplugin后，需要关闭ide，重新生成vsproj 文件<br><img src="/img/posts/ue4-plugin-custom-asset-3.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/posts/ue4-plugin-custom-asset-3.png" class="lozad post-image"></li>
+</ol>
+<h3 id="3-定义一个-右键菜单类"><a href="#3-定义一个-右键菜单类" class="headerlink" title="3. 定义一个 右键菜单类"></a>3. 定义一个 右键菜单类</h3><p>定义一个 右键菜单类 FUltimateSkillAssetActions</p>
+<p>FUltimateSkillAssetActions.h</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">pragma</span> <span class="token expression">once</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"CoreMinimal.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"AssetTypeActions_Base.h"</span></span>
+
+<span class="token keyword">class</span> <span class="token class-name">ULTIMATESKILLEDITOR_API</span> FUltimateSkillAssetActions <span class="token operator">:</span> <span class="token keyword">public</span> FAssetTypeActions_Base
+<span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+	<span class="token function">FUltimateSkillAssetActions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">// void CreateBlueprint();</span>
+
+	<span class="token keyword">public</span><span class="token operator">:</span>
+	<span class="token comment">//~ FAssetTypeActions_Base overrides</span>
+	<span class="token keyword">virtual</span> uint32 <span class="token function">GetCategories</span><span class="token punctuation">(</span><span class="token punctuation">)</span> override<span class="token punctuation">;</span>
+	<span class="token keyword">virtual</span> FText <span class="token function">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> override<span class="token punctuation">;</span>
+	<span class="token keyword">virtual</span>  UClass<span class="token operator">*</span> <span class="token function">GetSupportedClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> override<span class="token punctuation">;</span>
+	<span class="token keyword">virtual</span> FColor <span class="token function">GetTypeColor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> override<span class="token punctuation">;</span>
+
+	<span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">GetActions</span><span class="token punctuation">(</span><span class="token keyword">const</span> TArray<span class="token operator">&lt;</span>UObject<span class="token operator">*</span><span class="token operator">></span><span class="token operator">&amp;</span> InObjects<span class="token punctuation">,</span> FMenuBuilder<span class="token operator">&amp;</span> MenuBuilder<span class="token punctuation">)</span> override<span class="token punctuation">;</span>
+	<span class="token keyword">virtual</span> <span class="token keyword">bool</span> <span class="token function">HasActions</span><span class="token punctuation">(</span><span class="token keyword">const</span> TArray<span class="token operator">&lt;</span>UObject<span class="token operator">*</span><span class="token operator">></span><span class="token operator">&amp;</span> InObjects<span class="token punctuation">)</span> <span class="token keyword">const</span> override<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>FUltimateSkillAssetActions.</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// Fill out your copyright notice in the Description page of Project Settings.</span>
+
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"UltimateSkillAssetActions.h"</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"UltimateSkillAsset.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"Misc/MessageDialog.h"</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LOCTEXT_NAMESPACE</span> <span class="token string">"AssetTypeActions"</span></span>
+
+<span class="token class-name">FUltimateSkillAssetActions</span><span class="token operator">::</span><span class="token function">FUltimateSkillAssetActions</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//资源的类型</span>
+uint32 <span class="token class-name">FUltimateSkillAssetActions</span><span class="token operator">::</span><span class="token function">GetCategories</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">return</span> EAssetTypeCategories<span class="token operator">::</span>Basic<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//资源的名字</span>
+FText <span class="token class-name">FUltimateSkillAssetActions</span><span class="token operator">::</span><span class="token function">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">return</span> <span class="token function">NSLOCTEXT</span><span class="token punctuation">(</span><span class="token string">"AssetTypeActions"</span><span class="token punctuation">,</span> <span class="token string">"AssetTypeActions_UltimateSkillAsset"</span><span class="token punctuation">,</span> <span class="token string">"Ultimate Skill Asset"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+UClass<span class="token operator">*</span> <span class="token class-name">FUltimateSkillAssetActions</span><span class="token operator">::</span><span class="token function">GetSupportedClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">return</span> <span class="token class-name">UUltimateSkillAsset</span><span class="token operator">::</span><span class="token function">StaticClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">//资源颜色</span>
+FColor <span class="token class-name">FUltimateSkillAssetActions</span><span class="token operator">::</span><span class="token function">GetTypeColor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">return</span> FColor<span class="token operator">::</span>Blue<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">void</span> <span class="token class-name">FUltimateSkillAssetActions</span><span class="token operator">::</span><span class="token function">GetActions</span><span class="token punctuation">(</span><span class="token keyword">const</span> TArray<span class="token operator">&lt;</span>UObject<span class="token operator">*</span><span class="token operator">></span><span class="token operator">&amp;</span> InObjects<span class="token punctuation">,</span> FMenuBuilder<span class="token operator">&amp;</span> MenuBuilder<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token class-name">FAssetTypeActions_Base</span><span class="token operator">::</span><span class="token function">GetActions</span><span class="token punctuation">(</span>InObjects<span class="token punctuation">,</span> MenuBuilder<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token keyword">const</span> <span class="token keyword">auto</span> NextAnimAssets <span class="token operator">=</span> GetTypedWeakObjectPtrs<span class="token operator">&lt;</span>UUltimateSkillAsset<span class="token operator">></span><span class="token punctuation">(</span>InObjects<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	MenuBuilder<span class="token punctuation">.</span><span class="token function">AddMenuEntry</span><span class="token punctuation">(</span>
+		<span class="token function">LOCTEXT</span><span class="token punctuation">(</span><span class="token string">"NextAnimAsset_UltimateSkill"</span><span class="token punctuation">,</span> <span class="token string">"Ultimate Skill"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		<span class="token function">LOCTEXT</span><span class="token punctuation">(</span><span class="token string">"NextAnimAsset_UltimateSkillTip"</span><span class="token punctuation">,</span> <span class="token string">"Ultimate Skill Tip"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		<span class="token function">FSlateIcon</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		<span class="token function">FUIAction</span><span class="token punctuation">(</span>
+			<span class="token class-name">FExecuteAction</span><span class="token operator">::</span><span class="token function">CreateLambda</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">=</span><span class="token punctuation">]</span>
+			<span class="token punctuation">&#123;</span>
+				<span class="token comment">//TODO</span>
+				<span class="token comment">// const FText DialogText = LOCTEXT("TODO", "待实现");</span>
+				<span class="token comment">// FMessageDialog::Open(EAppMsgType::Ok, DialogText);</span>
+			<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+			<span class="token class-name">FCanExecuteAction</span><span class="token operator">::</span><span class="token function">CreateLambda</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">=</span><span class="token punctuation">]</span>
+			<span class="token punctuation">&#123;</span>
+				<span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+		<span class="token punctuation">)</span>
+	<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">bool</span> <span class="token class-name">FUltimateSkillAssetActions</span><span class="token operator">::</span><span class="token function">HasActions</span><span class="token punctuation">(</span><span class="token keyword">const</span> TArray<span class="token operator">&lt;</span>UObject<span class="token operator">*</span><span class="token operator">></span><span class="token operator">&amp;</span> InObjects<span class="token punctuation">)</span> <span class="token keyword">const</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">undef</span> <span class="token expression">LOCTEXT_NAMESPACE</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>继承自<a target="_blank" rel="noopener" href="https://docs.unrealengine.com/en-US/API/Developer/AssetTools/FAssetTypeActions_Base/index.html">FAssetTypeActions_Base</a></li>
+<li>头部定义命名空间<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LOCTEXT_NAMESPACE</span> <span class="token string">"AssetTypeActions"</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>核心方法 <em>GetActions</em><ol>
+<li>InObjects: 为选中的资源对象，由于可能同时选择多个，所以返回的是数组</li>
+<li>可将InObjects 转为 自定义的Asset<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">const</span> <span class="token keyword">auto</span> NextAnimAssets <span class="token operator">=</span> GetTypedWeakObjectPtrs<span class="token operator">&lt;</span>UUltimateSkillAsset<span class="token operator">></span><span class="token punctuation">(</span>InObjects<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>MenuBuilder: 添加右键菜单显示的item及其点击的action</li>
+</ol>
+</li>
+</ol>
+<h3 id="4-定义一个-创建资源的类"><a href="#4-定义一个-创建资源的类" class="headerlink" title="4. 定义一个 创建资源的类"></a>4. 定义一个 创建资源的类</h3><p>UFactory: 所有在Content中创建的资源都集成UFactory, 在你点击Content空白处，确定资源时，会调用UFactory创建这个资源在内存中</p>
+<p>UltimateSkillFactoryNew.h</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">pragma</span> <span class="token expression">once</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"CoreMinimal.h"</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"Factories/Factory.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"UltimateSkillFactoryNew.generated.h"</span></span>
+
+<span class="token function">UCLASS</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">ULTIMATESKILLEDITOR_API</span> UUltimateSkillFactoryNew <span class="token operator">:</span> <span class="token keyword">public</span> UFactory
+<span class="token punctuation">&#123;</span>
+	<span class="token function">GENERATED_UCLASS_BODY</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">public</span><span class="token operator">:</span>
+	<span class="token keyword">virtual</span> UObject<span class="token operator">*</span> <span class="token function">FactoryCreateNew</span><span class="token punctuation">(</span>UClass<span class="token operator">*</span> InClass<span class="token punctuation">,</span> UObject<span class="token operator">*</span> InParent<span class="token punctuation">,</span> FName InName<span class="token punctuation">,</span> EObjectFlags Flags<span class="token punctuation">,</span> UObject<span class="token operator">*</span> Context<span class="token punctuation">,</span> FFeedbackContext<span class="token operator">*</span> Warn<span class="token punctuation">)</span> override<span class="token punctuation">;</span>
+	<span class="token keyword">virtual</span> <span class="token keyword">bool</span> <span class="token function">ShouldShowInNewMenu</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> override<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>UltimateSkillFactoryNew.cpp</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"UltimateSkillFactoryNew.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"UltimateSkillAsset.h"</span></span>
+
+<span class="token class-name">UUltimateSkillFactoryNew</span><span class="token operator">::</span><span class="token function">UUltimateSkillFactoryNew</span><span class="token punctuation">(</span><span class="token keyword">const</span> FObjectInitializer<span class="token operator">&amp;</span> ObjectInitializer<span class="token punctuation">)</span>
+    <span class="token operator">:</span> <span class="token function">Super</span><span class="token punctuation">(</span>ObjectInitializer<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+	SupportedClass <span class="token operator">=</span> <span class="token class-name">UUltimateSkillAsset</span><span class="token operator">::</span><span class="token function">StaticClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	bCreateNew <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+	bEditAfterNew <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+
+UObject<span class="token operator">*</span> <span class="token class-name">UUltimateSkillFactoryNew</span><span class="token operator">::</span><span class="token function">FactoryCreateNew</span><span class="token punctuation">(</span>UClass<span class="token operator">*</span> InClass<span class="token punctuation">,</span> UObject<span class="token operator">*</span> InParent<span class="token punctuation">,</span> FName InName<span class="token punctuation">,</span>
+	EObjectFlags Flags<span class="token punctuation">,</span> UObject<span class="token operator">*</span> Context<span class="token punctuation">,</span> FFeedbackContext<span class="token operator">*</span> Warn<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">return</span> NewObject<span class="token operator">&lt;</span>UUltimateSkillAsset<span class="token operator">></span><span class="token punctuation">(</span>InParent<span class="token punctuation">,</span> InClass<span class="token punctuation">,</span> InName<span class="token punctuation">,</span> Flags<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">bool</span> <span class="token class-name">UUltimateSkillFactoryNew</span><span class="token operator">::</span><span class="token function">ShouldShowInNewMenu</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="5-在EditorModule中注册Actions"><a href="#5-在EditorModule中注册Actions" class="headerlink" title="5. 在EditorModule中注册Actions"></a>5. 在EditorModule中注册Actions</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">IAssetTools<span class="token operator">&amp;</span> AssetTools <span class="token operator">=</span> FModuleManager<span class="token operator">::</span>LoadModuleChecked<span class="token operator">&lt;</span>FAssetToolsModule<span class="token operator">></span><span class="token punctuation">(</span><span class="token string">"AssetTools"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">RegisterAssetTypeAction</span><span class="token punctuation">(</span>AssetTools<span class="token punctuation">,</span> <span class="token function">MakeShareable</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token function">FUltimateSkillAssetActions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="Github-Code"><a href="#Github-Code" class="headerlink" title="Github Code"></a>Github Code</h2><p><a target="_blank" rel="noopener" href="https://github.com/hulefei/ue4-plugins/tree/main/UltimateSkill">https://github.com/hulefei/ue4-plugins/tree/main/UltimateSkill</a></p>
+
+  </div>
+  <div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/03/13/algorithms-linkedlist-2/" class="nav-link">
+      <div>
+        <div class="nav-label">Next</div>
+        
+        <div class="nav-title">链表（下） </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%A9%BA%E7%9A%84%E6%8F%92%E4%BB%B6"><span class="toc-text">创建一个空的插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9C%A8UE4%E5%BC%95%E6%93%8E%E4%B8%AD%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%A9%BA%E7%9A%84Plugin%E7%BB%93%E6%9E%84"><span class="toc-text">1. 在UE4引擎中创建一个空的Plugin结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">2. 定义一个自己类型的结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAEditor-Module"><span class="toc-text">创建一个Editor Module</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Editor-Module-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">1. Editor Module 目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AAModule%E7%B1%BB"><span class="toc-text">2. 定义一个Module类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA-%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E7%B1%BB"><span class="toc-text">3. 定义一个 右键菜单类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA-%E5%88%9B%E5%BB%BA%E8%B5%84%E6%BA%90%E7%9A%84%E7%B1%BB"><span class="toc-text">4. 定义一个 创建资源的类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%9C%A8EditorModule%E4%B8%AD%E6%B3%A8%E5%86%8CActions"><span class="toc-text">5. 在EditorModule中注册Actions</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Github-Code"><span class="toc-text">Github Code</span></a></li></ol>
+</div></main>
+          <aside class="left-column">
+            
+            <div class="card card-author">
+              
+<img src="/img/icon.jpg" class="author-img">
+
+<p class="author-name">小冰狼</p>
+<p class="author-description">A IT Worker</p>
+<div class="author-message">
+  <a class="author-posts-count" href="/archives">
+    <span>17</span>
+    <span>Posts</span>
+  </a>
+  <a class="author-categories-count" href="/categories">
+    <span>2</span>
+    <span>Categories</span>
+  </a>
+  <a class="author-tags-count" href="/tags">
+    <span>6</span>
+    <span>Tags</span>
+  </a>
+</div>
+
+<div class="author-card-society">
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://github.com/hulefei">
+        <i class="iconfont icon-github society-icon"></i>
+      </a>
+    </div>
+  
+    <div class="author-card-society-icon">
+      <a href="mailto:hulefei29@gmail.com.com">
+        <i class="iconfont icon-mail society-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+            </div>
+            
+            <div class="sticky-tablet">
+  
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%A9%BA%E7%9A%84%E6%8F%92%E4%BB%B6"><span class="toc-text">创建一个空的插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9C%A8UE4%E5%BC%95%E6%93%8E%E4%B8%AD%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%A9%BA%E7%9A%84Plugin%E7%BB%93%E6%9E%84"><span class="toc-text">1. 在UE4引擎中创建一个空的Plugin结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">2. 定义一个自己类型的结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAEditor-Module"><span class="toc-text">创建一个Editor Module</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Editor-Module-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">1. Editor Module 目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AAModule%E7%B1%BB"><span class="toc-text">2. 定义一个Module类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA-%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E7%B1%BB"><span class="toc-text">3. 定义一个 右键菜单类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA-%E5%88%9B%E5%BB%BA%E8%B5%84%E6%BA%90%E7%9A%84%E7%B1%BB"><span class="toc-text">4. 定义一个 创建资源的类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%9C%A8EditorModule%E4%B8%AD%E6%B3%A8%E5%86%8CActions"><span class="toc-text">5. 在EditorModule中注册Actions</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Github-Code"><span class="toc-text">Github Code</span></a></li></ol>
+    </div>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="categories-card">
+  <div class="categories-header"><i class="iconfont icon-fenlei" style="padding-right: 2px;"></i>Categories</div>
+  <div class="categories-list">
+    
+      <a href="/categories/文档">
+        <div class="categories-list-item">
+          文档
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/categories/笔记">
+        <div class="categories-list-item">
+          笔记
+          <span class="categories-list-item-badge">15</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content">
+    <div class="tags-card">
+  <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>hot tags</div>
+  <div class="tags-list">
+    
+    <a href="\tags\UE4" title="UE4"><div class="tags-list-item">UE4</div></a>
+    
+    <a href="\tags\Algorithms" title="Algorithms"><div class="tags-list-item">Algorithms</div></a>
+    
+    <a href="\tags\Hexo" title="Hexo"><div class="tags-list-item">Hexo</div></a>
+    
+    <a href="\tags\Algorithnms" title="Algorithnms"><div class="tags-list-item">Algorithnms</div></a>
+    
+    <a href="\tags\CPP" title="CPP"><div class="tags-list-item">CPP</div></a>
+    
+    <a href="\tags\学习观" title="学习观"><div class="tags-list-item">学习观</div></a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+          <aside class="right-column">
+            <div class="sticky-widescreen">
+  
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%A9%BA%E7%9A%84%E6%8F%92%E4%BB%B6"><span class="toc-text">创建一个空的插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9C%A8UE4%E5%BC%95%E6%93%8E%E4%B8%AD%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%A9%BA%E7%9A%84Plugin%E7%BB%93%E6%9E%84"><span class="toc-text">1. 在UE4引擎中创建一个空的Plugin结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">2. 定义一个自己类型的结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAEditor-Module"><span class="toc-text">创建一个Editor Module</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Editor-Module-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">1. Editor Module 目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AAModule%E7%B1%BB"><span class="toc-text">2. 定义一个Module类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA-%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E7%B1%BB"><span class="toc-text">3. 定义一个 右键菜单类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA-%E5%88%9B%E5%BB%BA%E8%B5%84%E6%BA%90%E7%9A%84%E7%B1%BB"><span class="toc-text">4. 定义一个 创建资源的类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%9C%A8EditorModule%E4%B8%AD%E6%B3%A8%E5%86%8CActions"><span class="toc-text">5. 在EditorModule中注册Actions</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Github-Code"><span class="toc-text">Github Code</span></a></li></ol>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header"><i class="iconfont icon-wenzhang_huaban" style="padding-right: 2px;"></i>Recent Posts</div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-20</div>
+        <a href="/2021/03/20/ue4-plugin-custom-asset/"><div class="recent-posts-item-content">UE4 Plugin 添加自定义 Asset</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-13</div>
+        <a href="/2021/03/13/algorithms-linkedlist-2/"><div class="recent-posts-item-content">链表（下）</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-12</div>
+        <a href="/2021/03/12/algorithms-linkedlist/"><div class="recent-posts-item-content">链表（上）</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-11</div>
+        <a href="/2021/03/11/algorithms-stack/"><div class="recent-posts-item-content">栈</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>Copyright ©
+          
+          2021 -
+          
+          2021
+        </span>
+        <a href="/" class="footer-link">小冰狼 </a>
+      </div>
+    </div>
+
+    
+    <div class="footer-dsc">
+      
+      
+      Powered by
+      <a href="https://hexo.io/" class="footer-link" target="_blank" rel="nofollow noopener noreferrer">&nbsp;Hexo </a>
+      
+      
+      <span>&nbsp;|&nbsp;</span>
+      
+      
+      
+      Theme -
+      <a href="https://github.com/theme-kaze" class="footer-link" target="_blank"
+        rel="nofollow noopener noreferrer">&nbsp;Kaze</a>
+      
+    </div>
+    
+    
+    
+    
+</footer>
+  <a role="button" id="scrollbutton" class="basebutton" >
+  <i class="iconfont icon-arrowleft button-icon"></i>
+</a>
+<a role="button" id="menubutton" class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a role="button" id="popbutton" class="basebutton">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a role="button" id="darkbutton" class="basebutton darkwidget">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+
+  
+  
+  
+
+  
+  
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+    
+<script src="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js"></script>
+
+  
+
+  
+  
+  <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img');
+    var i;
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a');
+      wrapper.setAttribute('data-fslightbox', 'gallery');
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'));
+      wrapper.setAttribute('style', 'width: 100%; display: flex; justify-content: center;');
+      img[i].parentElement.insertBefore(wrapper, img[i]);
+      wrapper.appendChild(img[i]);
+    }
+    refreshFsLightbox();
+  }
+</script>
+<script>loadScript("//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js", addImgLayout)</script>
+  
+  
+  
+<script src="/js/main.js"></script>
+
+  
+  
+  <script>
+    var addLazyload = function () {
+      var observer = lozad('.lozad', {
+        load: function (el) {
+          el.srcset = el.getAttribute('data-src');
+        },
+        loaded: function (el) {
+          el.classList.add('loaded');
+        }
+      });
+      observer.observe();
+    }
+  </script>
+  <script>loadScript("/js/lib/lozad.min.js", addLazyload)</script>
+  
+  
+</body>
+
+</html>
