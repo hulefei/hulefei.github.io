@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+<meta  lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#fff" id="theme-color">
+  <link rel="icon" href="/img/icon.jpg">
+  <title>小冰狼</title>
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+    var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+      }
+    };
+    setDarkmode();
+  </script>
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  </script>
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  <link rel="preload" href="//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js" as="script">
+  
+  
+  <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  <link rel="prefetch" href="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js" as="script">
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+
+  
+  
+  
+  
+  
+  <link href="/js/lib/prism/prism-tomorrow.min.css" rel="stylesheet" data-prism="prism-tomorrow">
+  
+  
+  
+<link rel="stylesheet" href="/js/lib/prism/prism-line-numbers.min.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <div class="wrapper">
+    
+    <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+      <img class="navbar-logo-img" src="/img/icon.jpg">
+      
+      <span class="navbar-logo-dsc">小冰狼</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+    <a href="/" class="navbar-menu-item">Home </a>
+    
+    <a href="/archives" class="navbar-menu-item">Archive </a>
+    
+    <a href="/tags" class="navbar-menu-item">Tags </a>
+    
+    <a href="/categories" class="navbar-menu-item">Categories </a>
+    
+    <a href="/about" class="navbar-menu-item">About </a>
+    
+    <a href="/links" class="navbar-menu-item">Friends </a>
+    
+    <a class="navbar-menu-item darknavbar" id="dark"><i class="iconfont icon-weather"></i></a>
+  </div>
+</nav>
+    
+    <div class="section-wrap">
+      <div class="container">
+        <div class="columns">
+          <main class="main-column">
+<div class="image-wrapper">
+  <img src="/img/banners/ue4.jpg" data-src="/img/banners/ue4.jpg"
+    srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
+    class="image lozad">
+</div>
+
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      Custom UnrealVersionSeleoctor
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-03-30T16:00:00.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-03-31</span>
+    </time>
+    
+    <span class="dot"></span>
+    
+    <a href="/categories/笔记/" class="post-meta-link">笔记</a>
+    
+    
+    
+    <span class="dot"></span>
+    <span>806 words</span>
+    
+  </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/UE4/" class="post-meta-link">UE4</a>
+      
+    </div>
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <blockquote>
+<p>本文涉及UE4引擎打开项目时，如何选择本地多个引擎目录并判断是否对项目编译的原理介绍</p>
+</blockquote>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="uproject"><a href="#uproject" class="headerlink" title="uproject"></a>uproject</h3><p> 项目文件通过t的EngineAssociation属性与引擎Appname比较判断项目是否是使用当前引擎</p>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ol>
+<li><p>WinMain</p>
+</li>
+<li><p>Main<br> UnrealVersionSelector 入口</p>
+</li>
+<li><p>SwitchVersion<br> 版本选择入口</p>
+</li>
+<li><p>FWindowsPlatformInstallation::SelectEngineInstallation<br> 弹出select对话框</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">bool</span> <span class="token class-name">FWindowsPlatformInstallation</span><span class="token operator">::</span><span class="token function">SelectEngineInstallation</span><span class="token punctuation">(</span>FString <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span>Identifier<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+   FSelectBuildDialog <span class="token function">Dialog</span><span class="token punctuation">(</span>Identifier<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>Dialog<span class="token punctuation">.</span><span class="token function">DoModal</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+   <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span>
+
+   Identifier <span class="token operator">=</span> Dialog<span class="token punctuation">.</span>Identifier<span class="token punctuation">;</span>
+   <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>FDesktopPlatformWindows::EnumerateEngineInstallations</p>
+<ol>
+<li>读取Launch的引擎路径</li>
+<li>读取Innov配置的引擎路径</li>
+<li>读取注册表中的注册的引擎路径</li>
+</ol>
+<p> <strong>三类引擎的路径都存入OutInstallations</strong></p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token class-name">FDesktopPlatformWindows</span><span class="token operator">::</span><span class="token function">EnumerateEngineInstallations</span><span class="token punctuation">(</span>TMap<span class="token operator">&lt;</span>FString<span class="token punctuation">,</span> FString<span class="token operator">></span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span>OutInstallations<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+   <span class="token comment">// Enumerate the binary installations</span>
+   <span class="token function">EnumerateLauncherEngineInstallations</span><span class="token punctuation">(</span>OutInstallations<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   
+   <span class="token function">EnumerateInnovEngineInstallations</span><span class="token punctuation">(</span>OutInstallations<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment">// Enumerate the per-user installations</span>
+   HKEY hKey<span class="token punctuation">;</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">RegOpenKeyEx</span><span class="token punctuation">(</span>HKEY_CURRENT_USER<span class="token punctuation">,</span> InstallationsSubKey<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> KEY_ALL_ACCESS<span class="token punctuation">,</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span>hKey<span class="token punctuation">)</span> <span class="token operator">==</span> ERROR_SUCCESS<span class="token punctuation">)</span>
+   <span class="token punctuation">&#123;</span>
+      <span class="token comment">// Get a list of all the directories</span>
+      TArray<span class="token operator">&lt;</span>FString<span class="token operator">></span> UniqueDirectories<span class="token punctuation">;</span>
+      OutInstallations<span class="token punctuation">.</span><span class="token function">GenerateValueArray</span><span class="token punctuation">(</span>UniqueDirectories<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment">// Enumerate all the installations</span>
+      TArray<span class="token operator">&lt;</span>FString<span class="token operator">></span> InvalidKeys<span class="token punctuation">;</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token operator">::</span>DWORD Index <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">;</span> Index<span class="token operator">++</span><span class="token punctuation">)</span>
+      <span class="token punctuation">&#123;</span>
+         TCHAR ValueName<span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+         TCHAR ValueData<span class="token punctuation">[</span>MAX_PATH<span class="token punctuation">]</span><span class="token punctuation">;</span>
+         <span class="token operator">::</span>DWORD ValueType <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+         <span class="token operator">::</span>DWORD ValueNameLength <span class="token operator">=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>ValueName<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>ValueName<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token operator">::</span>DWORD ValueDataSize <span class="token operator">=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>ValueData<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+         LRESULT Result <span class="token operator">=</span> <span class="token function">RegEnumValue</span><span class="token punctuation">(</span>hKey<span class="token punctuation">,</span> Index<span class="token punctuation">,</span> ValueName<span class="token punctuation">,</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span>ValueNameLength<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span>ValueType<span class="token punctuation">,</span> <span class="token punctuation">(</span>BYTE<span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span>ValueData<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span>ValueDataSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token keyword">if</span><span class="token punctuation">(</span>Result <span class="token operator">==</span> ERROR_SUCCESS<span class="token punctuation">)</span>
+         <span class="token punctuation">&#123;</span>
+            int32 ValueDataLength <span class="token operator">=</span> ValueDataSize <span class="token operator">/</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>TCHAR<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>ValueDataLength <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> ValueData<span class="token punctuation">[</span>ValueDataLength <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> ValueDataLength<span class="token operator">--</span><span class="token punctuation">;</span>
+
+            FString <span class="token function">NormalizedInstalledDirectory</span><span class="token punctuation">(</span>ValueDataLength<span class="token punctuation">,</span> ValueData<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">FPaths</span><span class="token operator">::</span><span class="token function">NormalizeDirectoryName</span><span class="token punctuation">(</span>NormalizedInstalledDirectory<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">FPaths</span><span class="token operator">::</span><span class="token function">CollapseRelativeDirectories</span><span class="token punctuation">(</span>NormalizedInstalledDirectory<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">IsValidRootDirectory</span><span class="token punctuation">(</span>NormalizedInstalledDirectory<span class="token punctuation">)</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token operator">!</span>UniqueDirectories<span class="token punctuation">.</span><span class="token function">Contains</span><span class="token punctuation">(</span>NormalizedInstalledDirectory<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+               OutInstallations<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>ValueName<span class="token punctuation">,</span> NormalizedInstalledDirectory<span class="token punctuation">)</span><span class="token punctuation">;</span>
+               UniqueDirectories<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>NormalizedInstalledDirectory<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">else</span>
+            <span class="token punctuation">&#123;</span>
+               InvalidKeys<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>ValueName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+         <span class="token punctuation">&#125;</span>
+         <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>Result <span class="token operator">==</span> ERROR_NO_MORE_ITEMS<span class="token punctuation">)</span>
+         <span class="token punctuation">&#123;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+         <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span>
+
+      <span class="token comment">// Remove all the keys which weren't valid</span>
+      <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">const</span> FString InvalidKey<span class="token operator">:</span> InvalidKeys<span class="token punctuation">)</span>
+      <span class="token punctuation">&#123;</span>
+         <span class="token function">RegDeleteValue</span><span class="token punctuation">(</span>hKey<span class="token punctuation">,</span> <span class="token operator">*</span>InvalidKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+
+      <span class="token function">RegCloseKey</span><span class="token punctuation">(</span>hKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>FDesktopPlatformBase::EnumerateInnovEngineInstallations</p>
+<ol>
+<li>读取InnovInstall 路径</li>
+<li>存入OutInstallations<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token class-name">FDesktopPlatformBase</span><span class="token operator">::</span><span class="token function">EnumerateInnovEngineInstallations</span><span class="token punctuation">(</span>TMap<span class="token operator">&lt;</span>FString<span class="token punctuation">,</span> FString<span class="token operator">></span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span>OutInstallations<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+   <span class="token comment">//see:FDesktopPlatformBase::EnumerateLauncherEngineInstallations</span>
+   <span class="token comment">// Cache the Innov install list if necessary</span>
+   <span class="token comment">//1. 读取InnovInstall 路径</span>
+   <span class="token function">ReadInnovInstallationList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   
+   <span class="token keyword">for</span><span class="token punctuation">(</span>TMap<span class="token operator">&lt;</span>FString<span class="token punctuation">,</span> FString<span class="token operator">></span><span class="token operator">::</span>TConstIterator <span class="token function">Iter</span><span class="token punctuation">(</span>InnovInstallationList<span class="token punctuation">)</span><span class="token punctuation">;</span> Iter<span class="token punctuation">;</span> <span class="token operator">++</span>Iter<span class="token punctuation">)</span>
+   <span class="token punctuation">&#123;</span>
+      FString AppName <span class="token operator">=</span> Iter<span class="token punctuation">.</span><span class="token function">Key</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">//2. 存入OutInstallations</span>
+      OutInstallations<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>AppName<span class="token punctuation">,</span> Iter<span class="token punctuation">.</span><span class="token function">Value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+</li>
+<li><p>FDesktopPlatformBase：：ReadInnovInstallationList()</p>
+<ol>
+<li>从 RootDirectory / TEXT(“Engine/Build/InnovInstalled.dat”)  InnovInstallEngine路径</li>
+<li>将读取到的InnovInstallEngine路径存入InnovInstallationList<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//引擎根路径</span>
+<span class="token keyword">const</span> FString RootDirectory <span class="token operator">=</span> <span class="token class-name">FPaths</span><span class="token operator">::</span><span class="token function">RootDir</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//1. 从 RootDirectory / TEXT("Engine/Build/InnovInstalled.dat")  InnovInstallEngine路径</span>
+<span class="token keyword">const</span> FString InstalledListFile <span class="token operator">=</span> RootDirectory <span class="token operator">/</span> <span class="token function">TEXT</span><span class="token punctuation">(</span><span class="token string">"Engine/Build/InnovInstalled.dat"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Read the installation manifest</span>
+FString InstalledText<span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">FFileHelper</span><span class="token operator">::</span><span class="token function">LoadFileToString</span><span class="token punctuation">(</span>InstalledText<span class="token punctuation">,</span> <span class="token operator">*</span>InstalledListFile<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+   <span class="token comment">// Deserialize the object</span>
+   TSharedPtr<span class="token operator">&lt;</span> FJsonObject <span class="token operator">></span> RootObject<span class="token punctuation">;</span>
+   <span class="token keyword">const</span> TSharedRef<span class="token operator">&lt;</span> TJsonReader<span class="token operator">&lt;</span><span class="token operator">></span> <span class="token operator">></span> Reader <span class="token operator">=</span> <span class="token class-name">TJsonReaderFactory</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">Create</span><span class="token punctuation">(</span>InstalledText<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">FJsonSerializer</span><span class="token operator">::</span><span class="token function">Deserialize</span><span class="token punctuation">(</span>Reader<span class="token punctuation">,</span> RootObject<span class="token punctuation">)</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> RootObject<span class="token punctuation">.</span><span class="token function">IsValid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+   <span class="token punctuation">&#123;</span>
+      <span class="token comment">// Parse the list of installations</span>
+      TArray<span class="token operator">&lt;</span> TSharedPtr<span class="token operator">&lt;</span>FJsonValue<span class="token operator">></span> <span class="token operator">></span> InstallationList <span class="token operator">=</span> RootObject<span class="token operator">-></span><span class="token function">GetArrayField</span><span class="token punctuation">(</span><span class="token function">TEXT</span><span class="token punctuation">(</span><span class="token string">"InstallationList"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span><span class="token punctuation">(</span>int32 Idx <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> Idx <span class="token operator">&lt;</span> InstallationList<span class="token punctuation">.</span><span class="token function">Num</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> Idx<span class="token operator">++</span><span class="token punctuation">)</span>
+      <span class="token punctuation">&#123;</span>
+         <span class="token keyword">const</span> TSharedPtr<span class="token operator">&lt;</span>FJsonObject<span class="token operator">></span> InstallationItem <span class="token operator">=</span> InstallationList<span class="token punctuation">[</span>Idx<span class="token punctuation">]</span><span class="token operator">-></span><span class="token function">AsObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+         FString AppName <span class="token operator">=</span> InstallationItem<span class="token operator">-></span><span class="token function">GetStringField</span><span class="token punctuation">(</span><span class="token function">TEXT</span><span class="token punctuation">(</span><span class="token string">"AppName"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token comment">//使用当前引擎作为Innov引擎</span>
+         FString InstallLocation <span class="token operator">=</span> RootDirectory<span class="token punctuation">;</span>
+         <span class="token keyword">if</span><span class="token punctuation">(</span>AppName<span class="token punctuation">.</span><span class="token function">Len</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> InstallLocation<span class="token punctuation">.</span><span class="token function">Len</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
+         <span class="token punctuation">&#123;</span>
+            <span class="token class-name">FPaths</span><span class="token operator">::</span><span class="token function">NormalizeDirectoryName</span><span class="token punctuation">(</span>InstallLocation<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 2. 将读取到的InnovInstallEngine路径存入InnovInstallationList</span>
+            InnovInstallationList<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>AppName<span class="token punctuation">,</span> InstallLocation<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span>
+   <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+</li>
+<li><p>DesktopPlatformWindows.cpp</p>
+</li>
+</ol>
+<p>引擎默认是使用Install目录的UnrealVersionSelector.exe, 将注册的UnrealVersionSelector的路径改为当前目录的路基</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// Defer to UnrealVersionSelector.exe in a launcher installation if it's got the same version number or greater.</span>
+<span class="token comment">// FString InstallDir;</span>
+<span class="token comment">// if (FWindowsPlatformMisc::QueryRegKey(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\EpicGames\\Unreal Engine"), TEXT("INSTALLDIR"), InstallDir) &amp;&amp; (InstallDir.Len() > 0))</span>
+<span class="token comment">// &#123;</span>
+	<span class="token comment">// FString NormalizedInstallDir = InstallDir;</span>
+	<span class="token comment">// FPaths::NormalizeDirectoryName(NormalizedInstallDir);</span>
+
+	<span class="token comment">// FString InstalledExecutableFileName = NormalizedInstallDir / FString("Launcher/Engine/Binaries/Win64/UnrealVersionSelector.exe");</span>
+	<span class="token comment">// if(GetShellIntegrationVersion(InstalledExecutableFileName) == GetShellIntegrationVersion(ExecutableFileName))</span>
+	<span class="token comment">// &#123;</span>
+	<span class="token comment">// 	ExecutableFileName = InstalledExecutableFileName;</span>
+	<span class="token comment">// &#125;</span>
+<span class="token comment">// &#125;</span>
+
+<span class="token comment">//change UnrealVersionSelector.exe in a launcher installation to UnrealVersionSelector.exe in InnovUE4 installation</span>
+FString InstalledExecutableFileName <span class="token operator">=</span> ExecutableFileName<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p> 使用 RegisterUnrealVersionSelector.bat 注册当前引擎版本的UnrealVersionSelector，之后就可以直接打开uproject</p>
+<h2 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h2><ol>
+<li>构建Install版本时，需要执行Engine\Build\Graph\Innov\AddVersionSelectorToInstall.xml 将UnrealVersionSelector复制到binary中</li>
+<li>InnovUE4版本名称在 Engine\Build\InnovInstalled.dat 中配置</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>UnrealVersionSelector  用于打开项目前的引擎选择，还有其他可能可以继续改进或添加新的特性</p>
+
+  </div>
+  <div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/03/29/algorithms-sort-1/" class="nav-link">
+      <div>
+        <div class="nav-label">Next</div>
+        
+        <div class="nav-title">排序（上） </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#uproject"><span class="toc-text">uproject</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-text">流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA"><span class="toc-text">构建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+</div></main>
+          <aside class="left-column">
+            
+            <div class="card card-author">
+              
+<img src="/img/icon.jpg" class="author-img">
+
+<p class="author-name">小冰狼</p>
+<p class="author-description">A IT Worker</p>
+<div class="author-message">
+  <a class="author-posts-count" href="/archives">
+    <span>19</span>
+    <span>Posts</span>
+  </a>
+  <a class="author-categories-count" href="/categories">
+    <span>2</span>
+    <span>Categories</span>
+  </a>
+  <a class="author-tags-count" href="/tags">
+    <span>6</span>
+    <span>Tags</span>
+  </a>
+</div>
+
+<div class="author-card-society">
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://github.com/hulefei">
+        <i class="iconfont icon-github society-icon"></i>
+      </a>
+    </div>
+  
+    <div class="author-card-society-icon">
+      <a href="mailto:hulefei29@gmail.com.com">
+        <i class="iconfont icon-mail society-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+            </div>
+            
+            <div class="sticky-tablet">
+  
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#uproject"><span class="toc-text">uproject</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-text">流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA"><span class="toc-text">构建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+    </div>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="categories-card">
+  <div class="categories-header"><i class="iconfont icon-fenlei" style="padding-right: 2px;"></i>Categories</div>
+  <div class="categories-list">
+    
+      <a href="/categories/文档">
+        <div class="categories-list-item">
+          文档
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/categories/笔记">
+        <div class="categories-list-item">
+          笔记
+          <span class="categories-list-item-badge">17</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content">
+    <div class="tags-card">
+  <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>hot tags</div>
+  <div class="tags-list">
+    
+    <a href="\tags\Hexo" title="Hexo"><div class="tags-list-item">Hexo</div></a>
+    
+    <a href="\tags\学习观" title="学习观"><div class="tags-list-item">学习观</div></a>
+    
+    <a href="\tags\UE4" title="UE4"><div class="tags-list-item">UE4</div></a>
+    
+    <a href="\tags\CPP" title="CPP"><div class="tags-list-item">CPP</div></a>
+    
+    <a href="\tags\Algorithnms" title="Algorithnms"><div class="tags-list-item">Algorithnms</div></a>
+    
+    <a href="\tags\Algorithms" title="Algorithms"><div class="tags-list-item">Algorithms</div></a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+          <aside class="right-column">
+            <div class="sticky-widescreen">
+  
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#uproject"><span class="toc-text">uproject</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-text">流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA"><span class="toc-text">构建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header"><i class="iconfont icon-wenzhang_huaban" style="padding-right: 2px;"></i>Recent Posts</div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-31</div>
+        <a href="/2021/03/31/ue-unrealversionselector/"><div class="recent-posts-item-content">Custom UnrealVersionSeleoctor</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-29</div>
+        <a href="/2021/03/29/algorithms-sort-1/"><div class="recent-posts-item-content">排序（上）</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-20</div>
+        <a href="/2021/03/20/ue4-plugin-custom-asset/"><div class="recent-posts-item-content">UE4 Plugin 添加自定义 Asset</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-13</div>
+        <a href="/2021/03/13/algorithms-linkedlist-2/"><div class="recent-posts-item-content">链表（下）</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>Copyright ©
+          
+          2021 -
+          
+          2021
+        </span>
+        <a href="/" class="footer-link">小冰狼 </a>
+      </div>
+    </div>
+
+    
+    <div class="footer-dsc">
+      
+      
+      Powered by
+      <a href="https://hexo.io/" class="footer-link" target="_blank" rel="nofollow noopener noreferrer">&nbsp;Hexo </a>
+      
+      
+      <span>&nbsp;|&nbsp;</span>
+      
+      
+      
+      Theme -
+      <a href="https://github.com/theme-kaze" class="footer-link" target="_blank"
+        rel="nofollow noopener noreferrer">&nbsp;Kaze</a>
+      
+    </div>
+    
+    
+    
+    
+</footer>
+  <a role="button" id="scrollbutton" class="basebutton" >
+  <i class="iconfont icon-arrowleft button-icon"></i>
+</a>
+<a role="button" id="menubutton" class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a role="button" id="popbutton" class="basebutton">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a role="button" id="darkbutton" class="basebutton darkwidget">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+
+  
+  
+  
+
+  
+  
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+    
+<script src="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js"></script>
+
+  
+
+  
+  
+  <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img');
+    var i;
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a');
+      wrapper.setAttribute('data-fslightbox', 'gallery');
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'));
+      wrapper.setAttribute('style', 'width: 100%; display: flex; justify-content: center;');
+      img[i].parentElement.insertBefore(wrapper, img[i]);
+      wrapper.appendChild(img[i]);
+    }
+    refreshFsLightbox();
+  }
+</script>
+<script>loadScript("//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js", addImgLayout)</script>
+  
+  
+  
+<script src="/js/main.js"></script>
+
+  
+  
+  <script>
+    var addLazyload = function () {
+      var observer = lozad('.lozad', {
+        load: function (el) {
+          el.srcset = el.getAttribute('data-src');
+        },
+        loaded: function (el) {
+          el.classList.add('loaded');
+        }
+      });
+      observer.observe();
+    }
+  </script>
+  <script>loadScript("/js/lib/lozad.min.js", addLazyload)</script>
+  
+  
+</body>
+
+</html>
