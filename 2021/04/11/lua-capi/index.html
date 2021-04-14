@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html>
+<meta  lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#fff" id="theme-color">
+  <link rel="icon" href="/img/icon.jpg">
+  <title>小冰狼</title>
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+    var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+      }
+    };
+    setDarkmode();
+  </script>
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  </script>
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  <link rel="preload" href="//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js" as="script">
+  
+  
+  <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  <link rel="prefetch" href="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js" as="script">
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+
+  
+  
+  
+  
+  
+  <link href="/js/lib/prism/prism-tomorrow.min.css" rel="stylesheet" data-prism="prism-tomorrow">
+  
+  
+  
+<link rel="stylesheet" href="/js/lib/prism/prism-line-numbers.min.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <div class="wrapper">
+    
+    <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+      <img class="navbar-logo-img" src="/img/icon.jpg">
+      
+      <span class="navbar-logo-dsc">小冰狼</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+    <a href="/" class="navbar-menu-item">Home </a>
+    
+    <a href="/archives" class="navbar-menu-item">Archive </a>
+    
+    <a href="/tags" class="navbar-menu-item">Tags </a>
+    
+    <a href="/categories" class="navbar-menu-item">Categories </a>
+    
+    <a href="/about" class="navbar-menu-item">About </a>
+    
+    <a href="/links" class="navbar-menu-item">Friends </a>
+    
+    <a class="navbar-menu-item darknavbar" id="dark"><i class="iconfont icon-weather"></i></a>
+  </div>
+</nav>
+    
+    <div class="section-wrap">
+      <div class="container">
+        <div class="columns">
+          <main class="main-column">
+<div class="image-wrapper">
+  <img src="/img/banners/lua.jpg" data-src="/img/banners/lua.jpg"
+    srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
+    class="image lozad">
+</div>
+
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      C语言API
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-04-10T16:00:00.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-04-11</span>
+    </time>
+    
+    <span class="dot"></span>
+    
+    <a href="/categories/笔记/" class="post-meta-link">笔记</a>
+    
+    
+    
+    <span class="dot"></span>
+    <span>2.4k words</span>
+    
+  </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/LUA/" class="post-meta-link">LUA</a>
+      
+    </div>
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <blockquote>
+<p>C语言API概要</p>
+</blockquote>
+<h2 id="什么是Lua"><a href="#什么是Lua" class="headerlink" title="什么是Lua"></a>什么是Lua</h2><ol>
+<li>Lua是一种嵌入式语言<ol>
+<li>Lua并不是一个独立运行的应用，而是一个库</li>
+<li>可以链接到其他应用程序</li>
+<li>C拥有控制权，而Lua语言被用作库</li>
+</ol>
+</li>
+<li>Lua解释器<ol>
+<li>它与用Lua标准库实现的独立解释器</li>
+<li>它负责与用户交互，将用户的文件和字符串传递给Lua标准库，标准库完成主要工作</li>
+</ol>
+</li>
+<li>Lua是一种扩展语言<ol>
+<li>可以在Lua环境中注册新的函数（比如C语言），从而增加一些无法直接在Lua语言编写的功能</li>
+<li>Lua语言拥有控制权，而C语言作为库</li>
+</ol>
+</li>
+</ol>
+<p><strong>通过CAPI 将Lua和C语言进行通信</strong></p>
+<h2 id="什么是CAPI"><a href="#什么是CAPI" class="headerlink" title="什么是CAPI"></a>什么是CAPI</h2><ol>
+<li>CAPI是一个函数、常量和类型组成的集合</li>
+<li>CAPI包括读写Lua全局变量的函数、调用Lua函数的函数、运行Lua代码段的函数，以及注册C函数（被Lua调用）函数等</li>
+<li>CAPI是C语言</li>
+<li>Lua独立解释器：lua.c</li>
+<li>Lua标准库：Lmathlib.c, Lstrlib.c 等</li>
+</ol>
+<h2 id="第一个示例"><a href="#第一个示例" class="headerlink" title="第一个示例"></a>第一个示例</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"lualib/lua.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"lualib/lauxlib.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"lualib/lualib.h"</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+    lua_State <span class="token operator">*</span>L <span class="token operator">=</span> <span class="token function">luaL_newstate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">luaL_openlibs</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">/*
+	//加载lua文件
+	if (argc != 2) return -1;
+	char* path = argv[1];
+	int bRet = luaL_loadfile(L, path);
+	lua_pcall(L, 0,0,0);
+*/</span>
+
+    <span class="token comment">// 命令行输入</span>
+    <span class="token keyword">int</span> error<span class="token punctuation">;</span>
+   	<span class="token keyword">char</span> buff<span class="token punctuation">[</span><span class="token number">1000</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+	<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token function">fgets</span><span class="token punctuation">(</span>buff<span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>buff<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token constant">stdin</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	    error <span class="token operator">=</span> <span class="token function">luaL_loadstring</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> buff<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token function">lua_pcall</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	    <span class="token keyword">if</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	        <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token string">"%s\n"</span><span class="token punctuation">,</span> <span class="token function">lua_tostring</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	        <span class="token function">lua_pop</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	    <span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span>
+
+    <span class="token function">lua_close</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>lua.h<ol>
+<li>声明了Lua提供的基础函数（读写Lua全局变量的函数、调用Lua函数的函数、运行Lua代码段的函数，以及注册C函数函数）</li>
+<li>所有内容都使用lua_前缀</li>
+<li>可访问Lua内部元素</li>
+<li>精简</li>
+</ol>
+</li>
+<li>lauxlib.h<ol>
+<li>声明辅助库（auxiliary library, auxlib）</li>
+<li>所有内容都使用luaL_前缀</li>
+<li>不可访问Lua内部元素，只提供工具方法</li>
+<li>实用</li>
+</ol>
+</li>
+<li>lua_State<ol>
+<li>Lua标准库没有定义任何C语言全局变量</li>
+<li>所有状态都保存在动态的结构体lua_State中</li>
+<li>Lua中所有函数都接受一个指向该结构体的指针</li>
+</ol>
+</li>
+<li>luaL_newstate<ol>
+<li>创建一个新的Lua状态（栈）</li>
+<li>没有任何预定义的函数</li>
+</ol>
+</li>
+<li>lualib.h<ol>
+<li>lua标准库</li>
+<li>使用LuaL_openlibs打开所有标准库</li>
+</ol>
+</li>
+<li>luaL_loadstring<ol>
+<li>编译lua内容</li>
+<li>正确则返回零，并向栈中压入编译后的函数</li>
+</ol>
+</li>
+<li>luaL_pcall<ol>
+<li>从栈中弹出编译后的函数</li>
+<li>以保护模式运行</li>
+<li>正确则返回零</li>
+<li>如果错误，将错误信息压入栈</li>
+<li>lua_pop 获取错误信息，并从栈中删除</li>
+</ol>
+</li>
+<li>lua_close<ol>
+<li>关闭lua</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>lua即可以用为C代码编译，也可以作为C++代码编译，所以并不需要标注c或cpp</li>
+</ul>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span> <span class="token expression">__cplusplus</span></span>
+<span class="token keyword">extern</span> <span class="token string">"C"</span> <span class="token punctuation">&#123;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+	<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span> <span class="token expression">__cplusplus</span></span>
+<span class="token punctuation">&#125;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>如果Lua作为C代码编译后又需要在C++中使用，可以引入lua.hpp来替代lua.h,定义如下：</li>
+</ul>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">extern</span> <span class="token string">"C"</span> <span class="token punctuation">&#123;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"lua.h"</span></span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p><strong>Lua和C之间通信主要使用虚拟栈（stack）</strong></p>
+<h3 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h3><h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ol>
+<li>动态类型和静态类型体系之间不匹配</li>
+<li>自动内存管理和手动内存管理之间不匹配</li>
+</ol>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>Lua通信方式</p>
+<ol>
+<li>栈中保存Lua中任意类型的值</li>
+<li>Lua取C值时，C将指定的值压入栈，然后调用Lua将其从栈中弹出即可</li>
+<li>C取Lua值时，调用lua，lua会将值压入栈，C从栈中取值</li>
+<li>Lua栈是lua状态的一部分，隐藏垃圾收集器知道C语言正在使用哪些值</li>
+</ol>
+<h3 id="压入元素"><a href="#压入元素" class="headerlink" title="压入元素"></a>压入元素</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//常量nil使用lua_pushnil</span>
+<span class="token keyword">void</span> <span class="token function">lua_pushnil</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">)</span>
+<span class="token comment">//布尔值（在C语言中是整型）</span>
+<span class="token keyword">void</span> <span class="token function">lua_pushboolean</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">)</span>
+<span class="token comment">//双精度浮点数</span>
+<span class="token keyword">void</span> <span class="token function">lua_pushnmber</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> lua_Number n<span class="token punctuation">)</span>
+<span class="token comment">//整型</span>
+<span class="token keyword">void</span> <span class="token function">lua_pushinteger</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> lua_Integer n<span class="token punctuation">)</span>
+<span class="token comment">//任意字符串（一个指向char的指针，外加一个长度）</span>
+<span class="token keyword">void</span> <span class="token function">lua_pushlstring</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">,</span> <span class="token class-name">size_t</span> len<span class="token punctuation">)</span>
+<span class="token comment">//以\0终止的字符串</span>
+<span class="token keyword">void</span> <span class="token function">lua_pushstring</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="检查栈中的空间"><a href="#检查栈中的空间" class="headerlink" title="检查栈中的空间"></a>检查栈中的空间</h4><ul>
+<li>lua CAPI 方法<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/*
+	如果可能，则增加栈的大小，否则，返回零
+	@param sz 所需额外栈的数量
+*/</span>
+<span class="token keyword">int</span> <span class="token function">lua_checkstack</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> sz<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>lua 标准库方法<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/*
+	如果可能，则增加栈的大小，否则，返回错误信息
+	@param sz 所需额外栈的数量
+*/</span>
+<span class="token keyword">void</span> <span class="token function">luaL_checkstack</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> sz<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>msg<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="查询元素"><a href="#查询元素" class="headerlink" title="查询元素"></a>查询元素</h3></li>
+</ul>
+<ol>
+<li>使用索引来引用栈的元素</li>
+<li>第一个压入栈的索引为1</li>
+<li>栈顶（最后一个）一个索引为-1</li>
+</ol>
+<ul>
+<li>lua_is* </li>
+</ul>
+<ol>
+<li>检查栈中一个元素是否为特定的类型</li>
+<li>并不是检查某个值是否为特定类型，而是检查该值是否能被转为特定类型</li>
+</ol>
+<ul>
+<li>lua_type</li>
+</ul>
+<ol>
+<li>返回栈中元素的类型</li>
+<li>每种类型对应常量（LUA_TNIL, LUA_TBOOLEAN, LUA_TNUMBER,LUA_TSTRING）</li>
+</ol>
+<ul>
+<li>lua_to*</li>
+</ul>
+<ol>
+<li><p>用于从栈中取值</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">lua_toboolean</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">)</span>
+<span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token function">lua_tolstring</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">,</span> <span class="token class-name">size_t</span> <span class="token operator">*</span>len<span class="token punctuation">)</span>
+lua_State <span class="token operator">*</span><span class="token function">lua_tothread</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">)</span>
+lua_Number <span class="token function">lua_tonumber</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">)</span>
+lua_Integer <span class="token function">lua_tointeger</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>5.2引入的新函数</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">lua_Number <span class="token function">lua_tonumberx</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span>isnum<span class="token punctuation">)</span>
+lua_Integer <span class="token function">lua_tointegerx</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span>isnum<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol>
+<li>isnum 返回一个布尔值，表示Lua值是否被强制转换为期望的类型</li>
+</ol>
+</li>
+<li><p>lua_tolstring</p>
+<ol>
+<li>返回一个指向该字符串内部副本的指针,并将字符串的长度存入到参数len指定位置</li>
+<li>Lua语言保证，字符串还在栈中，则指针就有效</li>
+<li>返回的字符串末尾会添加一个\0</li>
+<li>len为字符串真实长度<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">size_t</span> len<span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s <span class="token operator">=</span> <span class="token function">lua_tolstring</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>len<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//任意lua字符串</span>
+<span class="token function">assert</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>len<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'\0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//永远成立</span>
+<span class="token function">assert</span><span class="token punctuation">(</span><span class="token function">strlen</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">&lt;=</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//永远成立</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">stackDump</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> i<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> top <span class="token operator">=</span> <span class="token function">lua_gettop</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//栈的深度</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> top<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> t <span class="token operator">=</span> <span class="token function">lua_type</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">switch</span> <span class="token punctuation">(</span>t<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">case</span> LUA_TSTRING<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+                <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"'%s'"</span><span class="token punctuation">,</span> <span class="token function">lua_tostring</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">case</span> LUA_TBOOLEAN<span class="token operator">:</span><span class="token punctuation">&#123;</span>
+                <span class="token function">printf</span><span class="token punctuation">(</span><span class="token function">lua_toboolean</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">"true"</span> <span class="token operator">:</span> <span class="token string">"false"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">case</span> LUA_TNUMBER<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+
+                <span class="token comment">/*
+                //5.3
+                if (lua_isinteger(L, i)) printf("%lld", lua_tointeger(L, i)); //整型
+                else printf("%g", lua_tonumber(L, i)); // 浮点型
+                 */</span>
+
+                <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%g"</span><span class="token punctuation">,</span> <span class="token function">lua_tonumber</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">default</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+                <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s"</span><span class="token punctuation">,</span> <span class="token function">lua_typename</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"    "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3></li>
+</ol>
+</li>
+</ol>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//返回栈中元素的个数，也是栈顶元素的索引</span>
+<span class="token keyword">int</span> <span class="token function">lua_gettop</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/* 
+* 将栈顶设置为一个指定的值，修改栈中元素树龄
+* 大于原有栈数量使用nil填充，否则丢弃
+* lua_settop(L, 0) 清空 */</span>
+<span class="token keyword">int</span> <span class="token function">lua_settop</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//弹出n个元素</span>
+<span class="token keyword">int</span> <span class="token function">lua_pop</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> n<span class="token punctuation">)</span>
+<span class="token comment">//lua中的定义</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">lua_pop</span><span class="token expression"><span class="token punctuation">(</span>L<span class="token punctuation">,</span> n<span class="token punctuation">)</span> <span class="token function">lua_settop</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span></span></span>
+<span class="token comment">//将指定索引上的元素的副本压入栈</span>
+<span class="token keyword">int</span> <span class="token function">lua_pushvalue</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//Lua5.3新引入，如果n>0, 向栈顶移动n个位置；如果n&lt;0,向栈底移动n个位置</span>
+<span class="token keyword">int</span> <span class="token function">lua_rotate</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">,</span> <span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//删除指定索引的元素，并移动栈填补空缺</span>
+<span class="token keyword">int</span> <span class="token function">lua_remove</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//lua中定义</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">lua_remove</span><span class="token expression"><span class="token punctuation">(</span>L<span class="token punctuation">,</span> index<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token function">lua_rotate</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">lua_pop</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+<span class="token comment">//将栈顶元素移动到指定位置，并开辟一个位置</span>
+<span class="token keyword">int</span> <span class="token function">lua_insert</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//lua中定义</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">lua_insert</span><span class="token expression"><span class="token punctuation">(</span>L<span class="token punctuation">,</span> index<span class="token punctuation">)</span> <span class="token function">lua_rotate</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span></span></span>
+<span class="token comment">//弹出一个值，并将栈顶设置为指定索引上的值</span>
+<span class="token keyword">int</span> <span class="token function">lua_replace</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//将一个索引上的值复制到另一个索引上，并且原值不受影响</span>
+<span class="token keyword">int</span> <span class="token function">lua_copy</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">,</span> <span class="token keyword">int</span> fromindex<span class="token punctuation">,</span> <span class="token keyword">int</span> toindex<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以下操作不会对空栈产生影响</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//以下操作不会对空栈产生影响</span>
+<span class="token function">lua_settop</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//将栈顶设置为当前的值</span>
+<span class="token function">lua_insert</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//将栈顶的元素移动到栈顶</span>
+<span class="token function">lua_copy</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> x<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 把一个元素复制到它当前的位置</span>
+<span class="token function">lua_rotate</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> x<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//旋转零个位置</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"lua.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"lauxlib.h"</span></span>
+<span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">stackDump</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	lua_State <span class="token operator">*</span>L <span class="token operator">=</span> <span class="token function">luaL_newstate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token function">lua_pushboolean</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">lua_pushnumber</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">lua_pushnil</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">lua_pushstring</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token function">stackDump</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// output: true 10 nil 'hello'</span>
+
+	<span class="token function">lua_pushvalue</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">stackDump</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//output: true 10 nil 'hello' true</span>
+
+	<span class="token function">lua_replace</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">stackDump</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//output: true 10 true 'hello'</span>
+
+	<span class="token function">lua_settop</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">stackDump</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//output: true 10 true 'hello' nil nil</span>
+
+	<span class="token function">lua_rotate</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">stackDump</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// output: true 10 nil true 'hello' nil</span>
+
+	<span class="token function">lua_remove</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">stackDump</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//output: true 10 nil 'hello' nil</span>
+
+	<span class="token function">lua_settop</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">stackDump</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//output: true</span>
+
+	<span class="token function">lua_close</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="使用CAPI进行错误处理"><a href="#使用CAPI进行错误处理" class="headerlink" title="使用CAPI进行错误处理"></a>使用CAPI进行错误处理</h2><h3 id="处理应用代码中的错误"><a href="#处理应用代码中的错误" class="headerlink" title="处理应用代码中的错误"></a>处理应用代码中的错误</h3><ol>
+<li>C语言执行时出错</li>
+<li>把C代码封装到一个函数F中，然后使用lua_pcall调用这个函数F</li>
+<li>C代码在保护模式下运行，即使内存分配失败，lua_pcall返回一个错误码，不会影响程序本身</li>
+</ol>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">foo</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+	code to run in <span class="token keyword">protected</span> <span class="token function">mode</span> <span class="token punctuation">(</span>要以保护模式运行的代码<span class="token punctuation">)</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">secure_foo</span><span class="token punctuation">(</span>lua_State <span class="token operator">*</span>L<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+	<span class="token function">lua_pushcfunction</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> foo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token function">lua_pcall</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>无论foo函数运行是否成功，都不会造成secure_foo崩溃</li>
+</ul>
+<h3 id="处理库代码中的错误"><a href="#处理库代码中的错误" class="headerlink" title="处理库代码中的错误"></a>处理库代码中的错误</h3><ol>
+<li>Lua调用C方法时出错</li>
+<li>由于Lua代码在lua_pcall中运行，所以都不会导致调用lua_pcall 奔溃</li>
+<li>如果出错，调用lua_error做错误处理（luaL_error更好，它会格式化错误信息，然后调用lua_error）</li>
+<li>将错误信息压入栈传递错误信息</li>
+</ol>
+<h2 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h2><ol>
+<li><p>Lua核心对内存不做任何处理，调用提供的分配函数进行内存分配</p>
+</li>
+<li><p>LuaL_newstate 默认分配函数来创建Lua状态(使用标准函数malloc-realloc-free)</p>
+</li>
+<li><p>自定义分配函数使用Lua原始方法lua_newstate<br> a. lua_newstate</p>
+ <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/*
+*  @param f 分配函数
+*  @param ud 用户数据
+*/</span>
+lua_State <span class="token operator">*</span><span class="token function">luaL_newstate</span><span class="token punctuation">(</span>lua_Alloc f<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>ud<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p> b. 分配函数lua_Alloc的类型声明</p>
+ <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/*
+*	@param ud 用户数据
+*	@param ptr 正要被（重）分配或释放的块的地址
+*	@param size_t 原始块的大小
+*	@param osize 如果ptr不是NULL，Lua会保证其之前被分配的大小就是osize, 否则为0
+*	@parma nsize 请求块的大小
+*/</span>
+<span class="token keyword">typedef</span> <span class="token keyword">void</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token operator">*</span>lua_Alloc<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>ud<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>ptr<span class="token punctuation">,</span> <span class="token class-name">size_t</span> osize<span class="token punctuation">,</span> <span class="token class-name">size_t</span> nsize<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>luaL_newstate的实现(在文件lauxlib.c中)</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token operator">*</span><span class="token function">l_alloc</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>ud<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>ptr<span class="token punctuation">,</span> <span class="token class-name">size_t</span> osize<span class="token punctuation">,</span> <span class="token class-name">size_t</span> nsize<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>ud<span class="token punctuation">;</span>
+  <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>osize<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>nsize <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">free</span><span class="token punctuation">(</span>ptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">else</span>
+    <span class="token keyword">return</span> <span class="token function">realloc</span><span class="token punctuation">(</span>ptr<span class="token punctuation">,</span> nsize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+LUALIB_API lua_State <span class="token operator">*</span><span class="token function">luaL_newstate</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  lua_State <span class="token operator">*</span>L <span class="token operator">=</span> <span class="token function">lua_newstate</span><span class="token punctuation">(</span>l_alloc<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>L<span class="token punctuation">)</span> <span class="token function">lua_atpanic</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token operator">&amp;</span>panic<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> L<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+</li>
+</ol>
+
+  </div>
+  <div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/04/10/lua-function/" class="nav-link">
+      <div>
+        <div class="nav-label">Next</div>
+        
+        <div class="nav-title">Lua 函数 </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFLua"><span class="toc-text">什么是Lua</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFCAPI"><span class="toc-text">什么是CAPI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A4%BA%E4%BE%8B"><span class="toc-text">第一个示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%88"><span class="toc-text">栈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1"><span class="toc-text">设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E5%85%A5%E5%85%83%E7%B4%A0"><span class="toc-text">压入元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%A0%88%E4%B8%AD%E7%9A%84%E7%A9%BA%E9%97%B4"><span class="toc-text">检查栈中的空间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%85%83%E7%B4%A0"><span class="toc-text">查询元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C"><span class="toc-text">其他操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8CAPI%E8%BF%9B%E8%A1%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">使用CAPI进行错误处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%BA%94%E7%94%A8%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-text">处理应用代码中的错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%BA%93%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-text">处理库代码中的错误</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-text">内存分配</span></a></li></ol>
+</div></main>
+          <aside class="left-column">
+            
+            <div class="card card-author">
+              
+<img src="/img/icon.jpg" class="author-img">
+
+<p class="author-name">小冰狼</p>
+<p class="author-description">A IT Worker</p>
+<div class="author-message">
+  <a class="author-posts-count" href="/archives">
+    <span>21</span>
+    <span>Posts</span>
+  </a>
+  <a class="author-categories-count" href="/categories">
+    <span>2</span>
+    <span>Categories</span>
+  </a>
+  <a class="author-tags-count" href="/tags">
+    <span>7</span>
+    <span>Tags</span>
+  </a>
+</div>
+
+<div class="author-card-society">
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://github.com/hulefei">
+        <i class="iconfont icon-github society-icon"></i>
+      </a>
+    </div>
+  
+    <div class="author-card-society-icon">
+      <a href="mailto:hulefei29@gmail.com.com">
+        <i class="iconfont icon-mail society-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+            </div>
+            
+            <div class="sticky-tablet">
+  
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFLua"><span class="toc-text">什么是Lua</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFCAPI"><span class="toc-text">什么是CAPI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A4%BA%E4%BE%8B"><span class="toc-text">第一个示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%88"><span class="toc-text">栈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1"><span class="toc-text">设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E5%85%A5%E5%85%83%E7%B4%A0"><span class="toc-text">压入元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%A0%88%E4%B8%AD%E7%9A%84%E7%A9%BA%E9%97%B4"><span class="toc-text">检查栈中的空间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%85%83%E7%B4%A0"><span class="toc-text">查询元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C"><span class="toc-text">其他操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8CAPI%E8%BF%9B%E8%A1%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">使用CAPI进行错误处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%BA%94%E7%94%A8%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-text">处理应用代码中的错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%BA%93%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-text">处理库代码中的错误</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-text">内存分配</span></a></li></ol>
+    </div>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="categories-card">
+  <div class="categories-header"><i class="iconfont icon-fenlei" style="padding-right: 2px;"></i>Categories</div>
+  <div class="categories-list">
+    
+      <a href="/categories/文档">
+        <div class="categories-list-item">
+          文档
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/categories/笔记">
+        <div class="categories-list-item">
+          笔记
+          <span class="categories-list-item-badge">19</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content">
+    <div class="tags-card">
+  <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>hot tags</div>
+  <div class="tags-list">
+    
+    <a href="\tags\Hexo" title="Hexo"><div class="tags-list-item">Hexo</div></a>
+    
+    <a href="\tags\学习观" title="学习观"><div class="tags-list-item">学习观</div></a>
+    
+    <a href="\tags\UE4" title="UE4"><div class="tags-list-item">UE4</div></a>
+    
+    <a href="\tags\CPP" title="CPP"><div class="tags-list-item">CPP</div></a>
+    
+    <a href="\tags\Algorithnms" title="Algorithnms"><div class="tags-list-item">Algorithnms</div></a>
+    
+    <a href="\tags\Algorithms" title="Algorithms"><div class="tags-list-item">Algorithms</div></a>
+    
+    <a href="\tags\LUA" title="LUA"><div class="tags-list-item">LUA</div></a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+          <aside class="right-column">
+            <div class="sticky-widescreen">
+  
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFLua"><span class="toc-text">什么是Lua</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFCAPI"><span class="toc-text">什么是CAPI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A4%BA%E4%BE%8B"><span class="toc-text">第一个示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%88"><span class="toc-text">栈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1"><span class="toc-text">设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E5%85%A5%E5%85%83%E7%B4%A0"><span class="toc-text">压入元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%A0%88%E4%B8%AD%E7%9A%84%E7%A9%BA%E9%97%B4"><span class="toc-text">检查栈中的空间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%85%83%E7%B4%A0"><span class="toc-text">查询元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C"><span class="toc-text">其他操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8CAPI%E8%BF%9B%E8%A1%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">使用CAPI进行错误处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%BA%94%E7%94%A8%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-text">处理应用代码中的错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%BA%93%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-text">处理库代码中的错误</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-text">内存分配</span></a></li></ol>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header"><i class="iconfont icon-wenzhang_huaban" style="padding-right: 2px;"></i>Recent Posts</div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-04-11</div>
+        <a href="/2021/04/11/lua-capi/"><div class="recent-posts-item-content">C语言API</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-04-10</div>
+        <a href="/2021/04/10/lua-function/"><div class="recent-posts-item-content">Lua 函数</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-04-08</div>
+        <a href="/2021/04/08/ue-unrealversionselector/"><div class="recent-posts-item-content">Custom UnrealVersionSeleoctor</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-29</div>
+        <a href="/2021/03/29/algorithms-sort-1/"><div class="recent-posts-item-content">排序（上）</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>Copyright ©
+          
+          2021 -
+          
+          2021
+        </span>
+        <a href="/" class="footer-link">小冰狼 </a>
+      </div>
+    </div>
+
+    
+    <div class="footer-dsc">
+      
+      
+      Powered by
+      <a href="https://hexo.io/" class="footer-link" target="_blank" rel="nofollow noopener noreferrer">&nbsp;Hexo </a>
+      
+      
+      <span>&nbsp;|&nbsp;</span>
+      
+      
+      
+      Theme -
+      <a href="https://github.com/theme-kaze" class="footer-link" target="_blank"
+        rel="nofollow noopener noreferrer">&nbsp;Kaze</a>
+      
+    </div>
+    
+    
+    
+    
+</footer>
+  <a role="button" id="scrollbutton" class="basebutton" >
+  <i class="iconfont icon-arrowleft button-icon"></i>
+</a>
+<a role="button" id="menubutton" class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a role="button" id="popbutton" class="basebutton">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a role="button" id="darkbutton" class="basebutton darkwidget">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+
+  
+  
+  
+
+  
+  
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+    
+<script src="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js"></script>
+
+  
+
+  
+  
+  <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img');
+    var i;
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a');
+      wrapper.setAttribute('data-fslightbox', 'gallery');
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'));
+      wrapper.setAttribute('style', 'width: 100%; display: flex; justify-content: center;');
+      img[i].parentElement.insertBefore(wrapper, img[i]);
+      wrapper.appendChild(img[i]);
+    }
+    refreshFsLightbox();
+  }
+</script>
+<script>loadScript("//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js", addImgLayout)</script>
+  
+  
+  
+<script src="/js/main.js"></script>
+
+  
+  
+  <script>
+    var addLazyload = function () {
+      var observer = lozad('.lozad', {
+        load: function (el) {
+          el.srcset = el.getAttribute('data-src');
+        },
+        loaded: function (el) {
+          el.classList.add('loaded');
+        }
+      });
+      observer.observe();
+    }
+  </script>
+  <script>loadScript("/js/lib/lozad.min.js", addLazyload)</script>
+  
+  
+</body>
+
+</html>
