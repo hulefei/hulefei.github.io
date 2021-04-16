@@ -144,7 +144,7 @@
         <div class="columns">
           <main class="main-column">
 <div class="image-wrapper">
-  <img src="/img/banners/algorithms-complexity-2.jpg" data-src="/img/banners/algorithms-complexity-2.jpg"
+  <img src="/img/banners/unlua.jpg" data-src="/img/banners/unlua.jpg"
     srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
     class="image lozad">
 </div>
@@ -152,13 +152,13 @@
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      复杂度分析下
+      UnLua入门
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2021-03-09T16:00:00.000Z" style="display: flex; align-items: center;">
+    <time datetime="2021-04-30T16:00:00.000Z" style="display: flex; align-items: center;">
       <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
-      <span>2021-03-10</span>
+      <span>2021-05-01</span>
     </time>
     
     <span class="dot"></span>
@@ -168,7 +168,7 @@
     
     
     <span class="dot"></span>
-    <span>416 words</span>
+    <span>30 words</span>
     
   </div>
   
@@ -177,7 +177,7 @@
       <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
       
       
-        <a href="/tags/Algorithms/" class="post-meta-link">Algorithms</a>
+        <a href="/tags/UE4/" class="post-meta-link">UE4</a>
       
     </div>
   </div>
@@ -185,54 +185,13 @@
   </header>
   <div id="section" class="post-content">
     <blockquote>
-<p>上篇中的常见复杂度分析O(1)、O(logn)、O(n)、O(nlogn)外，还有更细致的分析方法</p>
+<p>UnLua基础使用</p>
 </blockquote>
-<h2 id="4种更细致的时间复杂度方法"><a href="#4种更细致的时间复杂度方法" class="headerlink" title="4种更细致的时间复杂度方法"></a>4种更细致的时间复杂度方法</h2><ol>
-<li>最好情况时间复杂度（best cast time complexity）</li>
-<li>最坏情况时间复杂度 (worst case time complexity)</li>
-<li>平均情况时间复杂度 (average case time complexity)</li>
-<li>均摊时间复杂度 (amortized time complexity)</li>
-</ol>
-<h2 id="最好、最坏情况时间复杂度"><a href="#最好、最坏情况时间复杂度" class="headerlink" title="最好、最坏情况时间复杂度"></a>最好、最坏情况时间复杂度</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array<span class="token punctuation">,</span> <span class="token keyword">int</span> n<span class="token punctuation">,</span> <span class="token keyword">int</span> x<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-	<span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-	<span class="token keyword">int</span> pos <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-	<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-	<span class="token punctuation">&#123;</span>
-		<span class="token keyword">if</span> <span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> x<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-			pos <span class="token operator">=</span> i<span class="token punctuation">;</span>
-			<span class="token keyword">break</span><span class="token punctuation">;</span>
-		<span class="token punctuation">&#125;</span>
-	<span class="token punctuation">&#125;</span>
-	<span class="token keyword">return</span> pos<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol>
-<li>这段代码与之前不同的地方在于，它的时间复杂度不单单取决于n，还取决于x的值</li>
-<li>最好情况下，只需要查找一次即可，所以最好情况时间复杂度为O(1)</li>
-<li>最坏情况下，需要搜索数组所有元素，所以最坏情况复杂度为O(n)</li>
-<li>所以这个算法，不能单单说时间复杂度为O(1) 或 O(n)</li>
-</ol>
-<h2 id="平均情况时间复杂度"><a href="#平均情况时间复杂度" class="headerlink" title="平均情况时间复杂度"></a>平均情况时间复杂度</h2><ol>
-<li><p>绝对平均值<br><img src="/img/posts/algorithms-complexity-2-1.jpg" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/posts/algorithms-complexity-2-1.jpg" class="lozad post-image"></p>
-</li>
-<li><p>期望平均值（加权平均值）<br><img src="/img/posts/algorithms-complexity-2-2.jpg" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/posts/algorithms-complexity-2-2.jpg" class="lozad post-image"></p>
-<ol>
-<li>在数组内的概率为1/2</li>
-<li>0到n-1中任意位置的概率为1/(2n)</li>
-</ol>
-</li>
-<li><p>绝对平局值和期望平均值的时间复杂度都为O(n),但还是有区别</p>
-</li>
-<li><p>一般我们指的平均时间复杂度是指期望平均值</p>
-</li>
-</ol>
-<h2 id="均摊时间复杂度"><a href="#均摊时间复杂度" class="headerlink" title="均摊时间复杂度"></a>均摊时间复杂度</h2><p><img src="/img/posts/algorithms-complexity-2-3.jpg" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/posts/algorithms-complexity-2-3.jpg" class="lozad post-image"></p>
-<ol>
-<li>每种情况的时间复杂度O(1)</li>
-<li>将n+1种情况发生的概率1/(n+1)相加</li>
-<li>均摊时间复杂度为O(1)</li>
-<li>由于平均时间复杂度计算太过细致，可以使用均摊时间复杂度来计算</li>
-</ol>
+<h2 id="调用-UE-的-C-函数"><a href="#调用-UE-的-C-函数" class="headerlink" title="调用 UE 的 C++ 函数"></a>调用 UE 的 C++ 函数</h2><h3 id="SubTitle-1-1"><a href="#SubTitle-1-1" class="headerlink" title="SubTitle 1-1"></a>SubTitle 1-1</h3><p>Content 1-1<br><img src="/img/posts/algorithms-complexity-1-1.jpg" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/posts/algorithms-complexity-1-1.jpg" class="lozad post-image"></p>
+<h3 id="SubTitle-1-2"><a href="#SubTitle-1-2" class="headerlink" title="SubTitle 1-2"></a>SubTitle 1-2</h3><iframe src="https://tool.lu/coderunner/embed/aSE.html" width="650" height="550" frameborder="0" mozallowfullscreen webkitallowfullscreen allowfullscreen></iframe>
+
+<h2 id="Title-2"><a href="#Title-2" class="headerlink" title="Title 2"></a>Title 2</h2><h3 id="SubTitle-2-1"><a href="#SubTitle-2-1" class="headerlink" title="SubTitle 2-1"></a>SubTitle 2-1</h3><p>Content 2-1</p>
+<h3 id="2-2"><a href="#2-2" class="headerlink" title="2-2"></a>2-2</h3><p>Content 2-2</p>
 
   </div>
   <div>
@@ -241,25 +200,13 @@
 </article>
 <div class="nav">
   
-  <div class="nav-item-prev">
-    <a href="/2021/03/10/algorithms-complexity-1/" class="nav-link">
-      <i class="iconfont icon-left nav-prev-icon"></i>
-      <div>
-        <div class="nav-label">Prev</div>
-        
-        <div class="nav-title">复杂度分析上 </div>
-        
-      </div>
-    </a>
-  </div>
-  
   
   <div class="nav-item-next">
-    <a href="/2021/03/09/ue4-blueprint-overview/" class="nav-link">
+    <a href="/2021/04/11/lua-capi/" class="nav-link">
       <div>
         <div class="nav-label">Next</div>
         
-        <div class="nav-title">蓝图概述笔记 </div>
+        <div class="nav-title">C语言API </div>
         
       </div>
       <i class="iconfont icon-right nav-next-icon"></i>
@@ -270,7 +217,7 @@
 
 <div class="card card-content toc-card" id="mobiletoc">
   <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E7%A7%8D%E6%9B%B4%E7%BB%86%E8%87%B4%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%96%B9%E6%B3%95"><span class="toc-text">4种更细致的时间复杂度方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%A5%BD%E3%80%81%E6%9C%80%E5%9D%8F%E6%83%85%E5%86%B5%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">最好、最坏情况时间复杂度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E5%9D%87%E6%83%85%E5%86%B5%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">平均情况时间复杂度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%87%E6%91%8A%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">均摊时间复杂度</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8-UE-%E7%9A%84-C-%E5%87%BD%E6%95%B0"><span class="toc-text">调用 UE 的 C++ 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SubTitle-1-1"><span class="toc-text">SubTitle 1-1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SubTitle-1-2"><span class="toc-text">SubTitle 1-2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Title-2"><span class="toc-text">Title 2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SubTitle-2-1"><span class="toc-text">SubTitle 2-1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2"><span class="toc-text">2-2</span></a></li></ol></li></ol>
 </div></main>
           <aside class="left-column">
             
@@ -319,7 +266,7 @@
   <article class="display-when-two-columns spacer">
     <div class="card card-content toc-card">
       <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E7%A7%8D%E6%9B%B4%E7%BB%86%E8%87%B4%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%96%B9%E6%B3%95"><span class="toc-text">4种更细致的时间复杂度方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%A5%BD%E3%80%81%E6%9C%80%E5%9D%8F%E6%83%85%E5%86%B5%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">最好、最坏情况时间复杂度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E5%9D%87%E6%83%85%E5%86%B5%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">平均情况时间复杂度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%87%E6%91%8A%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">均摊时间复杂度</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8-UE-%E7%9A%84-C-%E5%87%BD%E6%95%B0"><span class="toc-text">调用 UE 的 C++ 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SubTitle-1-1"><span class="toc-text">SubTitle 1-1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SubTitle-1-2"><span class="toc-text">SubTitle 1-2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Title-2"><span class="toc-text">Title 2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SubTitle-2-1"><span class="toc-text">SubTitle 2-1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2"><span class="toc-text">2-2</span></a></li></ol></li></ol>
     </div>
   </article>
   
@@ -379,7 +326,7 @@
   
   <article class="card card-content toc-card">
     <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E7%A7%8D%E6%9B%B4%E7%BB%86%E8%87%B4%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%96%B9%E6%B3%95"><span class="toc-text">4种更细致的时间复杂度方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%A5%BD%E3%80%81%E6%9C%80%E5%9D%8F%E6%83%85%E5%86%B5%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">最好、最坏情况时间复杂度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E5%9D%87%E6%83%85%E5%86%B5%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">平均情况时间复杂度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%87%E6%91%8A%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">均摊时间复杂度</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8-UE-%E7%9A%84-C-%E5%87%BD%E6%95%B0"><span class="toc-text">调用 UE 的 C++ 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SubTitle-1-1"><span class="toc-text">SubTitle 1-1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SubTitle-1-2"><span class="toc-text">SubTitle 1-2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Title-2"><span class="toc-text">Title 2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SubTitle-2-1"><span class="toc-text">SubTitle 2-1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2"><span class="toc-text">2-2</span></a></li></ol></li></ol>
   </article>
   
   

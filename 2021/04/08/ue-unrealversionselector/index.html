@@ -168,7 +168,7 @@
     
     
     <span class="dot"></span>
-    <span>806 words</span>
+    <span>912 words</span>
     
   </div>
   
@@ -351,10 +351,23 @@ FString InstalledText<span class="token punctuation">;</span>
 <span class="token comment">//change UnrealVersionSelector.exe in a launcher installation to UnrealVersionSelector.exe in InnovUE4 installation</span>
 FString InstalledExecutableFileName <span class="token operator">=</span> ExecutableFileName<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p> 使用 RegisterUnrealVersionSelector.bat 注册当前引擎版本的UnrealVersionSelector，之后就可以直接打开uproject</p>
-<h2 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h2><ol>
-<li>构建Install版本时，需要执行Engine\Build\Graph\Innov\AddVersionSelectorToInstall.xml 将UnrealVersionSelector复制到binary中</li>
-<li>InnovUE4版本名称在 Engine\Build\InnovInstalled.dat 中配置</li>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
+<li><p>在Programs下找到UnrealVersionSelector项目进行编译</p>
+</li>
+<li><p>查看Engine\Binaries\Win64是否存在UnrealVersionSelector.exe，不是UnrealVersionSelector-Win64-Shipping</p>
+<ol>
+<li>UnrealVersionSelector-Win64-Shipping 使用的是UE4 install 版本的程序</li>
+<li>我们需要使用我们改过多那个版本</li>
+</ol>
+</li>
+<li><p>我们编译的UnrealVersionSelector.exe生成后，双击即可将其注册为默认UnrealVersionSelector,(也可以使用 RegisterUnrealVersionSelector.bat 注册当前引擎版本的UnrealVersionSelector，之后就可以直接打开uproject)</p>
+</li>
+<li><p>查看注册表计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Unreal.ProjectFile\DefaultIcon，是否已经是自己引擎中UnrealVersionSelector.exe</p>
+<h2 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h2></li>
+<li><p>构建Install版本时，需要执行Engine\Build\Graph\Innov\AddVersionSelectorToInstall.xml 将UnrealVersionSelector复制到binary中</p>
+</li>
+<li><p>InnovUE4版本名称在 Engine\Build\InnovInstalled.dat 中配置</p>
+</li>
 </ol>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>UnrealVersionSelector  用于打开项目前的引擎选择，还有其他可能可以继续改进或添加新的特性</p>
 
@@ -406,7 +419,7 @@ FString InstalledExecutableFileName <span class="token operator">=</span> Execut
 <p class="author-description">A IT Worker</p>
 <div class="author-message">
   <a class="author-posts-count" href="/archives">
-    <span>21</span>
+    <span>22</span>
     <span>Posts</span>
   </a>
   <a class="author-categories-count" href="/categories">
@@ -463,7 +476,7 @@ FString InstalledExecutableFileName <span class="token operator">=</span> Execut
       <a href="/categories/笔记">
         <div class="categories-list-item">
           笔记
-          <span class="categories-list-item-badge">19</span>
+          <span class="categories-list-item-badge">20</span>
         </div>
       </a>
     
@@ -476,19 +489,19 @@ FString InstalledExecutableFileName <span class="token operator">=</span> Execut
   <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>hot tags</div>
   <div class="tags-list">
     
-    <a href="\tags\Hexo" title="Hexo"><div class="tags-list-item">Hexo</div></a>
-    
-    <a href="\tags\学习观" title="学习观"><div class="tags-list-item">学习观</div></a>
-    
     <a href="\tags\UE4" title="UE4"><div class="tags-list-item">UE4</div></a>
-    
-    <a href="\tags\CPP" title="CPP"><div class="tags-list-item">CPP</div></a>
-    
-    <a href="\tags\Algorithnms" title="Algorithnms"><div class="tags-list-item">Algorithnms</div></a>
     
     <a href="\tags\Algorithms" title="Algorithms"><div class="tags-list-item">Algorithms</div></a>
     
     <a href="\tags\LUA" title="LUA"><div class="tags-list-item">LUA</div></a>
+    
+    <a href="\tags\Hexo" title="Hexo"><div class="tags-list-item">Hexo</div></a>
+    
+    <a href="\tags\Algorithnms" title="Algorithnms"><div class="tags-list-item">Algorithnms</div></a>
+    
+    <a href="\tags\CPP" title="CPP"><div class="tags-list-item">CPP</div></a>
+    
+    <a href="\tags\学习观" title="学习观"><div class="tags-list-item">学习观</div></a>
     
   </div>
 </div>
@@ -513,6 +526,11 @@ FString InstalledExecutableFileName <span class="token operator">=</span> Execut
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-05-01</div>
+        <a href="/2021/05/01/unlua-tutorial/"><div class="recent-posts-item-content">UnLua入门</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2021-04-11</div>
         <a href="/2021/04/11/lua-capi/"><div class="recent-posts-item-content">C语言API</div></a>
       </div>
@@ -525,11 +543,6 @@ FString InstalledExecutableFileName <span class="token operator">=</span> Execut
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2021-04-08</div>
         <a href="/2021/04/08/ue-unrealversionselector/"><div class="recent-posts-item-content">Custom UnrealVersionSeleoctor</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-03-29</div>
-        <a href="/2021/03/29/algorithms-sort-1/"><div class="recent-posts-item-content">排序（上）</div></a>
       </div>
     
   </div>
