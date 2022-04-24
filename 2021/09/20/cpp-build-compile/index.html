@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html>
+<meta  lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#fff" id="theme-color">
+  <link rel="icon" href="/img/icon.jpg">
+  <title>小冰狼</title>
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+    var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+      }
+    };
+    setDarkmode();
+  </script>
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  </script>
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  <link rel="preload" href="//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js" as="script">
+  
+  
+  <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  <link rel="prefetch" href="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js" as="script">
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+
+  
+  
+  
+  
+  
+  <link href="/js/lib/prism/prism-tomorrow.min.css" rel="stylesheet" data-prism="prism-tomorrow">
+  
+  
+  
+<link rel="stylesheet" href="/js/lib/prism/prism-line-numbers.min.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <div class="wrapper">
+    
+    <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+      <img class="navbar-logo-img" src="/img/icon.jpg">
+      
+      <span class="navbar-logo-dsc">小冰狼</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+    <a href="/" class="navbar-menu-item">Home </a>
+    
+    <a href="/archives" class="navbar-menu-item">Archive </a>
+    
+    <a href="/tags" class="navbar-menu-item">Tags </a>
+    
+    <a href="/categories" class="navbar-menu-item">Categories </a>
+    
+    <a href="/about" class="navbar-menu-item">About </a>
+    
+    <a href="/links" class="navbar-menu-item">Friends </a>
+    
+    <a class="navbar-menu-item darknavbar" id="dark"><i class="iconfont icon-weather"></i></a>
+  </div>
+</nav>
+    
+    <div class="section-wrap">
+      <div class="container">
+        <div class="columns">
+          <main class="main-column">
+<div class="image-wrapper">
+  <img src="/img/banners/cpp.jpg" data-src="/img/banners/cpp.jpg"
+    srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
+    class="image lozad">
+</div>
+
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      gcc build and load
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-09-19T16:00:00.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-09-20</span>
+    </time>
+    
+    <span class="dot"></span>
+    
+    <a href="/categories/笔记/" class="post-meta-link">笔记</a>
+    
+    
+    
+    <span class="dot"></span>
+    <span>1.4k words</span>
+    
+  </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/CPP/" class="post-meta-link">CPP</a>
+      
+    </div>
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <blockquote>
+<p>C和Cpp 的编译和加载原理</p>
+</blockquote>
+<h2 id="C-build-and-link"><a href="#C-build-and-link" class="headerlink" title="C build and link"></a>C build and link</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// main_c.c</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+
+<span class="token keyword">extern</span> <span class="token keyword">int</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+	<span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"max value:%d"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//max_c.c</span>
+<span class="token keyword">int</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> x <span class="token operator">>=</span> y <span class="token operator">?</span> x <span class="token operator">:</span> y<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">@echo off
+
+gcc -E main_c.c -o main_c.i
+gcc -S main_c.i -o main_c.s
+gcc -c main_c.s -o main_c.o
+
+gcc -E max_c.c -o max_c.i
+gcc -S max_c.i -o max_c.s
+gcc -c max_c.s -o max_c.o 
+
+
+gcc main_c.o max_c.o -o main_c.exe
+
+echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+nm main_c.o
+echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+nm max_c.o<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">&quot;main_c.c &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+0000000000000000 b .bss
+0000000000000000 d .data
+0000000000000000 p .pdata
+0000000000000000 r .rdata
+0000000000000000 r .rdata$zzz
+0000000000000000 t .text
+0000000000000000 r .xdata
+                 U __main
+0000000000000000 T main &#x2F;&#x2F;包含代码
+                 U max  &#x2F;&#x2F;只包含符号
+                 U printf
+&quot;max_c.c&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+0000000000000000 b .bss
+0000000000000000 d .data
+0000000000000000 p .pdata
+0000000000000000 r .rdata$zzz
+0000000000000000 t .text
+0000000000000000 r .xdata
+0000000000000000 T max  &#x2F;&#x2F;包含代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>函数符号类型:</p>
+<ul>
+<li>T 该符号放在当前目标文件的代码段中，通常是那些全局非 static 函数</li>
+<li>U 该符号在当前目标文件中未定义，需要从其他对象文件中链接进来</li>
+</ul>
+<h2 id="cpp-load-and-link"><a href="#cpp-load-and-link" class="headerlink" title="cpp load and link"></a>cpp load and link</h2><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// main_cpp.cpp</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+
+<span class="token keyword">extern</span> <span class="token keyword">int</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+	<span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"max value:%d"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//max_cpp.cpp</span>
+<span class="token keyword">int</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> x <span class="token operator">>=</span> y <span class="token operator">?</span> x <span class="token operator">:</span> y<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">@echo off
+
+g++ -E max_cpp.cpp -o max_cpp.i
+g++ -S max_cpp.i -o max_cpp.s
+g++ -c max_cpp.s -o max_cpp.o
+
+g++ -E main_cpp.cpp -o main_cpp.i
+rem 编译成汇编代码
+g++ -S main_cpp.i -o main_cpp.s
+rem 从汇编代码生成目标文件
+g++ -c main_cpp.s -o main_cpp.o
+rem 直接从源文件生成目标文件
+g++ -c main_cpp.o
+
+g++ main_cpp.o max_cpp.o -o main_cpp.exe
+
+echo &quot;main_cpp&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+nm main_cpp.o
+echo &quot;max_cpp&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+nm max_cpp.o<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+0000000000000000 b .bss
+0000000000000000 d .data
+0000000000000000 p .pdata
+0000000000000000 r .rdata
+0000000000000000 r .rdata$zzz
+0000000000000000 t .text
+0000000000000000 r .xdata
+                 U __main
+                 U _Z3maxii
+0000000000000000 T main
+                 U printf
+&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+0000000000000000 b .bss
+0000000000000000 d .data
+0000000000000000 p .pdata
+0000000000000000 r .rdata$zzz
+0000000000000000 t .text
+0000000000000000 r .xdata
+0000000000000000 T _Z3maxii<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>cpp的编辑器 符号表带有参数类型_Z3maxii</li>
+</ul>
+<h2 id="cpp-调用-cpp-函数"><a href="#cpp-调用-cpp-函数" class="headerlink" title="cpp 调用 cpp 函数"></a>cpp 调用 cpp 函数</h2><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// main_cpp.cpp</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"max.h"</span></span>
+
+<span class="token comment">// extern int max(int,int);</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+	<span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"max value:%d"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//max_cpp.cpp</span>
+<span class="token keyword">int</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> x <span class="token operator">>=</span> y <span class="token operator">?</span> x <span class="token operator">:</span> y<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">@echo off
+
+g++ -E max_cpp.cpp -o max_cpp.i
+g++ -S max_cpp.i -o max_cpp.s
+g++ -c max_cpp.s -o max_cpp.o
+
+g++ -E main_cpp.cpp -o main_cpp.i
+rem 编译成汇编代码
+g++ -S main_cpp.i -o main_cpp.s
+rem 从汇编代码生成目标文件
+g++ -c main_cpp.s -o main_cpp.o
+rem 直接从源文件生成目标文件
+g++ -c main_cpp.o
+
+g++ main_cpp.o max_cpp.o -o main_cpp.exe
+
+echo &quot;main_cpp&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+nm main_cpp.o
+echo &quot;max_cpp&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+nm max_cpp.o<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">&quot;main_cpp&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+0000000000000000 b .bss
+0000000000000000 d .data
+0000000000000000 p .pdata
+0000000000000000 r .rdata
+0000000000000000 r .rdata$zzz
+0000000000000000 t .text
+0000000000000000 r .xdata
+                 U __main
+                 U _Z3maxii
+0000000000000000 T main
+                 U printf
+&quot;max_cpp&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+0000000000000000 b .bss
+0000000000000000 d .data
+0000000000000000 p .pdata
+0000000000000000 r .rdata$zzz
+0000000000000000 t .text
+0000000000000000 r .xdata
+0000000000000000 T _Z3maxii<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="cpp中调用c函数使用-extern-“C”"><a href="#cpp中调用c函数使用-extern-“C”" class="headerlink" title="cpp中调用c函数使用 extern “C”"></a>cpp中调用c函数使用 extern “C”</h2><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// main_cpp.cpp</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+
+<span class="token keyword">extern</span> <span class="token string">"C"</span> <span class="token keyword">int</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+	<span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"max value:%d"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//max_c.c</span>
+<span class="token keyword">int</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> x <span class="token operator">>=</span> y <span class="token operator">?</span> x <span class="token operator">:</span> y<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">@echo off
+
+g++ -E main_cpp.cpp -o main_cpp.i
+g++ -S main_cpp.i -o main_cpp.s
+g++ -c main_cpp.s -o main_cpp.o
+
+gcc -E max_c.c -o max_c.i
+gcc -S max_c.i -o max_c.s
+gcc -c max_c.s -o max_c.o 
+
+
+g++ main_cpp.o max_c.o -o main_cpp.exe
+
+echo &quot;main_cpp&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+nm main_cpp.o
+echo &quot;main_cpp&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+nm max_c.o<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">&quot;main_cpp&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+0000000000000000 b .bss
+0000000000000000 d .data
+0000000000000000 p .pdata
+0000000000000000 r .rdata
+0000000000000000 r .rdata$zzz
+0000000000000000 t .text
+0000000000000000 r .xdata
+                 U __main
+0000000000000000 T main
+                 U max
+                 U printf
+&quot;main_cpp&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+0000000000000000 b .bss
+0000000000000000 d .data
+0000000000000000 p .pdata
+0000000000000000 r .rdata$zzz
+0000000000000000 t .text
+0000000000000000 r .xdata
+0000000000000000 T max<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="c中调用cpp"><a href="#c中调用cpp" class="headerlink" title="c中调用cpp"></a>c中调用cpp</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// main2_c.c</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+
+<span class="token comment">//直接使用cpp的标识符</span>
+<span class="token keyword">extern</span> <span class="token keyword">int</span> <span class="token function">maxii</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+	<span class="token comment">//直接使用cpp的标识符</span>
+	<span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token function">maxii</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"max value:%d"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//max_cpp.cpp</span>
+<span class="token keyword">int</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> x <span class="token operator">>=</span> y <span class="token operator">?</span> x <span class="token operator">:</span> y<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// extern C call</span>
+<span class="token keyword">extern</span> <span class="token string">"C"</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">int</span> <span class="token function">maxii</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token function">max</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">@echo off
+
+gcc -E main_c.c -o main_c.i
+gcc -S main_c.i -o main_c.s
+gcc -c main_c.s -o main_c.o
+
+gcc -E main2_c.c -o main2_c.i
+gcc -S main2_c.i -o main2_c.s
+gcc -c main2_c.s -o main2_c.o
+
+g++ -E max_cpp.cpp -o max_cpp.i
+g++ -S max_cpp.i -o max_cpp.s
+g++ -c max_cpp.s -o max_cpp.o 
+
+gcc main_c.o max_cpp.o -o main_c.exe
+gcc main2_c.o max_cpp.o -o main2_c.exe
+
+echo &quot;main_c&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+nm main_c.o
+
+echo &quot;max_cpp&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+nm max_cpp.o
+
+echo &quot;main2_c&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+nm main2_c.o
+
+@REM echo &quot;main_c.exe&quot;
+@REM main_c.exe
+
+@REM echo &quot;main2_c.exe&quot;
+@REM main2_c.exe<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">&quot;max_cpp&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+0000000000000000 b .bss
+0000000000000000 d .data
+0000000000000000 p .pdata
+0000000000000000 r .rdata$zzz
+0000000000000000 t .text
+0000000000000000 r .xdata
+0000000000000000 T _Z3maxii &#x2F;&#x2F;c++函数
+000000000000001c T maxii &#x2F;&#x2F;c函数，在c函数中调用了c++函数
+&quot;main2_c&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;
+0000000000000000 b .bss
+0000000000000000 d .data
+0000000000000000 p .pdata
+0000000000000000 r .rdata
+0000000000000000 r .rdata$zzz
+0000000000000000 t .text
+0000000000000000 r .xdata
+                 U __main
+0000000000000000 T main
+                 U maxii
+                 U printf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="外部参考"><a href="#外部参考" class="headerlink" title="外部参考"></a>外部参考</h2><p><a target="_blank" rel="noopener" href="https://imzlp.com/posts/5392/">为什么需要 extern “C”?</a><br><a target="_blank" rel="noopener" href="https://imzlp.com/posts/27118/">C/C++ 编译和链接模型分析</a></p>
+
+  </div>
+  <div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  <div class="nav-item-prev">
+    <a href="/2022/04/24/make-makefile-cmake-nmake/" class="nav-link">
+      <i class="iconfont icon-left nav-prev-icon"></i>
+      <div>
+        <div class="nav-label">Prev</div>
+        
+        <div class="nav-title">理解make/makefile/cmake/nmake </div>
+        
+      </div>
+    </a>
+  </div>
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/05/07/ue4-nextanim/" class="nav-link">
+      <div>
+        <div class="nav-label">Next</div>
+        
+        <div class="nav-title">NextAnim 解析 </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-build-and-link"><span class="toc-text">C build and link</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cpp-load-and-link"><span class="toc-text">cpp load and link</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cpp-%E8%B0%83%E7%94%A8-cpp-%E5%87%BD%E6%95%B0"><span class="toc-text">cpp 调用 cpp 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cpp%E4%B8%AD%E8%B0%83%E7%94%A8c%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8-extern-%E2%80%9CC%E2%80%9D"><span class="toc-text">cpp中调用c函数使用 extern “C”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#c%E4%B8%AD%E8%B0%83%E7%94%A8cpp"><span class="toc-text">c中调用cpp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E5%8F%82%E8%80%83"><span class="toc-text">外部参考</span></a></li></ol>
+</div></main>
+          <aside class="left-column">
+            
+            <div class="card card-author">
+              
+<img src="/img/icon.jpg" class="author-img">
+
+<p class="author-name">小冰狼</p>
+<p class="author-description">A IT Worker</p>
+<div class="author-message">
+  <a class="author-posts-count" href="/archives">
+    <span>30</span>
+    <span>Posts</span>
+  </a>
+  <a class="author-categories-count" href="/categories">
+    <span>2</span>
+    <span>Categories</span>
+  </a>
+  <a class="author-tags-count" href="/tags">
+    <span>7</span>
+    <span>Tags</span>
+  </a>
+</div>
+
+<div class="author-card-society">
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://github.com/hulefei">
+        <i class="iconfont icon-github society-icon"></i>
+      </a>
+    </div>
+  
+    <div class="author-card-society-icon">
+      <a href="mailto:hulefei29@gmail.com.com">
+        <i class="iconfont icon-mail society-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+            </div>
+            
+            <div class="sticky-tablet">
+  
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-build-and-link"><span class="toc-text">C build and link</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cpp-load-and-link"><span class="toc-text">cpp load and link</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cpp-%E8%B0%83%E7%94%A8-cpp-%E5%87%BD%E6%95%B0"><span class="toc-text">cpp 调用 cpp 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cpp%E4%B8%AD%E8%B0%83%E7%94%A8c%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8-extern-%E2%80%9CC%E2%80%9D"><span class="toc-text">cpp中调用c函数使用 extern “C”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#c%E4%B8%AD%E8%B0%83%E7%94%A8cpp"><span class="toc-text">c中调用cpp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E5%8F%82%E8%80%83"><span class="toc-text">外部参考</span></a></li></ol>
+    </div>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="categories-card">
+  <div class="categories-header"><i class="iconfont icon-fenlei" style="padding-right: 2px;"></i>Categories</div>
+  <div class="categories-list">
+    
+      <a href="/categories/文档">
+        <div class="categories-list-item">
+          文档
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/categories/笔记">
+        <div class="categories-list-item">
+          笔记
+          <span class="categories-list-item-badge">28</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content">
+    <div class="tags-card">
+  <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>hot tags</div>
+  <div class="tags-list">
+    
+    <a href="\tags\UE4" title="UE4"><div class="tags-list-item">UE4</div></a>
+    
+    <a href="\tags\Algorithms" title="Algorithms"><div class="tags-list-item">Algorithms</div></a>
+    
+    <a href="\tags\CPP" title="CPP"><div class="tags-list-item">CPP</div></a>
+    
+    <a href="\tags\LUA" title="LUA"><div class="tags-list-item">LUA</div></a>
+    
+    <a href="\tags\Hexo" title="Hexo"><div class="tags-list-item">Hexo</div></a>
+    
+    <a href="\tags\Algorithnms" title="Algorithnms"><div class="tags-list-item">Algorithnms</div></a>
+    
+    <a href="\tags\学习观" title="学习观"><div class="tags-list-item">学习观</div></a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+          <aside class="right-column">
+            <div class="sticky-widescreen">
+  
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>TOC</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-build-and-link"><span class="toc-text">C build and link</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cpp-load-and-link"><span class="toc-text">cpp load and link</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cpp-%E8%B0%83%E7%94%A8-cpp-%E5%87%BD%E6%95%B0"><span class="toc-text">cpp 调用 cpp 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cpp%E4%B8%AD%E8%B0%83%E7%94%A8c%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8-extern-%E2%80%9CC%E2%80%9D"><span class="toc-text">cpp中调用c函数使用 extern “C”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#c%E4%B8%AD%E8%B0%83%E7%94%A8cpp"><span class="toc-text">c中调用cpp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E5%8F%82%E8%80%83"><span class="toc-text">外部参考</span></a></li></ol>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header"><i class="iconfont icon-wenzhang_huaban" style="padding-right: 2px;"></i>Recent Posts</div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-04-24</div>
+        <a href="/2022/04/24/make-makefile-cmake-nmake/"><div class="recent-posts-item-content">理解make/makefile/cmake/nmake</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-09-20</div>
+        <a href="/2021/09/20/cpp-build-compile/"><div class="recent-posts-item-content">gcc build and load</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-05-07</div>
+        <a href="/2021/05/07/ue4-nextanim/"><div class="recent-posts-item-content">NextAnim 解析</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-05-06</div>
+        <a href="/2021/05/06/ue4-gameplay/"><div class="recent-posts-item-content">UE4 GamePlay</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>Copyright ©
+          
+          2021 -
+          
+          2022
+        </span>
+        <a href="/" class="footer-link">小冰狼 </a>
+      </div>
+    </div>
+
+    
+    <div class="footer-dsc">
+      
+      
+      Powered by
+      <a href="https://hexo.io/" class="footer-link" target="_blank" rel="nofollow noopener noreferrer">&nbsp;Hexo </a>
+      
+      
+      <span>&nbsp;|&nbsp;</span>
+      
+      
+      
+      Theme -
+      <a href="https://github.com/theme-kaze" class="footer-link" target="_blank"
+        rel="nofollow noopener noreferrer">&nbsp;Kaze</a>
+      
+    </div>
+    
+    
+    
+    
+</footer>
+  <a role="button" id="scrollbutton" class="basebutton" >
+  <i class="iconfont icon-arrowleft button-icon"></i>
+</a>
+<a role="button" id="menubutton" class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a role="button" id="popbutton" class="basebutton">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a role="button" id="darkbutton" class="basebutton darkwidget">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+
+  
+  
+  
+
+  
+  
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+    
+<script src="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js"></script>
+
+  
+
+  
+  
+  <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img');
+    var i;
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a');
+      wrapper.setAttribute('data-fslightbox', 'gallery');
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'));
+      wrapper.setAttribute('style', 'width: 100%; display: flex; justify-content: center;');
+      img[i].parentElement.insertBefore(wrapper, img[i]);
+      wrapper.appendChild(img[i]);
+    }
+    refreshFsLightbox();
+  }
+</script>
+<script>loadScript("//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js", addImgLayout)</script>
+  
+  
+  
+<script src="/js/main.js"></script>
+
+  
+  
+  <script>
+    var addLazyload = function () {
+      var observer = lozad('.lozad', {
+        load: function (el) {
+          el.srcset = el.getAttribute('data-src');
+        },
+        loaded: function (el) {
+          el.classList.add('loaded');
+        }
+      });
+      observer.observe();
+    }
+  </script>
+  <script>loadScript("/js/lib/lozad.min.js", addLazyload)</script>
+  
+  
+</body>
+
+</html>
